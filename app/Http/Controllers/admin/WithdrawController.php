@@ -46,7 +46,7 @@ class WithdrawController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('withdraw.withdraw');
     }
 
     /**

@@ -6,12 +6,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">User</h1>
+                    <h1 class="m-0">ผู้ใช้</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item active">Add User</li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">หน้าแรก</a></li>
+                        <li class="breadcrumb-item active">เพิ่มผู้ใช้</li>
                     </ol>
                 </div>
             </div>
@@ -24,8 +24,8 @@
             	<div class="col-12">
             		<div class="card">
             			<div class="card-header">
-            				<h4 class="card-title float-left">Add User</h4>
-            				<a href="{{ route('admin.user.index') }}" class="btn btn-primary btn-sm float-right"><i class="fas fa-list"></i> User List</a>
+            				<h4 class="card-title float-left">เพิ่มผู้ใช้</h4>
+            				<a href="{{ route('admin.user.index') }}" class="btn btn-primary btn-sm float-right"><i class="fas fa-list"></i> รายชื่อผู้ใช้</a>
             			</div>
             			<div class="card-body">
             				<form method="POST" action="{{ route('admin.user.store') }}" autocomplete="off" enctype="multipart/form-data" id="userdata">
@@ -33,7 +33,7 @@
                                 <div class="row">
                                     <div class="col-12 col-lg-6">
                                         <div class="form-group">
-                                            <label>Name <span style="color: red;">*</span></label>
+                                            <label>ชื่อ <span style="color: red;">*</span></label>
                                             <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name">
                                             @error('name')
                                                 <span style="color: #df4759; font-size: 80%; margin-top: .25rem;">{{ $message }}</span>
@@ -42,7 +42,7 @@
                                     </div>
                                     <div class="col-12 col-lg-6">
                                         <div class="form-group">
-                                            <label>Username <span style="color: red;">*</span></label>
+                                            <label>ชื่อผู้ใช้ <span style="color: red;">*</span></label>
                                             <input type="text" class="form-control @error('username') is-invalid @enderror" name="username" id="username">
                                             @error('username')
                                                 <span style="color: #df4759; font-size: 80%; margin-top: .25rem;">{{ $message }}</span>
@@ -51,7 +51,7 @@
                                     </div>
                                     <div class="col-12 col-lg-6">
                                         <div class="form-group">
-                                            <label>Password <span style="color: red;">*</span></label>
+                                            <label>รหัสผ่าน <span style="color: red;">*</span></label>
                                             <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password">
                                             @error('password')
                                                 <span style="color: #df4759; font-size: 80%; margin-top: .25rem;">{{ $message }}</span>
@@ -60,7 +60,7 @@
                                     </div>
                                     <div class="col-12 col-lg-6">
                                         <div class="form-group">
-                                            <label>Email <span style="color: red;">*</span></label>
+                                            <label>อีเมล <span style="color: red;">*</span></label>
                                             <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="email">
                                             @error('email')
                                                 <span style="color: #df4759; font-size: 80%; margin-top: .25rem;">{{ $message }}</span>
@@ -69,7 +69,7 @@
                                     </div>
                                     <div class="col-12 col-lg-6">
                                         <div class="form-group">
-                                            <label>Image <span style="color: red;">*</span></label>
+                                            <label>อิมเมจ <span style="color: red;">*</span></label>
                                             <div class="custom-file">
                                                 <input type="file" class="custom-file-input @error('profile_photo_path') is-invalid @enderror" name="avatar" id="customFile">
                                                 <label class="custom-file-label" for="customFile">Choose file</label>
@@ -82,16 +82,16 @@
                                     </div>
                                     <div class="col-12 col-lg-6">
                                         <div class="form-group">
-                                            <label for="">Status <span style="color: red;">*</span></label>
+                                            <label for="">สถานะ <span style="color: red;">*</span></label>
                                             <select class="form-control" name="status" id="status">
-                                                <option value="active">Active</option>
-                                                <option value="unactive">UnActive</option>
+                                                <option value="active">ใช้งาน</option>
+                                                <option value="unactive">ปิดการใช้งาน</option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <button type="submit" class="btn btn-success" name="btnsave" id="btnsave"><i class="far fa-save"></i> Save</button>
+                                    <button type="submit" class="btn btn-success" name="btnsave" id="btnsave"><i class="far fa-save"></i> บันทึก</button>
                                 </div>
                             </form>
             			</div>

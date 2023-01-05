@@ -6,12 +6,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">User</h1>
+                    <h1 class="m-0">ผู้ใช้</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item active">User List</li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">หน้าแรก</a></li>
+                        <li class="breadcrumb-item active">รายชื่อผู้ใช้</li>
                     </ol>
                 </div>
             </div>
@@ -24,8 +24,8 @@
             	<div class="col-12">
             		<div class="card">
             			<div class="card-header">
-            				<h4 class="card-title float-left">User List</h4>
-            				<a href="{{ route('admin.user.create') }}" class="btn btn-primary btn-sm float-right"><i class="fas fa-plus"></i> Add User</a>
+            				<h4 class="card-title float-left">รายชื่อผู้ใช้</h4>
+            				<a href="{{ route('admin.user.create') }}" class="btn btn-primary btn-sm float-right"><i class="fas fa-plus"></i> เพิ่มผู้ใช้</a>
             			</div>
             			<div class="card-body">
             				<table class="table table-bordered table-striped" id="user">
@@ -53,7 +53,7 @@
 		<div class="modal-dialog modal-lg">
 		  	<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title">Update User</h4>
+					<h4 class="modal-title">อัปเดตผู้ใช้</h4>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
@@ -96,8 +96,8 @@
 				</div>
 				<div class="modal-footer">
 					<input type="hidden" name="action" id="action" />
-					<button type="button" class="btn btn-danger" data-dismiss="modal"><i class="far fa-window-close"></i> Close</button>
-					<button type="submit" class="btn btn-success"><i class="far fa-save"></i> Update</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal"><i class="far fa-window-close"></i> ปิด</button>
+					<button type="submit" class="btn btn-success"><i class="far fa-save"></i> อัปเดต</button>
 				</form>
 				</div>
 		  </div>

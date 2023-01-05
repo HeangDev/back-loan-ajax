@@ -1,57 +1,65 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}" />
-        <title>Promiseth - Login</title>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-        <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/css/adminlte.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/css/login.css') }}">
-    </head>
-    <body class="sidebar-mini layout-fixed" style="height: auto;">
-        
-        <section class="login-section">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-md-6 text-center mb-5">
-                        <h2 class="heading-section">Promiseth</h2>
-                    </div>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-md-7 col-lg-5">
-                        <div class="login-wrap p-4 p-md-5">
-                            <div class="icon d-flex align-items-center justify-content-center">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <title>Promiseth - Login</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/adminlte.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/login.css') }}">
+</head>
+
+<body class="hold-transition login-page">
+
+    <div class="login-box">
+        <div class="login-logo"><b>Admin</b>LTE</div>
+
+        <div class="card">
+            <div class="card-body login-card-body">
+                <p class="login-box-msg">ลงชื่อเข้าใช้เพื่อเริ่มเซสชันของคุณ</p>
+                <form action="{{ route('login') }} "method="POST" autocomplete="off">
+                    @csrf
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control @error('username') is-invalid @enderror"
+                            placeholder="ชื่อผู้ใช้" name="username" autofocus required value="{{ old('username') }}">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
                                 <span class="fas fa-user"></span>
                             </div>
-                            <h3 class="text-center mb-4">Welcome Back!</h3>
-                            <form method="POST" action="{{ route('login') }}" class="login-form" autocomplete="off">
-                                @csrf
-                                <div class="form-group">
-                                    <input type="text" class="form-control rounded-left @error('username') is-invalid @enderror" placeholder="Username"  name="username" value="{{ old('username') }}" autofocus required>
-                                    @error('username')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="form-group d-flex">
-                                    <input type="password" class="form-control rounded-left @error('password') is-invalid @enderror" placeholder="Password" name="password" required>
-                                    @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" class="form-control btn btn-primary rounded submit px-3">Login</button>
-                                </div>
-                            </form>
+                        </div>
+                        @error('username')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="password" class="form-control @error('password') is-invalid @enderror"
+                            placeholder="รหัสผ่าน" name="password" required>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                        @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <button type="submit" class="btn btn-primary btn-block">เข้าสู่ระบบ</button>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
-        </section>
-    </body>
+        </div>
+    </div>
+</body>
+
 </html>

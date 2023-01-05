@@ -12,6 +12,20 @@
         <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap4.min.css">
         <link rel="stylesheet" href="{{ asset('assets/plugins/summernote/summernote-bs4.min.css') }}">
+        <style>
+            fieldset {
+                display: block;
+                border: 1px solid #ddd;
+                margin: 13px 0;
+                padding: 0 12px;
+            }
+            legend {
+                font-size: 16px;
+                font-weight: 500;
+                width: auto;
+                padding: 5px 10px;
+            }
+        </style>
     </head>
     <body class="sidebar-mini layout-fixed" style="height: auto;">
         <div class="wrapper">
@@ -29,19 +43,19 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">พร้อมที่จะออก?</h5>
                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
-                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-body">เลือก "ออกจากระบบ" ด้านล่างหากคุณพร้อมที่จะสิ้นสุดเซสชันปัจจุบันของคุณ</div>
                     <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">ยกเลิก</button>
                         {{-- <a class="btn btn-primary" href="login.html">Logout</a> --}}
                         <a class="btn btn-primary" href="{{ route('logout') }}"
                             onclick="event.preventDefault();
                             document.getElementById('logout-form').submit();">
-                            Logout
+                            ออกจากระบบ
                         </a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf

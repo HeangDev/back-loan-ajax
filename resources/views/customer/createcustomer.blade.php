@@ -26,10 +26,10 @@
                             <a href="{{ route('admin.customer.index') }}" class="btn btn-primary btn-sm float-right"><i class="fas fa-plus"></i> Customer List</a>
                         </div>
                         <div class="card-body">
-                            <form method="POST" action="{{ route('admin.user.store') }}" autocomplete="off" enctype="multipart/form-data" id="userdata">
+                            <form method="POST" action="{{ route('admin.customer.store') }}" autocomplete="off" enctype="multipart/form-data" class="was-validated">
                                 @csrf
                                 <fieldset>
-                                    <legend></legend>
+                                    <legend>ข้อมูลบัญชีสำหรับการเข้าสู่แอพ</legend>
                                     <div class="row">
                                         <div class="col-12 col-lg-6">
                                             <div class="form-group">
