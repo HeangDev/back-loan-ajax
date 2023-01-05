@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Models\Deposit;
 
@@ -38,7 +37,16 @@ class DepositController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $currentDate = Carbon::now()->toDateString();
+        $deposit = Deposit::create([
+            'id_customer' => $request->id_customer,
+            'withdraw_code' => $request->withdrawCode,
+            'deposit_amount' => $request->amount,
+            'description' => $request->description,
+            'deposit_date' => $currentDate
+        ]);
+
+        return $deposit;
     }
 
     /**
@@ -51,10 +59,9 @@ class DepositController extends Controller
     {
         if(request()->ajax()) {
             return datatables()->of(
-                DB::table('deposits')
+                Deposit::where('customers.id', '=', $id)
                 ->join('customers', 'customers.id', '=', 'deposits.id_customer')
                 ->select('customers.*', 'deposits.*')
-                ->where('customers.id', '=', $id)
                 ->get()
             )
             ->addIndexColumn()
@@ -62,7 +69,11 @@ class DepositController extends Controller
                 return '<a onclick="editForm('. $deposit->id .')" class="btn btn-primary btn-xs text-white"><i class="fa fa-edit"></i> แก้ไข</a>' . ' <a onclick="deleteData('. $deposit->id .')" class="btn btn-danger btn-xs text-white"><i class="fa fa-trash"></i> ลบออก</a>';
             })->make(true);
         }
-        return view('deposit.deposit');
+
+        $deposit = Deposit::where('id_customer', $id)->first();
+        return view('deposit.deposit', [
+            'deposit' => $deposit
+        ]);
     }
 
     /**
@@ -87,13 +98,15 @@ class DepositController extends Controller
     public function update(Request $request, $id)
     {
         $currentDate = Carbon::now()->toDateString();
-        $deposit = Deposit::where('id_customer', $id)
+        $deposit = Deposit::where('id', $id)
         ->update([
             'withdraw_code' => $request->withdrawCode,
             'deposit_amount' => $request->amount,
             'description' => $request->description,
             'deposit_date' => $currentDate
         ]);
+
+        return $deposit;
     }
 
     /**

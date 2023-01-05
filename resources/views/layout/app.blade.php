@@ -76,6 +76,7 @@
 
         <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="{{asset('assets/plugins/summernote/summernote-bs4.min.js')}}"></script>
+        <script src="{{asset('assets/js/summernote-th-TH.js')}}"></script>
         @yield('script')
     </body>
 </html>

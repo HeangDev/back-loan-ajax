@@ -4,12 +4,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Agreement</h1>
+                    <h1 class="m-0">ข้อตกลง</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item active">Add Agreement</li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">หน้าแรก</a></li>
+                        <li class="breadcrumb-item active">เพิ่มข้อตกลง</li>
                     </ol>
                 </div>
             </div>
@@ -22,8 +22,8 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title float-left">Add Agreement</h4>
-                            <a href="{{ route('admin.agreement.index') }}" class="btn btn-primary btn-sm float-right"><i class="fas fa-plus"></i> Agreement List</a>
+                            <h4 class="card-title float-left">เพิ่มข้อตกลง</h4>
+                            <a href="{{ route('admin.agreement.index') }}" class="btn btn-primary btn-sm float-right"><i class="fas fa-plus"></i> รายการข้อตกลง</a>
                         </div>
                         <div class="card-body">
                             <form method="POST" action="{{ route('admin.agreement.store') }}" autocomplete="off">
@@ -31,19 +31,19 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="form-group">
-                                            <label for="">Title <span style="color: red;">*</span></label>
+                                            <label for="">ชื่อ <span style="color: red;">*</span></label>
                                             <input type="text" class="form-control" name="title" id="title">
                                         </div>
                                     </div>
                                     <div class="col-12">
                                         <div class="form-group">
-                                            <label for="">Description <span style="color: red;">*</span></label>
+                                            <label for="">สถานะ <span style="color: red;">*</span></label>
                                             <textarea class="form-control" name="description" id="description"></textarea>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <button type="submit" class="btn btn-success" name="btnsave" id="btnsave"><i class="far fa-save"></i> Save</button>
+                                    <button type="submit" class="btn btn-success" name="btnsave" id="btnsave"><i class="far fa-save"></i> บันทึก</button>
                                 </div>
                             </form>
                         </div>
@@ -58,6 +58,7 @@
     <script type="text/javascript">
         $('#description').summernote({
             height: 350,
+            lang: 'th-TH',
             toolbar: [
                 ['style', ['style']],
                 ['style', ['bold', 'italic', 'underline', 'clear']],

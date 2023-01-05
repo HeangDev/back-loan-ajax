@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use App\Models\Withdraw;
 
 class WithdrawController extends Controller
 {
@@ -35,7 +37,15 @@ class WithdrawController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $currentDate = Carbon::now()->toDateString();
+        $withdraw = Withdraw::create([
+            'id_customer' => $request->id_customer,
+            'withdraw_amount' => $request->amount,
+            'status' => $request->status,
+            'withdraw_date' => $currentDate
+        ]);
+
+        return $withdraw;
     }
 
     /**
@@ -46,7 +56,23 @@ class WithdrawController extends Controller
      */
     public function show($id)
     {
-        return view('withdraw.withdraw');
+        if(request()->ajax()) {
+            return datatables()->of(
+                Withdraw::where('customers.id', '=', $id)
+                ->join('users', 'users.id', '=', 'withdraws.id_user')
+                ->select('users.*', 'withdraws.*')
+                ->get()
+            )
+            ->addIndexColumn()
+            ->addColumn('action', function($withdraw) {
+                return '<a onclick="editForm('. $withdraw->id .')" class="btn btn-primary btn-xs text-white"><i class="fa fa-edit"></i> แก้ไข</a>' . ' <a onclick="deleteData('. $withdraw->id .')" class="btn btn-danger btn-xs text-white"><i class="fa fa-trash"></i> ลบออก</a>';
+            })->make(true);
+        }
+        
+        $withdraw = Withdraw::where('id_customer', $id)->first();
+        return view('withdraw.withdraw', [
+            'withdraw' => $withdraw
+        ]);
     }
 
     /**
@@ -57,7 +83,8 @@ class WithdrawController extends Controller
      */
     public function edit($id)
     {
-        //
+        $withdraw = Withdraw::find($id);
+        return $withdraw;
     }
 
     /**
@@ -69,7 +96,13 @@ class WithdrawController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $currentDate = Carbon::now()->toDateString();
+        $withdraw = Withdraw::where('id', $id)
+        ->update([
+            'withdraw_amount' => $request->amount,
+            'status' => $request->status,
+            'withdraw_date' => $currentDate
+        ]);
     }
 
     /**
@@ -80,6 +113,7 @@ class WithdrawController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $withdraw = Withdraw::find($id);
+        $withdraw->delete();
     }
 }

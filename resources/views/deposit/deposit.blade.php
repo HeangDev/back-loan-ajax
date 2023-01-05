@@ -26,6 +26,7 @@
                             <a id="adddeposit" class="btn btn-primary btn-sm float-right"><i class="fas fa-plus"></i> เพิ่มเงินฝาก</a>
                         </div>
                         <div class="card-body">
+                            <input type="hidden" value="{{ $deposit->id_customer }}" name="id_customer" id="id_customer">
                             <table class="table table-bordered table-striped" id="deposit">
                                 <thead>
                                     <tr>
@@ -59,6 +60,7 @@
                 </div>
                 <div class="modal-body">
                     <input type="hidden" id="deposit_id" name="deposit_id">
+                    <input type="hidden" value="{{ $deposit->id_customer }}" name="id_customer" id="id_customer">
                     <div class="form-group">
                         <label>รหัสถอนเงิน <span style="color: red;">*</span></label>
                         <input type="text" class="form-control form-control-sm" name="withdrawCode" id="withdrawCode">
@@ -69,7 +71,7 @@
                     </div>
                     <div class="form-group">
                         <label>คำอธิบาย</label>
-                        <textarea rows="2" class="form-control" name="description"></textarea>
+                        <textarea rows="2" class="form-control" name="description" id="description"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -88,7 +90,7 @@
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			}
 		});
-
+        var id = $('#id_customer').val();
         var table = $('#deposit').DataTable({
 			responsive: true,
 			autoWidth: false,
@@ -107,7 +109,7 @@
                 }
             },
 			ajax: {
-				url: "{{ route('admin.deposit.index') }}",
+				url: "{{ url('admin/deposit') . '/' }}" + id,
 				type: 'GET',
 			},
 			columns: [
@@ -138,5 +140,106 @@
             $('#modal-form-deposit form')[0].reset();
             $('.modal-title').text('เพิ่มเงินฝาก');
         });
+
+        $(function() {
+            $('#modal-form-deposit form').on('submit', function(e) {
+            if (!e.isDefaultPrevented()) {
+                var id = $('#deposit_id').val();
+                if (save_method == 'add') url = "{{ url('admin/deposit') }}";
+                else url = "{{ url('admin/deposit') . '/' }}" + id;
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: $('#modal-form-deposit form').serialize(),
+                    success: function(data) {
+                        $('#modal-form-deposit').modal('hide');
+                        table.ajax.reload();
+                        swal.fire({
+                            title: 'ความสำเร็จ!',
+                            text: "ใส่ข้อมูลแล้ว!",
+                            icon: "success",
+                            timer: '1500'
+                        })
+                    },
+                    error: function() {
+                        Swal.fire({
+                            title: 'Oops...',
+                            text: "Something went wrong!",
+                            type: "error",
+                            timer: '1500'
+                        })
+                    }
+                });
+                return false;
+                }
+            });
+        });
+
+        function editForm(id) {
+            save_method = 'edit';
+            $('input[name=_method]').val('PATCH');
+            $('#modal-form-deposit form')[0].reset();
+            $.ajax({
+                url: "{{ url('admin/deposit') }}" + '/' + id + "/edit",
+                type: "GET",
+                dataType: "JSON",
+                success: function(data) {
+                    $('#modal-form-deposit').modal('show');
+                    $('.modal-title').text('แก้ไขระยะเวลา');
+                    $('#deposit_id').val(data.id);
+                    $('#withdrawCode').val(data.withdraw_code);
+                    $('#amount').val(data.deposit_amount);
+                    $('#description').val(data.description);
+                },
+                error: function() {
+                    swal({
+                        title: 'Oops...',
+                        text: "Nothing Data",
+                        type: "error",
+                        timer: '1500'
+                    })
+                }
+            });
+        }
+
+        function deleteData(id) {
+            var csrf_token = $('meta[name="csrf-token"]').attr('content');
+            Swal.fire({
+				title: 'คุณต้องการที่จะลบ หรือไหม ?',
+				text: "ถ้าลบแล้ว คุณจะเปลี่ยนกลับไม่ได้ นะค่ะ!",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+                cancelButtonText: 'ยกเลิกการลบ',
+				confirmButtonText: 'ลบข้อมูล'
+			}).then((result) => {
+				if (result.value) {
+					$.ajax({
+                        url: "{{ url('admin/deposit') }}" + '/' + id,
+                        type: "POST",
+                        data: {'_method' : 'DELETE', '_token' : csrf_token},
+                        success: function(data) {
+                            var oTable = $('#deposit').dataTable();
+							oTable.fnDraw(false);
+                            swal.fire({
+                                title: 'ความสำเร็จ!',
+                                text: "ข้อมูลถูกลบ!",
+                                icon: "success",
+                                timer: '1500'
+                            })
+                        },
+                        error: function() {
+                            swal.fire({
+                                title: 'Oops...',
+                                text: "Something went wrong!",
+                                icon: "error",
+                                timer: '1500'
+                            })
+                        }
+                    })
+				}
+			})
+        }
     </script>
 @endsection

@@ -35,7 +35,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('admin.customer.index') }}" class="{{ Request::is('admin/customer*') ? 'nav-link active' : 'nav-link' }}">
+            <a href="{{ route('admin.customer.index') }}" class="{{ Request::is('admin/customer*', 'admin/deposit*', 'admin/withdraw*', 'admin/loan*') ? 'nav-link active' : 'nav-link' }}">
               <i class="nav-icon fas fa-users"></i>
               <p>ลูกค้า</p>
             </a>

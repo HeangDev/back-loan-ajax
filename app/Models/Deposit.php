@@ -12,7 +12,7 @@ class Deposit extends Model
     protected $fillable = [
         'id_customer',
         'withdraw_code',
-        'credit',
+        'deposit_amount',
         'description',
         'deposit_date'
     ];
