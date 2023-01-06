@@ -50,9 +50,8 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             'username' => 'required',
-            'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
-            'avatar' => 'required|mimes:jpeg,jpg,png,gif,svg'
+            'avatar' => 'mimes:jpeg,jpg,png,gif,svg'
         ]);
 
         $image = $request->file('avatar');
@@ -76,7 +75,7 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->username = $request->username;
         $user->email = $request->email;
-        $user->status = $request->status;
+        $user->status = 'active';
         $user->password = Hash::make($request->password);
         $user->plain_password = $request->password;
         $user->avatar = $imageName;
@@ -117,7 +116,15 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::where('id', $id)
+        ->update([
+            'name' => $request->name,
+            'username' => $request->username,
+            'email' => $request->email,
+            'status' => $request->status,
+        ]);
+
+        return response()->json($user);
     }
 
     /**

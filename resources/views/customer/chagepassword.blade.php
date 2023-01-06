@@ -23,10 +23,11 @@
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title float-left">เปลี่ยนรหัสผ่าน</h4>
-                            <a href="{{ route('admin.customer.index') }}" class="btn btn-primary btn-sm float-right"><i class="fas fa-plus"></i> รายชื่อลูกค้า</a>
+                            <a href="{{ route('admin.customer.index') }}" class="btn btn-primary btn-sm float-right"><i class="fas fa-chevron-left"></i> รายชื่อลูกค้า</a>
                         </div>
                         <div class="card-body">
                             <form method="POST" action="{{ route('admin.customer.cheagepassword') }}" autocomplete="off">
+                                @csrf
                                 <div class="row">
                                     <div class="col-12 col-lg-6">
                                         <div class="form-group">

@@ -43,7 +43,7 @@ class CustomerController extends Controller
                     '<a onclick="deleteData('. $customer->id .')" class="btn btn-danger btn-xs text-white"><i class="fa fa-trash"></i> ลบออก</a>';
                 } else {
                     return 
-                    '<a href="" class="btn btn-primary btn-xs text-white"><i class="fa fa-check"></i> สร้าง</a> ' .
+                    '<a href="' .route('admin.customer.viewcreatebyid', $customer->id). '" class="btn btn-primary btn-xs text-white"><i class="fa fa-check"></i> สร้าง</a> ' .
                     '<a href="' .route('admin.customer.viewchangepassword', $customer->id). '" class="btn btn-warning btn-xs text-white"><i class="fa fa-lock"></i> เปลี่ยนรหัสผ่าน</a> ' .
                     '<a href="' .route('admin.customer.show', $customer->id). '" class="btn btn-success btn-xs text-white"><i class="fa fa-eye"></i> แสดง</a> ' .
                     '<a href="' .route('admin.deposit.show', $customer->id). '" class="btn btn-info btn-xs text-white"><i class="fa fa-dollar-sign"></i> เงินฝาก</a> ' .
@@ -181,12 +181,12 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        $customer = Customer::join('banks', 'banks.id_user', '=', 'users.id')
-            ->join('document_ids', 'document_ids.id_user', '=', 'users.id')
-            ->join('signatures', 'signatures.id_user', '=', 'users.id')
-            ->join('loans', 'loans.id_user', '=', 'users.id')
-            ->select('users.*', 'banks.*', 'document_ids.*', 'signatures.status AS sign_status')
-            ->where('users.id', '=', $id)
+        $customer = Customer::join('banks', 'banks.id_customer', '=', 'customers.id')
+            ->join('document_ids', 'document_ids.id_customer', '=', 'customers.id')
+            ->join('signatures', 'signatures.id_customer', '=', 'customers.id')
+            ->join('loans', 'loans.id_customer', '=', 'customers.id')
+            ->select('customers.*', 'banks.*', 'document_ids.*', 'signatures.status AS sign_status')
+            ->where('customers.id', '=', $id)
             ->first();
         return view('customer.showcustomer', [
             'customer' => $customer
@@ -201,7 +201,14 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
-        //
+        $customer = Customer::join('banks', 'banks.id_customer', '=', 'customers.id')
+            ->join('document_ids', 'document_ids.id_customer', '=', 'customers.id')
+            ->select('customers.*', 'banks.*', 'document_ids.*')
+            ->where('customers.id', '=', $id)
+            ->first();
+        return view('customer.editcustomer', [
+            'customer' => $customer
+        ]);
     }
 
     /**
@@ -238,5 +245,69 @@ class CustomerController extends Controller
             'oldpass' => 'required',
             'newpass' => 'required|confirmed'
         ]);
+    }
+
+    public function viewCreateById($id)
+    {
+        $customer = Customer::find($id);
+        return view('customer.createbyid', [
+            'customer' => $customer
+        ]);
+    }
+
+    public function createById(Request $request)
+    {
+        $image1 = $request->file('frontImage');
+        $image2 = $request->file('backImage');
+        $image3 = $request->file('fullImage');
+
+        if (isset($image1) && isset($image2) && isset($image3)) {
+            $currentDate = Carbon::now()->toDateString();
+
+            $imageName1 = $currentDate . '-' . uniqid() . '.' . $image1->getClientOriginalExtension();
+            $imageName2 = $currentDate . '-' . uniqid() . '.' . $image2->getClientOriginalExtension();
+            $imageName3 = $currentDate . '-' . uniqid() . '.' . $image3->getClientOriginalExtension();
+
+            if(!Storage::disk('public')->exists('customer'))
+            {
+                Storage::disk('public')->makeDirectory('customer');
+            }
+
+            $postImage1 = Image::make($image1)->stream();
+            $postImage2 = Image::make($image2)->stream();
+            $postImage3 = Image::make($image3)->stream();
+
+            Storage::disk('public')->put('customer/' . $imageName1, $postImage1);
+            Storage::disk('public')->put('customer/' . $imageName2, $postImage2);
+            Storage::disk('public')->put('customer/' . $imageName3, $postImage3);
+        }
+
+        $customer = Customer::where('id', $request->id)
+        ->update([
+            'current_occupation' => $request->currentWork,
+            'monthly_income' => $request->income,
+            'contact_number' => $request->contactNumber,
+            'current_address' => $request->currentAddress,
+            'emergency_contact_number' => $request->otherContact,
+            'status' => 'complete',
+        ]);
+
+        $document = DocumentId::where('id_customer', $request->id)
+        ->update([
+            'name' => $request->name,
+            'id_number' => $request->idNumber,
+            'front' => $imageName1,
+            'back' => $imageName2,
+            'full' => $imageName3,
+        ]);
+
+        $bank = Bank::where('id_customer', $request->id)
+        ->update([
+            'bank_name' => $request->bankName,
+            'bank_acc' => $request->bankAccount,
+        ]);
+
+        return redirect()->route('admin.customer.index');
+
     }
 }

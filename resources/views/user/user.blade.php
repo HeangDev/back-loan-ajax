@@ -58,7 +58,7 @@
 				</div>
 				<div class="modal-body">
 					<form method="POST" autocomplete="off" enctype="multipart/form-data" id="editUserData">
-						@csrf
+						{{ csrf_field() }} {{ method_field('POST') }}
 						<input type="hidden" name="user_id" id="user_id">
 						<div class="row">
 							<div class="col-12 col-lg-6">
@@ -161,7 +161,7 @@
                     data: 'email',
                     name: 'email',
                     render: function(data, type, full, meta) {
-						if (data == '') {
+						if (data == '' || data == null) {
 							return "-";
 						} else {
 							return data;
@@ -206,42 +206,34 @@
 			})
         }
 
-        $('#editUserData').on('submit', function(e) {
-            e.preventDefault();
-			$.ajaxSetup({
-				headers: {
-					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-				}
-			});
-            $.ajax({
-                url: "{{ url('admin/ajax-user-update')}}",
-                type: "POST",
-                data: new FormData(this),
-                contentType: false,
-                cache: false,
-                processData: false,
-                dataType:"json",
-				beforeSend: function() {
-                    $('#modal-update-user').find('span.error->text').text('');
-                },
-                success: function(data) {
-					if (data.code == 0) {
-                        $.each(data.error, function(prefix, val) {
-                            $('#modal-update-user').find('span.'+prefix+'_error').text(val[0]);
+        $(function() {
+            $('#modal-form-user form').on('submit', function(e) {
+            if (!e.isDefaultPrevented()) {
+                var id = $('#user_id').val();
+                $.ajax({
+                    url: "{{ url('admin/user') . '/' }}" + id,
+                    type: "POST",
+                    data: $('#modal-form-user form').serialize(),
+                    success: function(data) {
+                        $('#modal-form-user').modal('hide');
+                        table.ajax.reload();
+                        swal.fire({
+                            title: 'ความสำเร็จ!',
+                            text: "ใส่ข้อมูลแล้ว!",
+                            icon: "success",
+                            timer: '1500'
                         })
-                    } else {
-                        $('#modal-update-user').modal('hide');
-						table.ajax.reload();
-						Swal.fire({
-							icon: 'success',
-							title: 'ความสำเร็จ',
-							text: 'ใส่ข้อมูลแล้ว!',
-							timer: 1500
-						});
+                    },
+                    error: function() {
+                        Swal.fire({
+                            title: 'Oops...',
+                            text: "Something went wrong!",
+                            type: "error",
+                            timer: '1500'
+                        })
                     }
-                },
-				error: function(error){
-                    console.log(error)
+                });
+                return false;
                 }
             });
         });

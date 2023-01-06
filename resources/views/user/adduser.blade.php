@@ -60,16 +60,13 @@
                                     </div>
                                     <div class="col-12 col-lg-6">
                                         <div class="form-group">
-                                            <label>อีเมล <span style="color: red;">*</span></label>
-                                            <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="email">
-                                            @error('email')
-                                                <span style="color: #df4759; font-size: 80%; margin-top: .25rem;">{{ $message }}</span>
-                                            @enderror
+                                            <label>อีเมล</label>
+                                            <input type="email" class="form-control" name="email" id="email">
                                         </div>
                                     </div>
                                     <div class="col-12 col-lg-6">
                                         <div class="form-group">
-                                            <label>อิมเมจ <span style="color: red;">*</span></label>
+                                            <label>อิมเมจ</label>
                                             <div class="custom-file">
                                                 <input type="file" class="custom-file-input @error('profile_photo_path') is-invalid @enderror" name="avatar" id="customFile">
                                                 <label class="custom-file-label" for="customFile">Choose file</label>
@@ -78,15 +75,6 @@
                                                 <span style="color: #df4759; font-size: 80%; margin-top: .25rem;">{{ $message }}</span>
                                             @enderror
                                             <div class="img-holder"></div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-lg-6">
-                                        <div class="form-group">
-                                            <label for="">สถานะ <span style="color: red;">*</span></label>
-                                            <select class="form-control" name="status" id="status">
-                                                <option value="active">ใช้งาน</option>
-                                                <option value="unactive">ปิดการใช้งาน</option>
-                                            </select>
                                         </div>
                                     </div>
                                 </div>
