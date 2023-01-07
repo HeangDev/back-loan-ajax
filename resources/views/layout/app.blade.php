@@ -12,7 +12,14 @@
         <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap4.min.css">
         <link rel="stylesheet" href="{{ asset('assets/plugins/summernote/summernote-bs4.min.css') }}">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,500;1,100;1,400&display=swap" rel="stylesheet">
         <style>
+            body {
+                font-family: 'Prompt', sans-serif!important;
+            }
             fieldset {
                 display: block;
                 border: 1px solid #ddd;
