@@ -29,7 +29,7 @@
                             <form method="POST" action="{{ route('admin.customer.cheagepassword') }}" autocomplete="off">
                                 @csrf
                                 <div class="row">
-                                    <div class="col-12 col-lg-6">
+                                    {{-- <div class="col-12 col-lg-6">
                                         <div class="form-group">
                                             <label>รหัสผ่านเก่า <span style="color: red;">*</span></label>
                                             <input type="password" class="form-control @error('oldpass') is-invalid @enderror" name="oldpass">
@@ -37,7 +37,7 @@
                                                 <span style="color: #df4759; font-size: 80%; margin-top: .25rem;">{{ $message }}</span>
                                             @enderror
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="col-12 col-lg-6">
                                         <div class="form-group">
                                             <label>รหัสผ่านใหม่ <span style="color: red;">*</span></label>
