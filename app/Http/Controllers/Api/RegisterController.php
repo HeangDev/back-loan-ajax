@@ -1,9 +1,9 @@
 <?php
 
-namespace Database\Seeders;
+namespace App\Http\Controllers\Api;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Customer;
 use App\Models\Bank;
@@ -12,19 +12,14 @@ use App\Models\Signature;
 use App\Models\Deposit;
 use App\Models\Loan;
 
-class CustomerSeeder extends Seeder
+class RegisterController extends Controller
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+    public function register(Request $request)
     {
         $customer = Customer::create([
-            'tel' => '011263262',
-            'password' => Hash::make('password'),
-            'plain_password' => 'password',
+            'tel' => $request->tel,
+            'password' => Hash::make($request->password),
+            'plain_password' => $request->password,
         ]);
 
         $c_id = $customer->id;
@@ -50,5 +45,10 @@ class CustomerSeeder extends Seeder
         Loan::create([
             'id_customer' => $c_id,
         ]);
+
+        return response()->json([
+            'status' => 200,
+            $customer
+        ], 200);
     }
 }

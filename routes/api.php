@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\RegisterController;
+use App\Http\Controllers\Api\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +18,31 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::group(['as' => 'api.','namespace' => 'App\Http\Controllers\Api'], function() {
+    Route::apiResource('duration', DurationController::class)->only([
+        'index'
+    ]);
+
+    Route::apiResource('agreement', AgreementController::class)->only([
+        'index'
+    ]);
+
+    Route::apiResource('loan', LoanController::class)->only([
+        'store'
+    ]);
+
+    Route::apiResource('user', UserController::class)->only([
+        'show', 'update'
+    ]);
+
+    Route::apiResource('signature', SignatureController::class)->only([
+        'show', 'update'
+    ]);
+
+    Route::post('/register', [RegisterController::class, 'register']);
+    Route::post('/login', [LoginController::class, 'login']);
+    Route::post('/changepassword', [LoginController::class, 'changePassword']);
+    Route::get('/getinfo/{id}', [LoginController::class, 'getInfo']);
 });
