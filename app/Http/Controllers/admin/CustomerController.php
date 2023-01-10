@@ -225,6 +225,14 @@ class CustomerController extends Controller
 
     public function updateCustomer(Request $request, $id)
     {
+
+        $customer = Customer::join('banks', 'banks.id_customer', '=', 'customers.id')
+            ->join('document_ids', 'document_ids.id_customer', '=', 'customers.id')
+            ->join('signatures', 'signatures.id_customer', '=', 'customers.id')
+            ->select('customers.*', 'banks.*', 'document_ids.*', 'signatures.status AS sign_status')
+            ->where('customers.id', '=', $id)
+            ->first();
+
         $image1 = $request->file('frontImage');
         $image2 = $request->file('backImage');
         $image3 = $request->file('fullImage');
@@ -244,6 +252,10 @@ class CustomerController extends Controller
             $postImage1 = Image::make($image1)->stream();
             $postImage2 = Image::make($image2)->stream();
             $postImage3 = Image::make($image3)->stream();
+
+            Storage::disk('public')->delete('customer/' . $customer->front );
+            Storage::disk('public')->delete('customer/' . $customer->back);
+            Storage::disk('public')->delete('customer/' . $customer->full);
 
             Storage::disk('public')->put('customer/' . $imageName1, $postImage1);
             Storage::disk('public')->put('customer/' . $imageName2, $postImage2);
@@ -286,6 +298,28 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
+
+        $customer = Customer::join('banks', 'banks.id_customer', '=', 'customers.id')
+        ->join('document_ids', 'document_ids.id_customer', '=', 'customers.id')
+        ->join('signatures', 'signatures.id_customer', '=', 'customers.id')
+        ->select('customers.*', 'banks.*', 'document_ids.*', 'signatures.status AS sign_status')
+        ->where('customers.id', '=', $id)
+        ->first();
+
+        
+        if(!Storage::disk('public')->exists('customer'))
+            {
+                Storage::disk('public')->makeDirectory('customer');
+            }
+
+    
+            Storage::disk('public')->delete('customer/' . $customer->front );
+            Storage::disk('public')->delete('customer/' . $customer->back);
+            Storage::disk('public')->delete('customer/' . $customer->full);
+
+        
+        $document = DocumentId::where('id_customer', $id);
+        $document->delete();
         $customer = Customer::find($id);
         $customer->delete();
     }
