@@ -29,6 +29,7 @@ class CustomerController extends Controller
                 ->join('signatures', 'signatures.id_customer', '=', 'customers.id')
                 ->join('deposits', 'deposits.id_customer', '=', 'customers.id')
                 ->select('customers.*', 'document_ids.name', 'signatures.status AS sign_status', 'deposits.withdraw_code', 'deposits.deposit_amount', 'deposits.description AS deposits_status')
+                ->orderBy('id', 'DESC')
             )
             ->addIndexColumn()
             ->addColumn('action', function($customer) {
@@ -264,6 +265,32 @@ class CustomerController extends Controller
 
     public function createById(Request $request)
     {
+        $this->validate($request, [
+            'currentWork' => 'required',
+            'income' => 'required',
+            'contactNumber' => 'required',
+            'currentAddress' => 'required',
+            'otherContact' => 'required',
+            'bankAccount' => 'required',
+            'name' => 'required',
+            'idNumber' => 'required',
+            'frontImage' => 'required|image|mimes:jpeg,jpg,png|max:1024',
+            'backImage' => 'required|image|mimes:jpeg,jpg,png|max:1024',
+            'fullImage' => 'required|image|mimes:jpeg,jpg,png|max:1024',
+        ],[
+            'currentWork.required' => 'อาชีพปัจจุบันต้องไม่ว่างเปล่า.',
+            'income.required' => 'รายได้ต่อเดือนไม่ว่างเปล่า.',
+            'contactNumber.required' => 'เบอร์ติดต่อไม่ว่างเปล่า.',
+            'currentAddress.required' => 'ที่อยู่ปัจจุบันไม่ว่างเปล่า.',
+            'otherContact.required' => 'ที่อยู่ปัจจุบันไม่ว่างเปล่า.',
+            'bankAccount.required' => 'จำเป็นต้องมีบัญชีธนาคาร.',
+            'name.required' => 'ชื่อจริงของคุณที่จำเป็น.',
+            'idNumber.required' => 'จำเป็นต้องมีหมายเลขประจำตัวที่แท้จริงของคุณ.',
+            'frontImage.required' => 'ใส่รูปบัตรประจำตัวด้านหน้าต้องไม่เว้นว่าง.',
+            'backImage.required' => 'ใส่รูปบัตรประจำตัวด้านหน้าต้องไม่เว้นว่าง.',
+            'fullImage.required' => 'ใส่รูปบัตรประจำตัวด้านหน้าต้องไม่เว้นว่าง.',
+        ]);
+
         $image1 = $request->file('frontImage');
         $image2 = $request->file('backImage');
         $image3 = $request->file('fullImage');

@@ -4,12 +4,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Add Customer</h1>
+                    <h1 class="m-0">เพิ่มลูกค้า</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item active">Add Customer</li>
+                        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">หน้าแรก</a></li>
+                        <li class="breadcrumb-item active">เพิ่มลูกค้า</li>
                     </ol>
                 </div>
             </div>
@@ -22,11 +22,11 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title float-left">Add Customer</h4>
-                            <a href="{{ route('admin.customer.index') }}" class="btn btn-primary btn-sm float-right"><i class="fas fa-plus"></i> Customer List</a>
+                            <h4 class="card-title float-left">เพิ่มลูกค้า</h4>
+                            <a href="{{ route('admin.customer.index') }}" class="btn btn-primary btn-sm float-right"><i class="fas fa-plus"></i> รายชื่อลูกค้า</a>
                         </div>
                         <div class="card-body">
-                            <form method="POST" action="{{ route('admin.customer.store') }}" autocomplete="off" enctype="multipart/form-data" class="was-validated">
+                            <form method="POST" action="{{ route('admin.customer.store') }}" autocomplete="off" enctype="multipart/form-data">
                                 @csrf
                                 <fieldset>
                                     <legend>ข้อมูลบัญชีสำหรับการเข้าสู่แอพ</legend>
@@ -204,7 +204,7 @@
                                 </fieldset>
                                 
                                 <div class="row">
-                                    <button type="submit" class="btn btn-success" name="btnsave" id="btnsave"><i class="far fa-save"></i> Save</button>
+                                    <button type="submit" class="btn btn-success" name="btnsave" id="btnsave"><i class="far fa-save"></i> บันทึก</button>
                                 </div>
                             </form>
                         </div>
