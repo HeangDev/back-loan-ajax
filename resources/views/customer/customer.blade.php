@@ -48,6 +48,38 @@
             </div>
         </div>
     </section>
+
+	<div id="modal-form-changepass" class="modal fade">
+		<div class="modal-dialog" role="document">
+			<form method="POST" autocomplete="off">
+				{{ csrf_field() }} {{ method_field('POST') }}
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="my-modal-title"></h5>
+						<button class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<input type="hidden" id="customer_id" name="customer_id">
+						<div class="form-group">
+							<label>รหัสผ่านใหม่ <span style="color: red;">*</span></label>
+							<input type="password" class="form-control form-control-sm" name="newpass" id="newpass" required >
+						</div> 
+						<div class="form-group">
+							<label>ยืนยันรหัสผ่าน <span style="color: red;">*</span></label>
+							<input type="password" class="form-control form-control-sm" name="confirmpass" >
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-success btn-sm btn-save">ยืนยัน</button>
+					</div>
+			</form>	
+				</div>
+			
+		</div>
+	</div>
+
 @endsection
 
 @section('script')
@@ -132,5 +164,67 @@
 			],
 			order: [[0, 'desc']]
 		});
+
+		$(function() {
+            $('#modal-form-changepass form').on('submit', function(e) {
+            if (!e.isDefaultPrevented()) {
+                var id = $('#customer_id').val();
+                // if (save_method == 'add') url = "{{ url('admin/duration') }}";
+                // else url = "{{ url('admin/duration') . '/' }}" + id;
+                $.ajax({
+                    url: "{{ url('admin/customer/updatepassword') . '/' }}" + id,
+                    type: "POST",
+                    data: $('#modal-form-changepass form').serialize(),
+                    success: function(data) {
+                        $('#modal-form-changepass').modal('hide');
+                        table.ajax.reload();
+                        swal.fire({
+                            title: 'ความสำเร็จ!',
+                            text: "ใส่ข้อมูลแล้ว!",
+                            icon: "success",
+                            timer: '1500'
+                        })
+                    },
+                    error: function() {
+                        Swal.fire({
+                            title: 'Oops...',
+                            text: "Something went wrong!",
+                            type: "error",
+                            timer: '1500'
+                        })
+                    }
+                });
+                return false;
+                }
+            });
+        });
+		
+		function changepassword(id) {
+			save_method = 'edit';
+            $('input[name=_method]').val('PATCH');
+            $('#modal-form-changepass form')[0].reset();
+            $.ajax({
+                url: "{{ url('admin/customer/getcustomerid/') }}" + '/' + id + "/change",
+                type: "GET",
+                dataType: "JSON",
+                success: function(data) {
+                    $('#modal-form-changepass').modal('show');
+                    $('.modal-title').text('แก้ไขระยะเวลา');
+                    $('#customer_id').val(data.id);
+                },
+                error: function() {
+                    swal({
+                        title: 'Oops...',
+                        text: "Nothing Data",
+                        type: "error",
+                        timer: '1500'
+                    })
+                }
+            });
+            
+        }
+
+		
+
     </script>
 @endsection

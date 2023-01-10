@@ -26,7 +26,8 @@
                             <a href="{{ route('admin.customer.index') }}" class="btn btn-primary btn-sm float-right"><i class="fas fa-chevron-left"></i> รายชื่อลูกค้า</a>
                         </div>
                         <div class="card-body">
-                            <form method="POST" action="{{ route('admin.customer.cheagepassword') }}" autocomplete="off">
+
+                            <form method="POST" action="{{ route('admin.customer.updatepassword') }}" autocomplete="off">
                                 @csrf
                                 <div class="row">
                                     {{-- <div class="col-12 col-lg-6">

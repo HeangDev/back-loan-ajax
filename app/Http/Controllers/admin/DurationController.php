@@ -19,7 +19,8 @@ class DurationController extends Controller
             return datatables()->of(Duration::select('*'))
             ->addIndexColumn()
             ->addColumn('action', function($duration_id) {
-                return '<a onclick="editForm('. $duration_id->id .')" class="btn btn-primary btn-xs text-white"><i class="fa fa-edit"></i> แก้ไข</a>' . ' <a onclick="deleteData('. $duration_id->id .')" class="btn btn-danger btn-xs text-white"><i class="fa fa-trash"></i> ลบออก</a>';
+                return'<a onclick="editForm('. $duration_id->id .')" class="btn btn-primary btn-xs text-white"><i class="fa fa-edit"></i> แก้ไข</a>' 
+                    . ' <a onclick="deleteData('. $duration_id->id .')" class="btn btn-danger btn-xs text-white"><i class="fa fa-trash"></i> ลบออก</a>';
             })->make(true);
         }
         return view('duration.duration');

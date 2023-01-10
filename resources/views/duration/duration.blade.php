@@ -75,7 +75,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success btn-sm btn-save">ประหยัด</button>
+                    <button type="submit" class="btn btn-success btn-sm btn-save">ยืนยัน</button>
                 </div>
             </form>
             </div>

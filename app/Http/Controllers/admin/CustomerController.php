@@ -35,7 +35,7 @@ class CustomerController extends Controller
                 if ($customer->status === 'complete') {
                     return
                     '<a href="' .route('admin.customer.edit', $customer->id). '" class="btn btn-primary btn-xs text-white"><i class="fa fa-edit"></i> แก้ไข</a> ' .
-                    '<a href="' .route('admin.customer.viewchangepassword', $customer->id). '" class="btn btn-warning btn-xs text-white"><i class="fa fa-lock"></i> เปลี่ยนรหัสผ่าน</a> ' .
+                    '<a onclick="changepassword('. $customer->id .')" class="btn btn-warning btn-xs text-white"><i class="fa fa-lock"></i> เปลี่ยนรหัสผ่าน</a> ' .
                     '<a href="' .route('admin.customer.show', $customer->id). '" class="btn btn-success btn-xs text-white"><i class="fa fa-eye"></i> แสดง</a> ' .
                     '<a href="' .route('admin.deposit.show', $customer->id). '" class="btn btn-info btn-xs text-white"><i class="fa fa-dollar-sign"></i> เติมเงิน</a> ' .
                     '<a href="' .route('admin.withdraw.show', $customer->id). '" class="btn btn-info btn-xs text-white"><i class="fa fa-credit-card"></i> ถอน</a> ' .
@@ -44,7 +44,7 @@ class CustomerController extends Controller
                 } else {
                     return 
                     '<a href="' .route('admin.customer.viewcreatebyid', $customer->id). '" class="btn btn-primary btn-xs text-white"><i class="fa fa-check"></i> สร้าง</a> ' .
-                    '<a href="' .route('admin.customer.viewchangepassword', $customer->id). '" class="btn btn-warning btn-xs text-white"><i class="fa fa-lock"></i> เปลี่ยนรหัสผ่าน</a> ' .
+                    '<a onclick="changepassword('. $customer->id .')" class="btn btn-warning btn-xs text-white"><i class="fa fa-lock"></i> เปลี่ยนรหัสผ่าน</a> ' .
                     '<a href="' .route('admin.customer.show', $customer->id). '" class="btn btn-success btn-xs text-white"><i class="fa fa-eye"></i> แสดง</a> ' .
                     '<a href="' .route('admin.deposit.show', $customer->id). '" class="btn btn-info btn-xs text-white"><i class="fa fa-dollar-sign"></i> เติมเงิน</a> ' .
                     '<a href="' .route('admin.withdraw.show', $customer->id). '" class="btn btn-info btn-xs text-white"><i class="fa fa-credit-card"></i> ถอน</a> ' .
@@ -200,13 +200,15 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
+        $bank = Bank::all();
         $customer = Customer::join('banks', 'banks.id_customer', '=', 'customers.id')
             ->join('document_ids', 'document_ids.id_customer', '=', 'customers.id')
             ->select('customers.*', 'banks.*', 'document_ids.*')
             ->where('customers.id', '=', $id)
             ->first();
         return view('customer.editcustomer', [
-            'customer' => $customer
+            'customer' => $customer,
+            'bank' => $bank
         ]);
     }
 
@@ -235,15 +237,21 @@ class CustomerController extends Controller
 
     public function viewChangePassword()
     {
-        return view('customer.chagepassword');
+        // return view('customer.chagepassword');
+        $customer = Ccustomer::find($id);
+        return $customer;
+
     }
 
-    public function cheagePassword(Request $request, $id)
+    public function updatePassword(Request $request, $id)
     {
-        $this->validate($request, [
-            'oldpass' => 'required',
-            'newpass' => 'required|confirmed'
-        ]);
+       
+        $customer = Customer::find($id);
+        $customer->password = Hash::make($request->newpass);
+        $customer->plain_password = $request->newpass;
+        $customer->save();
+        return $customer;
+
     }
 
     public function viewCreateById($id)
@@ -307,6 +315,14 @@ class CustomerController extends Controller
         ]);
 
         return redirect()->route('admin.customer.index');
+
+    }
+
+
+    public function getcustomerid($id)
+    {
+        $customer_id = Customer::find($id);
+        return $customer_id;
 
     }
 }

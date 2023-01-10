@@ -100,10 +100,10 @@
         });
 
         //Reset input file
-        $('input[type="file"][name="profile_photo_path"]').val('');
+        $('input[type="file"][name="avatar"]').val('');
 
         //Image preview
-        $('input[type="file"][name="profile_photo_path"]').on('change', function(){
+        $('input[type="file"][name="avatar"]').on('change', function(){
             var img_path = $(this)[0].value;
             var img_holder = $('.img-holder');
             var extension = img_path.substring(img_path.lastIndexOf('.')+1).toLowerCase();
