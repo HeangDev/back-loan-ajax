@@ -21,6 +21,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'App\Http\Co
     Route::patch('customer/updatepassword/{id}', 'CustomerController@updatePassword')->name('customer.updatepassword');
     Route::get('customer/{id}/create', 'CustomerController@viewCreateById')->name('customer.viewcreatebyid');
     Route::post('customer/createbyid', 'CustomerController@createById')->name('customer.createbyid');
+    Route::post('ajax-user-update', 'UserController@userUpdate')->name('ajax.user.update');
     Route::resources([
         'duration' => DurationController::class,
         'customer' => CustomerController::class,

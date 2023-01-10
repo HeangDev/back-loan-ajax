@@ -147,6 +147,10 @@
                                                     @error('frontImage')
                                                         <span style="color: #df4759; font-size: 80%; margin-top: .25rem;">{{ $message }}</span>
                                                     @enderror
+                                                    <div class="card">
+                                                        <div class="img-frontImage"></div>
+                                                    </div>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -160,6 +164,9 @@
                                                 @error('backImage')
                                                     <span style="color: #df4759; font-size: 80%; margin-top: .25rem;">{{ $message }}</span>
                                                 @enderror
+                                                <div class="card">
+                                                    <div class="img-backImage"></div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-12 col-lg-4">
@@ -171,6 +178,10 @@
                                                     @error('fullImage')
                                                         <span style="color: #df4759; font-size: 80%; margin-top: .25rem;">{{ $message }}</span>
                                                     @enderror
+                                                    <div class="card">
+                                                        <div class="img-fullImage"></div>
+                                                    </div>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -187,4 +198,86 @@
             </div>
         </div>
     </section>
+    
+    @section('script')
+        <script type="text/javascript">
+            $(".custom-file-input").on("change", function() {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            });
+
+            //Reset input file
+            $('input[type="file"][name="frontImage"]').val('');
+            $('input[type="file"][name="backImage"]').val('');
+            $('input[type="file"][name="fullImage"]').val('');
+
+            //Image preview frontImage
+            $('input[type="file"][name="frontImage"]').on('change', function(){
+            var img_path = $(this)[0].value;
+            var img_holder = $('.img-frontImage');
+            var extension = img_path.substring(img_path.lastIndexOf('.')+1).toLowerCase();
+            if(extension == 'jpeg' || extension == 'jpg' || extension == 'png'){
+                if(typeof(FileReader) != 'undefined'){
+                    img_holder.empty();
+                    var reader = new FileReader();
+                    reader.onload = function(e){
+                        $('<img/>',{'src':e.target.result, 'width': '250', 'height': '250', 'class':'img-fluid rounded mx-auto d-block mt-1 mb-2'}).appendTo(img_holder);
+                    }
+                    img_holder.show();
+                    reader.readAsDataURL($(this)[0].files[0]);
+                }else{
+                    $(img_holder).html('This browser does not support FileReader');
+                }
+            }else{
+                $(img_holder).empty();
+            }
+        });
+
+         //Image preview backImage
+         $('input[type="file"][name="backImage"]').on('change', function(){
+            var img_path = $(this)[0].value;
+            var img_holder = $('.img-backImage');
+            var extension = img_path.substring(img_path.lastIndexOf('.')+1).toLowerCase();
+            if(extension == 'jpeg' || extension == 'jpg' || extension == 'png'){
+                if(typeof(FileReader) != 'undefined'){
+                    img_holder.empty();
+                    var reader = new FileReader();
+                    reader.onload = function(e){
+                        $('<img/>',{'src':e.target.result, 'width': '250', 'height': '250', 'class':'img-fluid rounded mx-auto d-block mt-1 mb-2'}).appendTo(img_holder);
+                    }
+                    img_holder.show();
+                    reader.readAsDataURL($(this)[0].files[0]);
+                }else{
+                    $(img_holder).html('This browser does not support FileReader');
+                }
+            }else{
+                $(img_holder).empty();
+            }
+        });
+
+         //Image preview fullImage
+         $('input[type="file"][name="fullImage"]').on('change', function(){
+            var img_path = $(this)[0].value;
+            var img_holder = $('.img-fullImage');
+            var extension = img_path.substring(img_path.lastIndexOf('.')+1).toLowerCase();
+            if(extension == 'jpeg' || extension == 'jpg' || extension == 'png'){
+                if(typeof(FileReader) != 'undefined'){
+                    img_holder.empty();
+                    var reader = new FileReader();
+                    reader.onload = function(e){
+                        $('<img/>',{'src':e.target.result, 'width': '250', 'height': '250', 'class':'img-fluid rounded mx-auto d-block mt-1 mb-2'}).appendTo(img_holder);
+                    }
+                    img_holder.show();
+                    reader.readAsDataURL($(this)[0].files[0]);
+                }else{
+                    $(img_holder).html('This browser does not support FileReader');
+                }
+            }else{
+                $(img_holder).empty();
+            }
+        });
+
+        </script>
+    @endsection
+    
 @endsection
