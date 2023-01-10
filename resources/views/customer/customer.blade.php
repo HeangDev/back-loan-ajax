@@ -224,6 +224,45 @@
             
         }
 
+		function deleteData(id) {
+            var csrf_token = $('meta[name="csrf-token"]').attr('content');
+            Swal.fire({
+				title: 'คุณต้องการที่จะลบ หรือไหม ?',
+				text: "ถ้าลบแล้ว คุณจะเปลี่ยนกลับไม่ได้ นะค่ะ!",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+                cancelButtonText: 'ยกเลิกการลบ',
+				confirmButtonText: 'ลบข้อมูล'
+			}).then((result) => {
+				if (result.value) {
+					$.ajax({
+                        url: "{{ url('admin/customer') }}" + '/' + id,
+                        type: "POST",
+                        data: {'_method' : 'DELETE', '_token' : csrf_token},
+                        success: function(data) {
+                            var oTable = $('#customer').dataTable();
+							oTable.fnDraw(false);
+                            swal.fire({
+                                title: 'ความสำเร็จ!',
+                                text: "ข้อมูลถูกลบ!",
+                                icon: "success",
+                                timer: '1500'
+                            })
+                        },
+                        error: function() {
+                            swal.fire({
+                                title: 'Oops...',
+                                text: "Something went wrong!",
+                                icon: "error",
+                                timer: '1500'
+                            })
+                        }
+                    })
+				}
+			})
+        }
 		
 
     </script>
