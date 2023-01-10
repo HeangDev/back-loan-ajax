@@ -148,7 +148,7 @@
                                                         <span style="color: #df4759; font-size: 80%; margin-top: .25rem;">{{ $message }}</span>
                                                     @enderror
                                                     <div class="card">
-                                                        <div class="img-frontImage"></div>
+                                                        <div class="img-frontImage"><img src="{{ asset('storage/customer/') . '/' . $customer->front }}" class="img-fluid rounded mx-auto d-block " id="upload-front"/></div>
                                                     </div>
                                                     
                                                 </div>
@@ -221,6 +221,7 @@
                     img_holder.empty();
                     var reader = new FileReader();
                     reader.onload = function(e){
+                        
                         $('<img/>',{'src':e.target.result, 'width': '250', 'height': '250', 'class':'img-fluid rounded mx-auto d-block mt-1 mb-2'}).appendTo(img_holder);
                     }
                     img_holder.show();
@@ -231,6 +232,13 @@
             }else{
                 $(img_holder).empty();
             }
+        });
+
+        //Image front show
+        $(function() {
+            $('input[type="file"][name="frontImage"]').on('change', function(e) {
+                $('#upload-front').hide(); 
+            });
         });
 
          //Image preview backImage

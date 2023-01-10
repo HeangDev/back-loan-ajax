@@ -200,7 +200,6 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
-        $bank = Bank::all();
         $customer = Customer::join('banks', 'banks.id_customer', '=', 'customers.id')
             ->join('document_ids', 'document_ids.id_customer', '=', 'customers.id')
             ->select('customers.*', 'banks.*', 'document_ids.*')
@@ -208,7 +207,6 @@ class CustomerController extends Controller
             ->first();
         return view('customer.editcustomer', [
             'customer' => $customer,
-            'bank' => $bank
         ]);
     }
 
