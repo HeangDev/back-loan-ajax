@@ -26,8 +26,8 @@
                             <a href="{{ route('admin.customer.index') }}" class="btn btn-primary btn-sm float-right"><i class="fas fa-chevron-left"></i> รายชื่อลูกค้า</a>
                         </div>
                         <div class="card-body">
-                            <form method="POST" action="{{ route('admin.customer.createbyid') }}" autocomplete="off" enctype="multipart/form-data">
-                                @csrf
+                            <form method="POST" action="{{ route('admin.customer.updatecustomer', $customer->id) }}" autocomplete="off" enctype="multipart/form-data">
+                                {{ csrf_field() }} {{ method_field('POST') }}
                                 <input type="hidden" value="{{ $customer->id }}" name="id">
                                 <fieldset>
                                     <legend>กรอกข้อมูลจริงและถูกต้องการตรวจสอบจะผ่านไป</legend>
@@ -142,13 +142,13 @@
                                             <div class="form-group">
                                                 <label>ใส่รูปบัตรประชาชนข้างหน้า <span style="color: red;">*</span></label>
                                                 <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="customFile" name="frontImage">
+                                                    <input type="file" class="custom-file-input" id="customFile" name="frontImage" value="{{$customer->front}}">
                                                     <label class="custom-file-label" for="customFile">Choose file</label>
                                                     @error('frontImage')
                                                         <span style="color: #df4759; font-size: 80%; margin-top: .25rem;">{{ $message }}</span>
                                                     @enderror
                                                     <div class="card">
-                                                        <div class="img-frontImage"></div>
+                                                        <div class="img-frontImage"><img src="{{ asset('storage/customer/') . '/' . $customer->front }}" class="img-fluid rounded mx-auto d-block " id="upload-front"/></div>
                                                     </div>
                                                     
                                                 </div>
@@ -158,7 +158,7 @@
                                             <div class="form-group">
                                                 <label>ใส่รูปบัตรประชาชนข้างหลัง <span style="color: red;">*</span></label>
                                                 <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="customFile" name="backImage">
+                                                    <input type="file" class="custom-file-input" id="customFile" name="backImage" value="{{$customer->back}}">
                                                     <label class="custom-file-label" for="customFile">Choose file</label>
                                                 </div>
                                                 @error('backImage')
@@ -173,7 +173,7 @@
                                             <div class="form-group">
                                                 <label>ใส่รูปบัตรประชาชนคู่กับใบหน้า <span style="color: red;">*</span></label>
                                                 <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="customFile" name="fullImage">
+                                                    <input type="file" class="custom-file-input" id="customFile" name="fullImage" value="{{$customer->full}}">
                                                     <label class="custom-file-label" for="customFile">Choose file</label>
                                                     @error('fullImage')
                                                         <span style="color: #df4759; font-size: 80%; margin-top: .25rem;">{{ $message }}</span>
@@ -221,6 +221,7 @@
                     img_holder.empty();
                     var reader = new FileReader();
                     reader.onload = function(e){
+                        
                         $('<img/>',{'src':e.target.result, 'width': '250', 'height': '250', 'class':'img-fluid rounded mx-auto d-block mt-1 mb-2'}).appendTo(img_holder);
                     }
                     img_holder.show();
@@ -231,6 +232,13 @@
             }else{
                 $(img_holder).empty();
             }
+        });
+
+        //Image front show
+        $(function() {
+            $('input[type="file"][name="frontImage"]').on('change', function(e) {
+                $('#upload-front').hide(); 
+            });
         });
 
          //Image preview backImage
