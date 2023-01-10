@@ -19,6 +19,7 @@ Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'App\Http\Co
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
     Route::get('customer/getcustomerid/{id}/change', 'CustomerController@getcustomerid')->name('customer.getcustomerid');
     Route::patch('customer/updatepassword/{id}', 'CustomerController@updatePassword')->name('customer.updatepassword');
+    Route::post('customer/updatecustomer/{id}', 'CustomerController@updateCustomer')->name('customer.updatecustomer');
     Route::get('customer/{id}/create', 'CustomerController@viewCreateById')->name('customer.viewcreatebyid');
     Route::post('customer/createbyid', 'CustomerController@createById')->name('customer.createbyid');
     Route::resources([
