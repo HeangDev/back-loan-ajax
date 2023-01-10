@@ -10,7 +10,7 @@ use App\Models\Bank;
 use App\Models\DocumentId;
 use App\Models\Signature;
 use App\Models\Deposit;
-use App\Models\Loan;
+use App\Models\Withdraw;
 
 class CustomerSeeder extends Seeder
 {
@@ -44,10 +44,6 @@ class CustomerSeeder extends Seeder
         ]);
 
         DocumentId::create([
-            'id_customer' => $c_id,
-        ]);
-
-        Loan::create([
             'id_customer' => $c_id,
         ]);
     }

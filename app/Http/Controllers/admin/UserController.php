@@ -141,4 +141,28 @@ class UserController extends Controller
 
         return response()->json($user);
     }
+
+    public function userUpdate(Request $request)
+    {
+        $user_id = $request->user_id;
+        $user = User::find($user_id);
+
+        $validator = \Validator::make($request->all(), [
+            'name' => 'required|unique:users,name,'.$user_id,
+            'username' => 'required|unique:users,username,'.$user_id,
+        ]);
+
+        if (!$validator->passes()) {
+            return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
+        } else {
+            $user->update([
+                'name' => $request->name,
+                'username' => $request->username,
+                'email' => $request->email,
+                'status' => $request->status
+            ]);
+    
+            return response()->json(['code' => 1, 'success' => 'Data is successfully updated']);
+        }
+    }
 }

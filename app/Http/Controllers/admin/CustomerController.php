@@ -26,9 +26,9 @@ class CustomerController extends Controller
         if(request()->ajax()) {
             return datatables()->of(
                 Customer::join('document_ids', 'document_ids.id_customer', '=', 'customers.id')
-            ->join('signatures', 'signatures.id_customer', '=', 'customers.id')
-            ->join('deposits', 'deposits.id_customer', '=', 'customers.id')
-            ->select('customers.*', 'document_ids.name', 'signatures.status AS sign_status', 'deposits.withdraw_code', 'deposits.deposit_amount', 'deposits.description AS deposits_status')
+                ->join('signatures', 'signatures.id_customer', '=', 'customers.id')
+                ->join('deposits', 'deposits.id_customer', '=', 'customers.id')
+                ->select('customers.*', 'document_ids.name', 'signatures.status AS sign_status', 'deposits.withdraw_code', 'deposits.deposit_amount', 'deposits.description AS deposits_status')
             )
             ->addIndexColumn()
             ->addColumn('action', function($customer) {

@@ -77,7 +77,7 @@
 							</div>
 							<div class="col-12 col-lg-6">
 								<div class="form-group">
-									<label>อีเมล <span style="color: red;">*</span></label>
+									<label>อีเมล</label>
 									<input type="email" class="form-control" name="email" id="edit_email">
 									<span class="error-text email_error" style="color: #df4759; font-size: 80%; margin-top: .25rem;"></span>
 								</div>
@@ -206,34 +206,34 @@
 			})
         }
 
-        $(function() {
-            $('#modal-form-user form').on('submit', function(e) {
-            if (!e.isDefaultPrevented()) {
-                var id = $('#user_id').val();
-                $.ajax({
-                    url: "{{ url('admin/user') . '/' }}" + id,
-                    type: "POST",
-                    data: $('#modal-form-user form').serialize(),
-                    success: function(data) {
-                        $('#modal-form-user').modal('hide');
-                        table.ajax.reload();
-                        swal.fire({
+		$('#editUserData').on('submit', function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: "{{ url('admin/ajax-user-update')}}",
+                type: "POST",
+                data: new FormData(this),
+                contentType: false,
+                cache: false,
+                processData: false,
+                dataType:"json",
+                success: function(data) {
+					if (data.code == 0) {
+                        $.each(data.error, function(prefix, val) {
+        	            	$('#modal-update-user').find('span.'+prefix+'_error').text(val[0]);
+                    	})
+                	} else {
+                        $('#modal-update-user').modal('hide');
+						table.ajax.reload();
+						swal.fire({
                             title: 'ความสำเร็จ!',
                             text: "ใส่ข้อมูลแล้ว!",
                             icon: "success",
                             timer: '1500'
                         })
-                    },
-                    error: function() {
-                        Swal.fire({
-                            title: 'Oops...',
-                            text: "Something went wrong!",
-                            type: "error",
-                            timer: '1500'
-                        })
                     }
-                });
-                return false;
+                },
+				error: function(error){
+                    console.log(error)
                 }
             });
         });
