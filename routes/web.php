@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 
-Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'App\Http\Controllers\admin', 'middleware' => ['auth', 'admin']], function() {
-    Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+Route::group(['as' => 'admin.', 'namespace' => 'App\Http\Controllers\admin', 'middleware' => ['auth', 'admin']], function() {
+    Route::get('/', 'DashboardController@index')->name('dashboard');
     Route::get('customer/getcustomerid/{id}/change', 'CustomerController@getcustomerid')->name('customer.getcustomerid');
     Route::patch('customer/updatepassword/{id}', 'CustomerController@updatePassword')->name('customer.updatepassword');
     Route::post('customer/updatecustomer/{id}', 'CustomerController@updateCustomer')->name('customer.updatecustomer');

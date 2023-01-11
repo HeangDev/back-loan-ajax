@@ -109,7 +109,7 @@
                 }
             },
 			ajax: {
-				url: "{{ url('admin/deposit') . '/' }}" + id,
+				url: "{{ url('deposit') . '/' }}" + id,
 				type: 'GET',
 			},
 			columns: [
@@ -145,8 +145,8 @@
             $('#modal-form-deposit form').on('submit', function(e) {
             if (!e.isDefaultPrevented()) {
                 var id = $('#deposit_id').val();
-                if (save_method == 'add') url = "{{ url('admin/deposit') }}";
-                else url = "{{ url('admin/deposit') . '/' }}" + id;
+                if (save_method == 'add') url = "{{ url('deposit') }}";
+                else url = "{{ url('deposit') . '/' }}" + id;
                 $.ajax({
                     url: url,
                     type: "POST",

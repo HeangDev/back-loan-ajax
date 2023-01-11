@@ -102,7 +102,7 @@
                 }
             },
 			ajax: {
-				url: "{{ url('admin/withdraw') . '/' }}" + id,
+				url: "{{ url('withdraw') . '/' }}" + id,
 				type: 'GET',
 			},
 			columns: [
@@ -120,7 +120,7 @@
             if (!e.isDefaultPrevented()) {
                 var id = $('#withdraw_id').val();
                 $.ajax({
-                    url: "{{ url('admin/withdraw') . '/' }}" + id,
+                    url: "{{ url('withdraw') . '/' }}" + id,
                     type: "POST",
                     data: $('#modal-form-withdraw form').serialize(),
                     success: function(data) {
@@ -152,7 +152,7 @@
             $('input[name=_method]').val('PATCH');
             $('#modal-form-deposit form')[0].reset();
             $.ajax({
-                url: "{{ url('admin/withdraw') }}" + '/' + id + "/edit",
+                url: "{{ url('withdraw') }}" + '/' + id + "/edit",
                 type: "GET",
                 dataType: "JSON",
                 success: function(data) {
@@ -187,7 +187,7 @@
 			}).then((result) => {
 				if (result.value) {
 					$.ajax({
-                        url: "{{ url('admin/withdraw') }}" + '/' + id,
+                        url: "{{ url('withdraw') }}" + '/' + id,
                         type: "POST",
                         data: {'_method' : 'DELETE', '_token' : csrf_token},
                         success: function(data) {

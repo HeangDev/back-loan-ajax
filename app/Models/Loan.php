@@ -16,6 +16,7 @@ class Loan extends Model
         'interest',
         'total',
         'pay_month',
-        'date'
+        'date',
+        'status'
     ];
 }

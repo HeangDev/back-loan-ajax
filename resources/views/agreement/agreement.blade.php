@@ -107,7 +107,7 @@
 			}).then((result) => {
 				if (result.value) {
 					$.ajax({
-                        url: "{{ url('admin/agreement') }}" + '/' + id,
+                        url: "{{ url('agreement') }}" + '/' + id ,
                         type: "POST",
                         data: {'_method' : 'DELETE', '_token' : csrf_token},
                         success: function(data) {

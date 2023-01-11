@@ -144,8 +144,8 @@
             $('#modal-form-duration form').on('submit', function(e) {
             if (!e.isDefaultPrevented()) {
                 var id = $('#duration_id').val();
-                if (save_method == 'add') url = "{{ url('admin/duration') }}";
-                else url = "{{ url('admin/duration') . '/' }}" + id;
+                if (save_method == 'add') url = "{{ url('duration') }}";
+                else url = "{{ url('duration') . '/' }}" + id;
                 $.ajax({
                     url: url,
                     type: "POST",
@@ -179,7 +179,7 @@
             $('input[name=_method]').val('PATCH');
             $('#modal-form-duration form')[0].reset();
             $.ajax({
-                url: "{{ url('admin/duration') }}" + '/' + id + "/edit",
+                url: "{{ url('duration') }}" + '/' + id + "/edit",
                 type: "GET",
                 dataType: "JSON",
                 success: function(data) {
@@ -215,7 +215,7 @@
 			}).then((result) => {
 				if (result.value) {
 					$.ajax({
-                        url: "{{ url('admin/duration') }}" + '/' + id,
+                        url: "{{ url('duration') }}" + '/' + id,
                         type: "POST",
                         data: {'_method' : 'DELETE', '_token' : csrf_token},
                         success: function(data) {

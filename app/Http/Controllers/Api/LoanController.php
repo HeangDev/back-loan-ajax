@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Loan;
-use Illuminate\Support\Facades\DB;
 
 class LoanController extends Controller
 {
@@ -16,16 +15,6 @@ class LoanController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
     {
         //
     }
@@ -47,7 +36,7 @@ class LoanController extends Controller
             'total' => $request->total,
             'pay_month' => $request->payMonthly,
             'date' => $currentDate,
-            
+            'status' => '1',
         ]);
         return response()->json($loan);
     }
@@ -59,17 +48,6 @@ class LoanController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
     {
         //
     }

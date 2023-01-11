@@ -192,7 +192,7 @@
         function editForm(id) {
 			$('#modal-update-user form')[0].reset();
 			$.ajax({
-				url:"{{ url('admin/user') }}" + '/' + id + "/edit",
+				url:"{{ url('user') }}" + '/' + id + "/edit",
 				type: "GET",
 				dataType:"json",
 				success:function(data){
@@ -209,7 +209,7 @@
 		$('#editUserData').on('submit', function(e) {
             e.preventDefault();
             $.ajax({
-                url: "{{ url('admin/ajax-user-update')}}",
+                url: "{{ url('ajax-user-update')}}",
                 type: "POST",
                 data: new FormData(this),
                 contentType: false,
@@ -252,7 +252,7 @@
 			}).then((result) => {
 				if (result.value) {
 					$.ajax({
-                        url: "{{ url('admin/user') }}" + '/' + id,
+                        url: "{{ url('user') }}" + '/' + id,
                         type: "POST",
                         data: {'_method' : 'DELETE', '_token' : csrf_token},
                         success: function(data) {

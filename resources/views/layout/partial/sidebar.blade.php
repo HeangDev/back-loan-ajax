@@ -23,24 +23,25 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
-            <a href="{{ route('admin.dashboard') }}" class="{{ Request::is('admin/dashboard') ? 'nav-link active' : 'nav-link' }}">
+            <a href="{{ route('admin.dashboard') }}" class="{{ Request::is('dashboard') ? 'nav-link active' : 'nav-link' }}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>หน้าแรก</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('admin.duration.index') }}" class="{{ Request::is('admin/duration*') ? 'nav-link active' : 'nav-link' }}">
+            <a href="{{ route('admin.duration.index') }}" class="{{ Request::is('duration*') ? 'nav-link active' : 'nav-link' }}">
               <i class="nav-icon fas fa-clock"></i>
               <p>ระยะเวลา</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('admin.customer.index') }}" class="{{ Request::is('admin/customer*', 'admin/deposit*', 'admin/withdraw*', 'admin/loan*') ? 'nav-link active' : 'nav-link' }}">
+            <a href="{{ route('admin.customer.index') }}" class="{{ Request::is('customer*', 'deposit*') ? 'nav-link active' : 'nav-link' }}">
               <i class="nav-icon fas fa-users"></i>
               <p>ลูกค้า</p>
             </a>
           </li>
           <li class="nav-item">
+<<<<<<< HEAD
             <a href="{{ route('admin.withdraw.index') }}" class="{{ Request::is('admin/withdraw*') ? 'nav-link active' : 'nav-link' }}">
               <i class="fas fa-sort-amount-up-alt"></i>
               <p>ลูกค้าถอนเงิน</p>
@@ -52,12 +53,15 @@
             </a>
           </li><li class="nav-item">
             <a href="{{ route('admin.agreement.index') }}" class="{{ Request::is('admin/agreement*') ? 'nav-link active' : 'nav-link' }}">
+=======
+            <a href="{{ route('admin.agreement.index') }}" class="{{ Request::is('agreement*') ? 'nav-link active' : 'nav-link' }}">
+>>>>>>> 3f772a94cbe7371924712f1f4574a93105c4e4e4
               <i class="nav-icon fas fa-file-alt"></i>
               <p>ข้อตกลงกู้เงิน</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('admin.user.index') }}" class="{{ Request::is('admin/user*') ? 'nav-link active' : 'nav-link' }}">
+            <a href="{{ route('admin.user.index') }}" class="{{ Request::is('user*') ? 'nav-link active' : 'nav-link' }}">
               <i class="nav-icon fas fa-user"></i>
               <p>ผู้ดูแล่</p>
             </a>
