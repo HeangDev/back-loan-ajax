@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use App\Models\Loan;
+use App\Models\Deposit;
 
-class LoanController extends Controller
+class DepositController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,6 +20,16 @@ class LoanController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -27,18 +37,7 @@ class LoanController extends Controller
      */
     public function store(Request $request)
     {
-        $currentDate = Carbon::now()->toDateString();
-        $loan = Loan::create([
-            'id_customer' => $request->id_user,
-            'id_duration' => $request->durationId,
-            'amount' => $request->amount,
-            'interest' => $request->interest,
-            'total' => $request->total,
-            'pay_month' => $request->payMonthly,
-            'date' => $currentDate,
-            'status' => '1',
-        ]);
-        return response()->json($loan);
+        //
     }
 
     /**
@@ -48,6 +47,18 @@ class LoanController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
+    {
+        $deposit = Deposit::where('id_customer', $id)->first();
+        return response()->json($deposit);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
     {
         //
     }

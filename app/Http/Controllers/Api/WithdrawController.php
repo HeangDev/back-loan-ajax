@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use App\Models\Withdraw;
+use App\Models\Deposit;
 
-class AdminUserController extends Controller
+class WithdrawController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,7 +38,23 @@ class AdminUserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $currentDate = Carbon::now()->toDateString();
+        $deposit = Deposit::where('id_customer', $request->id)
+        ->update([
+            'deposit_amount' => '0',
+            'description' => 'ถอนเงินสำเร็จ'
+        ]);
+
+        $withdraw = Withdraw::create([
+            'id_customer' => $request->id,
+            'withdraw_amount' => $request->credit,
+            'status' => 'คุณถอนสำเร็จแล้ว',
+            'withdraw_date' => $currentDate
+        ]);
+        return response()->json([
+            $withdraw,
+            $deposit
+        ]);
     }
 
     /**

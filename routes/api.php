@@ -41,6 +41,14 @@ Route::group(['as' => 'api.','namespace' => 'App\Http\Controllers\Api'], functio
         'show', 'update'
     ]);
 
+    Route::apiResource('deposit', DepositController::class)->only([
+        'show'
+    ]);
+
+    Route::apiResource('withdraw', WithdrawController::class)->only([
+        'store'
+    ]);
+
     Route::post('/register', [RegisterController::class, 'register']);
     Route::post('/login', [LoginController::class, 'login']);
     Route::post('/changepassword', [LoginController::class, 'changePassword']);
