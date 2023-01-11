@@ -39,19 +39,22 @@ class CustomerController extends Controller
                     '<a onclick="changepassword('. $customer->id .')" class="btn btn-warning btn-xs text-white"><i class="fa fa-lock"></i> เปลี่ยนรหัสผ่าน</a> ' .
                     '<a href="' .route('admin.customer.show', $customer->id). '" class="btn btn-success btn-xs text-white"><i class="fa fa-eye"></i> แสดง</a> ' .
                     '<a href="' .route('admin.deposit.show', $customer->id). '" class="btn btn-info btn-xs text-white"><i class="fa fa-dollar-sign"></i> เติมเงิน</a> ' .
-                    '<a href="' .route('admin.withdraw.show', $customer->id). '" class="btn btn-info btn-xs text-white"><i class="fa fa-credit-card"></i> ถอน</a> ' .
-                    '<a href="' .route('admin.loan.show', $customer->id). '" class="btn btn-info btn-xs text-white"><i class="fa fa-calculator"></i> เงินกู้</a> ' .
-                    '<a onclick="deleteData('. $customer->id .')" class="btn btn-danger btn-xs text-white"><i class="fa fa-trash"></i> ลบออก</a>';
+                    // '<a href="' .route('admin.withdraw.show', $customer->id). '" class="btn btn-info btn-xs text-white"><i class="fa fa-credit-card"></i> ถอน</a> ' .
+                    // '<a href="' .route('admin.loan.show', $customer->id). '" class="btn btn-info btn-xs text-white"><i class="fa fa-calculator"></i> เงินกู้</a> ' .
+                    '<a onclick="deleteData('. $customer->id .')" class="btn btn-danger btn-xs text-white"><i class="fa fa-trash"></i> ลบออก</a>';                                   
                 } else {
                     return 
                     '<a href="' .route('admin.customer.viewcreatebyid', $customer->id). '" class="btn btn-primary btn-xs text-white"><i class="fa fa-check"></i> สร้าง</a> ' .
                     '<a onclick="changepassword('. $customer->id .')" class="btn btn-warning btn-xs text-white"><i class="fa fa-lock"></i> เปลี่ยนรหัสผ่าน</a> ' .
                     '<a href="' .route('admin.customer.show', $customer->id). '" class="btn btn-success btn-xs text-white"><i class="fa fa-eye"></i> แสดง</a> ' .
                     '<a href="' .route('admin.deposit.show', $customer->id). '" class="btn btn-info btn-xs text-white"><i class="fa fa-dollar-sign"></i> เติมเงิน</a> ' .
-                    '<a href="' .route('admin.withdraw.show', $customer->id). '" class="btn btn-info btn-xs text-white"><i class="fa fa-credit-card"></i> ถอน</a> ' .
-                    '<a href="' .route('admin.loan.show', $customer->id). '" class="btn btn-info btn-xs text-white"><i class="fa fa-calculator"></i> เงินกู้</a> ' .
+                    // '<a href="' .route('admin.withdraw.show', $customer->id). '" class="btn btn-info btn-xs text-white"><i class="fa fa-credit-card"></i> ถอน</a> ' .
+                    // '<a href="' .route('admin.loan.show', $customer->id). '" class="btn btn-info btn-xs text-white"><i class="fa fa-calculator"></i> เงินกู้</a> ' .
                     '<a onclick="deleteData('. $customer->id .')" class="btn btn-danger btn-xs text-white"><i class="fa fa-trash"></i> ลบออก</a>';
                 }
+
+
+
             })->make(true);
         }
 
@@ -201,13 +204,15 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
+        
         $customer = Customer::join('banks', 'banks.id_customer', '=', 'customers.id')
             ->join('document_ids', 'document_ids.id_customer', '=', 'customers.id')
-            ->select('customers.*', 'banks.*', 'document_ids.*')
+            ->select('customers.*', 'customers.id AS customer_id', 'banks.*', 'document_ids.*')
             ->where('customers.id', '=', $id)
             ->first();
         return view('customer.editcustomer', [
             'customer' => $customer,
+            
         ]);
     }
 
@@ -226,41 +231,50 @@ class CustomerController extends Controller
     public function updateCustomer(Request $request, $id)
     {
 
-        $customer = Customer::join('banks', 'banks.id_customer', '=', 'customers.id')
-            ->join('document_ids', 'document_ids.id_customer', '=', 'customers.id')
-            ->join('signatures', 'signatures.id_customer', '=', 'customers.id')
-            ->select('customers.*', 'banks.*', 'document_ids.*', 'signatures.status AS sign_status')
-            ->where('customers.id', '=', $id)
-            ->first();
-
+        $document = DocumentId::where('id_customer', $request->id)->first();
+        
         $image1 = $request->file('frontImage');
         $image2 = $request->file('backImage');
         $image3 = $request->file('fullImage');
 
-        if (isset($image1) && isset($image2) && isset($image3)) {
-            $currentDate = Carbon::now()->toDateString();
+            if (isset($image1) && isset($image2) && isset($image3)) {
+                $currentDate = Carbon::now()->toDateString();
 
-            $imageName1 = $currentDate . '-' . uniqid() . '.' . $image1->getClientOriginalExtension();
-            $imageName2 = $currentDate . '-' . uniqid() . '.' . $image2->getClientOriginalExtension();
-            $imageName3 = $currentDate . '-' . uniqid() . '.' . $image3->getClientOriginalExtension();
+                $imageName1 = $currentDate . '-' . uniqid() . '.' . $image1->getClientOriginalExtension();
+                $imageName2 = $currentDate . '-' . uniqid() . '.' . $image2->getClientOriginalExtension();
+                $imageName3 = $currentDate . '-' . uniqid() . '.' . $image3->getClientOriginalExtension();
 
-            if(!Storage::disk('public')->exists('customer'))
-            {
-                Storage::disk('public')->makeDirectory('customer');
+                if(!Storage::disk('public')->exists('customer'))
+                {
+                    Storage::disk('public')->makeDirectory('customer');
+                }
+
+                $postImage1 = Image::make($image1)->stream();
+                $postImage2 = Image::make($image2)->stream();
+                $postImage3 = Image::make($image3)->stream();
+
+                Storage::disk('public')->delete('customer/' . $document->front );
+                Storage::disk('public')->delete('customer/' . $document->back);
+                Storage::disk('public')->delete('customer/' . $document->full);
+
+                Storage::disk('public')->put('customer/' . $imageName1, $postImage1);
+                Storage::disk('public')->put('customer/' . $imageName2, $postImage2);
+                Storage::disk('public')->put('customer/' . $imageName3, $postImage3);
+
+                $document = DocumentId::where('id_customer', $request->id)
+            ->update([
+                'front' => $imageName1,
+                'back' => $imageName2,
+                'full' => $imageName3,
+            ]);  
             }
 
-            $postImage1 = Image::make($image1)->stream();
-            $postImage2 = Image::make($image2)->stream();
-            $postImage3 = Image::make($image3)->stream();
+            $document = DocumentId::where('id_customer', $request->id)
+            ->update([
+                'name' => $request->name,
+                'id_number' => $request->idNumber,
 
-            Storage::disk('public')->delete('customer/' . $customer->front );
-            Storage::disk('public')->delete('customer/' . $customer->back);
-            Storage::disk('public')->delete('customer/' . $customer->full);
-
-            Storage::disk('public')->put('customer/' . $imageName1, $postImage1);
-            Storage::disk('public')->put('customer/' . $imageName2, $postImage2);
-            Storage::disk('public')->put('customer/' . $imageName3, $postImage3);
-        }
+            ]);
 
         $customer = Customer::where('id', $request->id)
         ->update([
@@ -270,15 +284,6 @@ class CustomerController extends Controller
             'current_address' => $request->currentAddress,
             'emergency_contact_number' => $request->otherContact,
             'status' => 'complete',
-        ]);
-
-        $document = DocumentId::where('id_customer', $request->id)
-        ->update([
-            'name' => $request->name,
-            'id_number' => $request->idNumber,
-            'front' => $imageName1,
-            'back' => $imageName2,
-            'full' => $imageName3,
         ]);
 
         $bank = Bank::where('id_customer', $request->id)

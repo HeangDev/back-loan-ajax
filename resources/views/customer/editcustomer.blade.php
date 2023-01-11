@@ -26,9 +26,9 @@
                             <a href="{{ route('admin.customer.index') }}" class="btn btn-primary btn-sm float-right"><i class="fas fa-chevron-left"></i> รายชื่อลูกค้า</a>
                         </div>
                         <div class="card-body">
-                            <form method="POST" action="{{ route('admin.customer.updatecustomer', $customer->id) }}" autocomplete="off" enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('admin.customer.updatecustomer', $customer->customer_id) }}" autocomplete="off" enctype="multipart/form-data">
                                 {{ csrf_field() }} {{ method_field('POST') }}
-                                <input type="hidden" value="{{ $customer->id }}" name="id">
+                                <input type="" value="{{ $customer->customer_id}}" name="id">
                                 <fieldset>
                                     <legend>กรอกข้อมูลจริงและถูกต้องการตรวจสอบจะผ่านไป</legend>
                                     <div class="row">
@@ -148,7 +148,9 @@
                                                         <span style="color: #df4759; font-size: 80%; margin-top: .25rem;">{{ $message }}</span>
                                                     @enderror
                                                     <div class="card">
-                                                        <div class="img-frontImage"><img src="{{ asset('storage/customer/') . '/' . $customer->front }}" class="img-fluid rounded mx-auto d-block " id="upload-front"/></div>
+                                                        <div class="img-frontImage">
+                                                            
+                                                        </div>
                                                     </div>
                                                     
                                                 </div>
