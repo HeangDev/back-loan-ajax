@@ -39,8 +39,6 @@ class CustomerController extends Controller
                     '<a onclick="changepassword('. $customer->id .')" class="btn btn-warning btn-xs text-white"><i class="fa fa-lock"></i> เปลี่ยนรหัสผ่าน</a> ' .
                     '<a href="' .route('admin.customer.show', $customer->id). '" class="btn btn-success btn-xs text-white"><i class="fa fa-eye"></i> แสดง</a> ' .
                     '<a href="' .route('admin.deposit.show', $customer->id). '" class="btn btn-info btn-xs text-white"><i class="fa fa-dollar-sign"></i> เติมเงิน</a> ' .
-                    '<a href="' .route('admin.withdraw.show', $customer->id). '" class="btn btn-info btn-xs text-white"><i class="fa fa-credit-card"></i> ถอน</a> ' .
-                    '<a href="' .route('admin.loan.show', $customer->id). '" class="btn btn-info btn-xs text-white"><i class="fa fa-calculator"></i> เงินกู้</a> ' .
                     '<a onclick="deleteData('. $customer->id .')" class="btn btn-danger btn-xs text-white"><i class="fa fa-trash"></i> ลบออก</a>';
                 } else {
                     return 
@@ -48,8 +46,6 @@ class CustomerController extends Controller
                     '<a onclick="changepassword('. $customer->id .')" class="btn btn-warning btn-xs text-white"><i class="fa fa-lock"></i> เปลี่ยนรหัสผ่าน</a> ' .
                     '<a href="' .route('admin.customer.show', $customer->id). '" class="btn btn-success btn-xs text-white"><i class="fa fa-eye"></i> แสดง</a> ' .
                     '<a href="' .route('admin.deposit.show', $customer->id). '" class="btn btn-info btn-xs text-white"><i class="fa fa-dollar-sign"></i> เติมเงิน</a> ' .
-                    '<a href="' .route('admin.withdraw.show', $customer->id). '" class="btn btn-info btn-xs text-white"><i class="fa fa-credit-card"></i> ถอน</a> ' .
-                    '<a href="' .route('admin.loan.show', $customer->id). '" class="btn btn-info btn-xs text-white"><i class="fa fa-calculator"></i> เงินกู้</a> ' .
                     '<a onclick="deleteData('. $customer->id .')" class="btn btn-danger btn-xs text-white"><i class="fa fa-trash"></i> ลบออก</a>';
                 }
             })->make(true);
@@ -316,12 +312,6 @@ class CustomerController extends Controller
         $document->delete();
         $customer = Customer::find($id);
         $customer->delete();
-    }
-
-    public function viewChangePassword()
-    {
-        $customer = Ccustomer::find($id);
-        return $customer;
     }
 
     public function updatePassword(Request $request, $id)
