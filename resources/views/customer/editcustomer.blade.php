@@ -28,7 +28,7 @@
                         <div class="card-body">
                             <form method="POST" action="{{ route('admin.customer.updatecustomer', $customer->customer_id) }}" autocomplete="off" enctype="multipart/form-data">
                                 {{ csrf_field() }} {{ method_field('POST') }}
-                                <input type="" value="{{ $customer->customer_id}}" name="id">
+                                <input type="hidden" value="{{ $customer->customer_id}}" name="id">
                                 <fieldset>
                                     <legend>กรอกข้อมูลจริงและถูกต้องการตรวจสอบจะผ่านไป</legend>
                                     <div class="row">
