@@ -23,7 +23,6 @@
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title float-left">เบิกเงิน</h4>
-                            <a href="{{ route('admin.customer.index') }}" class="btn btn-primary btn-sm float-right"><i class="fas fa-plus"></i> รายชื่อลูกค้า</a>
                         </div>
                         <div class="card-body">
                             
@@ -31,6 +30,8 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
+                                        <th>ชื่อ</th>
+                                        <th>หมายเลขโทรศัพท์</th>
                                         <th>จำนวนเงิน</th>
                                         <th>วันที่ฝาก</th>
                                         <th>สถานะ</th>
@@ -107,9 +108,17 @@
 			},
 			columns: [
 				{data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
+                {data: 'customer_name', name: 'customer_name'},
+                {data: 'customer_tel', name: 'customer_tel'},
 				{data: 'withdraw_amount', name: 'withdraw_amount'},
 				{data: 'withdraw_date', name: 'withdraw_date'},
-                {data: 'status', name: 'status'},
+                {
+					data: 'status',
+					name: 'status',
+					render: function(data, type, full, meta) {
+						return "<span class='badge badge-pill badge-primary'>" + data + "</span>";
+					},
+				},
 				{data: 'action', name: 'action', orderable: false},
 			],
 			order: [[0, 'desc']]
@@ -147,10 +156,10 @@
             });
         });
 
-        function editForm(id) {
+        function editData(id) {
             save_method = 'edit';
             $('input[name=_method]').val('PATCH');
-            $('#modal-form-deposit form')[0].reset();
+            $('#modal-form-withdraw form')[0].reset();
             $.ajax({
                 url: "{{ url('withdraw') }}" + '/' + id + "/edit",
                 type: "GET",

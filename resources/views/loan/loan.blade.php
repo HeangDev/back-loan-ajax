@@ -23,7 +23,6 @@
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title float-left">เบิกเงิน</h4>
-                            <a href="{{ route('admin.customer.index') }}" class="btn btn-primary btn-sm float-right"><i class="fas fa-plus"></i> รายชื่อลูกค้า</a>
                         </div>
                         <div class="card-body">
                             
@@ -31,8 +30,13 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
+                                        <th>ชื่อ</th>
+                                        <th>หมายเลขโทรศัพท์</th>
                                         <th>จำนวนเงิน</th>
-                                        <th>วันที่ฝาก</th>
+                                        <th>ดอกเบี้ย</th>
+                                        <th>จำนวนเงินกู้รวมดอกเบี้ย</th>
+                                        <th>อัตราจ่ายต่อเดือน</th>
+                                        <th>วันที่ยืม</th>
                                         <th>สถานะ</th>
                                         <th>ตัวเลือก</th>
                                     </tr>
@@ -61,11 +65,19 @@
                     <input type="hidden" id="loan_id" name="loan_id">
                     <div class="form-group">
                         <label>จำนวนเงิน <span style="color: red;">*</span></label>
-                        <input type="text" class="form-control form-control-sm" name="amount" id="amount">
+                        <input type="text" class="form-control form-control-sm" name="amount" id="amount" required>
                     </div>
                     <div class="form-group">
-                        <label>สถานะ</label>
-                        <input type="text" class="form-control form-control-sm" name="status" id="status">
+                        <label>ดอกเบี้ย <span style="color: red;">*</span></label>
+                        <input type="text" class="form-control form-control-sm" name="interest" id="interest" required>
+                    </div>
+                    <div class="form-group">
+                        <label>จำนวนเงินกู้รวมดอกเบี้ย</label>
+                        <input type="text" readonly class="form-control form-control-sm" name="total" id="total">
+                    </div>
+                    <div class="form-group">
+                        <label>อัตราจ่ายต่อเดือน</label>
+                        <input type="text" readonly class="form-control form-control-sm" name="pay_month" id="pay_month">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -83,7 +95,6 @@
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			}
 		});
-        var id = $('#id_customer').val();
         var table = $('#loan').DataTable({
 			responsive: true,
 			autoWidth: false,
@@ -107,8 +118,13 @@
 			},
 			columns: [
 				{data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
-				{data: 'loan_amount', name: 'loan_amount'},
-				{data: 'loan_date', name: 'loan_date'},
+                {data: 'customer_name', name: 'customer_name'},
+                {data: 'customer_tel', name: 'customer_tel'},
+				{data: 'amount', name: 'amount'},
+                {data: 'interest', name: 'interest'},
+                {data: 'total', name: 'total'},
+                {data: 'pay_month', name: 'pay_month'},
+				{data: 'date', name: 'date'},
                 {data: 'status', name: 'status'},
 				{data: 'action', name: 'action', orderable: false},
 			],
@@ -147,10 +163,10 @@
             });
         });
 
-        function editForm(id) {
+        function editData(id) {
             save_method = 'edit';
             $('input[name=_method]').val('PATCH');
-            $('#modal-form-deposit form')[0].reset();
+            $('#modal-form-loan form')[0].reset();
             $.ajax({
                 url: "{{ url('loan') }}" + '/' + id + "/edit",
                 type: "GET",
@@ -159,8 +175,10 @@
                     $('#modal-form-loan').modal('show');
                     $('.modal-title').text('แก้ไขระยะเวลา');
                     $('#loan_id').val(data.id);
-                    $('#amount').val(data.loan_amount);
-                    $('#status').val(data.status);
+                    $('#amount').val(data.amount);
+                    $('#interest').val(data.interest);
+                    $('#total').val(data.total);
+                    $('#pay_month').val(data.pay_month);
                 },
                 error: function() {
                     swal({

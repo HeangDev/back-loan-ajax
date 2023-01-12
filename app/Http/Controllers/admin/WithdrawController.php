@@ -21,12 +21,12 @@ class WithdrawController extends Controller
                 Withdraw::join('customers', 'customers.id', '=', 'withdraws.id_customer')
                 ->join('document_ids', 'document_ids.id_customer', '=', 'withdraws.id_customer')
                 ->join('deposits', 'deposits.id_customer', '=', 'withdraws.id_customer')
-                ->select('withdraws.*', 'customers.tel', 'document_ids.name', 'deposits.withdraw_code' )
+                ->select('withdraws.*', 'customers.tel AS customer_tel', 'document_ids.name AS customer_name', 'deposits.withdraw_code' )
                 ->orderBy('id', 'DESC')
             )
             ->addIndexColumn()
             ->addColumn('action', function($withdraw) {
-                return  '<a href="' .route('admin.withdraw.edit', $withdraw->id). '" class="btn btn-primary btn-xs text-white"><i class="fa fa-edit"></i> แก้ไข</a>' .
+                return  '<a onclick="editData('. $withdraw->id .')" class="btn btn-primary btn-xs text-white"><i class="fa fa-edit"></i> แก้ไข</a>' .
                         ' <a onclick="deleteData('. $withdraw->id .')" class="btn btn-danger btn-xs text-white"><i class="fa fa-trash"></i> ลบออก</a>';
             })->make(true);
         }
@@ -71,23 +71,7 @@ class WithdrawController extends Controller
      */
     public function show($id)
     {
-        if(request()->ajax()) {
-            return datatables()->of(
-                Withdraw::where('customers.id', '=', $id)
-                ->join('users', 'users.id', '=', 'withdraws.id_user')
-                ->select('users.*', 'withdraws.*')
-                ->get()
-            )
-            ->addIndexColumn()
-            ->addColumn('action', function($withdraw) {
-                return '<a onclick="editForm('. $withdraw->id .')" class="btn btn-primary btn-xs text-white"><i class="fa fa-edit"></i> แก้ไข</a>' . ' <a onclick="deleteData('. $withdraw->id .')" class="btn btn-danger btn-xs text-white"><i class="fa fa-trash"></i> ลบออก</a>';
-            })->make(true);
-        }
-        
-        $withdraw = Withdraw::where('id_customer', $id)->first();
-        return view('withdraw.withdraw', [
-            'withdraw' => $withdraw
-        ]);
+        //
     }
 
     /**
