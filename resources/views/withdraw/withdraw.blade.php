@@ -26,7 +26,7 @@
                             <a href="{{ route('admin.customer.index') }}" class="btn btn-primary btn-sm float-right"><i class="fas fa-plus"></i> รายชื่อลูกค้า</a>
                         </div>
                         <div class="card-body">
-                            <input type="hidden" value="{{ $withdraw->id_customer }}" name="id_customer" id="id_customer">
+                            
                             <table class="table table-bordered table-striped" id="withdraw">
                                 <thead>
                                     <tr>
@@ -102,7 +102,7 @@
                 }
             },
 			ajax: {
-				url: "{{ url('withdraw') . '/' }}" + id,
+				url: "{{ route('admin.withdraw.index') }}",
 				type: 'GET',
 			},
 			columns: [

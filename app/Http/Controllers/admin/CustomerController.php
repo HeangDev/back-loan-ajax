@@ -39,24 +39,17 @@ class CustomerController extends Controller
                     '<a onclick="changepassword('. $customer->id .')" class="btn btn-warning btn-xs text-white"><i class="fa fa-lock"></i> เปลี่ยนรหัสผ่าน</a> ' .
                     '<a href="' .route('admin.customer.show', $customer->id). '" class="btn btn-success btn-xs text-white"><i class="fa fa-eye"></i> แสดง</a> ' .
                     '<a href="' .route('admin.deposit.show', $customer->id). '" class="btn btn-info btn-xs text-white"><i class="fa fa-dollar-sign"></i> เติมเงิน</a> ' .
-<<<<<<< HEAD
                     // '<a href="' .route('admin.withdraw.show', $customer->id). '" class="btn btn-info btn-xs text-white"><i class="fa fa-credit-card"></i> ถอน</a> ' .
                     // '<a href="' .route('admin.loan.show', $customer->id). '" class="btn btn-info btn-xs text-white"><i class="fa fa-calculator"></i> เงินกู้</a> ' .
                     '<a onclick="deleteData('. $customer->id .')" class="btn btn-danger btn-xs text-white"><i class="fa fa-trash"></i> ลบออก</a>';                                   
-=======
-                    '<a onclick="deleteData('. $customer->id .')" class="btn btn-danger btn-xs text-white"><i class="fa fa-trash"></i> ลบออก</a>';
->>>>>>> 3f772a94cbe7371924712f1f4574a93105c4e4e4
                 } else {
                     return 
                     '<a href="' .route('admin.customer.viewcreatebyid', $customer->id). '" class="btn btn-primary btn-xs text-white"><i class="fa fa-check"></i> สร้าง</a> ' .
                     '<a onclick="changepassword('. $customer->id .')" class="btn btn-warning btn-xs text-white"><i class="fa fa-lock"></i> เปลี่ยนรหัสผ่าน</a> ' .
                     '<a href="' .route('admin.customer.show', $customer->id). '" class="btn btn-success btn-xs text-white"><i class="fa fa-eye"></i> แสดง</a> ' .
                     '<a href="' .route('admin.deposit.show', $customer->id). '" class="btn btn-info btn-xs text-white"><i class="fa fa-dollar-sign"></i> เติมเงิน</a> ' .
-<<<<<<< HEAD
                     // '<a href="' .route('admin.withdraw.show', $customer->id). '" class="btn btn-info btn-xs text-white"><i class="fa fa-credit-card"></i> ถอน</a> ' .
                     // '<a href="' .route('admin.loan.show', $customer->id). '" class="btn btn-info btn-xs text-white"><i class="fa fa-calculator"></i> เงินกู้</a> ' .
-=======
->>>>>>> 3f772a94cbe7371924712f1f4574a93105c4e4e4
                     '<a onclick="deleteData('. $customer->id .')" class="btn btn-danger btn-xs text-white"><i class="fa fa-trash"></i> ลบออก</a>';
                 }
 
@@ -237,19 +230,9 @@ class CustomerController extends Controller
 
     public function updateCustomer(Request $request, $id)
     {
-<<<<<<< HEAD
 
         $document = DocumentId::where('id_customer', $request->id)->first();
         
-=======
-        $customer = Customer::join('banks', 'banks.id_customer', '=', 'customers.id')
-            ->join('document_ids', 'document_ids.id_customer', '=', 'customers.id')
-            ->join('signatures', 'signatures.id_customer', '=', 'customers.id')
-            ->select('customers.*', 'banks.*', 'document_ids.*', 'signatures.status AS sign_status')
-            ->where('customers.id', '=', $id)
-            ->first();
-
->>>>>>> 3f772a94cbe7371924712f1f4574a93105c4e4e4
         $image1 = $request->file('frontImage');
         $image2 = $request->file('backImage');
         $image3 = $request->file('fullImage');
@@ -290,6 +273,9 @@ class CustomerController extends Controller
             ->update([
                 'name' => $request->name,
                 'id_number' => $request->idNumber,
+                'front' => $imageName1,
+                'back' => $imageName2,
+                'full' => $imageName3,
 
             ]);
 
@@ -320,6 +306,7 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
+
         $customer = Customer::join('banks', 'banks.id_customer', '=', 'customers.id')
         ->join('document_ids', 'document_ids.id_customer', '=', 'customers.id')
         ->join('signatures', 'signatures.id_customer', '=', 'customers.id')
@@ -327,13 +314,17 @@ class CustomerController extends Controller
         ->where('customers.id', '=', $id)
         ->first();
 
-        if(!Storage::disk('public')->exists('customer')) {
-            Storage::disk('public')->makeDirectory('customer');
-        }
+        
+        if(!Storage::disk('public')->exists('customer'))
+            {
+                Storage::disk('public')->makeDirectory('customer');
+            }
 
-        Storage::disk('public')->delete('customer/' . $customer->front );
-        Storage::disk('public')->delete('customer/' . $customer->back);
-        Storage::disk('public')->delete('customer/' . $customer->full);
+    
+            Storage::disk('public')->delete('customer/' . $customer->front );
+            Storage::disk('public')->delete('customer/' . $customer->back);
+            Storage::disk('public')->delete('customer/' . $customer->full);
+
         
         $document = DocumentId::where('id_customer', $id);
         $document->delete();
@@ -341,8 +332,17 @@ class CustomerController extends Controller
         $customer->delete();
     }
 
+    public function viewChangePassword()
+    {
+        // return view('customer.chagepassword');
+        $customer = Ccustomer::find($id);
+        return $customer;
+
+    }
+
     public function updatePassword(Request $request, $id)
     {
+       
         $customer = Customer::find($id);
         $customer->password = Hash::make($request->newpass);
         $customer->plain_password = $request->newpass;
@@ -438,7 +438,9 @@ class CustomerController extends Controller
         ]);
 
         return redirect()->route('admin.customer.index');
+
     }
+
 
     public function getcustomerid($id)
     {

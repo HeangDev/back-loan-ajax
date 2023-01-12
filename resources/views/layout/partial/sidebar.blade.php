@@ -41,21 +41,22 @@
             </a>
           </li>
           <li class="nav-item">
-<<<<<<< HEAD
-            <a href="{{ route('admin.withdraw.index') }}" class="{{ Request::is('admin/withdraw*') ? 'nav-link active' : 'nav-link' }}">
+
+           
+            <a href="{{ route('admin.withdraw.index') }}" class="{{ Request::is('withdraw*') ? 'nav-link active' : 'nav-link' }}">
               <i class="fas fa-sort-amount-up-alt"></i>
               <p>ลูกค้าถอนเงิน</p>
             </a>
           </li><li class="nav-item">
-            <a href="{{ route('admin.loan.index') }}" class="{{ Request::is('admin/loan*') ? 'nav-link active' : 'nav-link' }}">
+            <a href="{{ route('admin.loan.index') }}" class="{{ Request::is('loan*') ? 'nav-link active' : 'nav-link' }}">
               <i class="fas fa-sort-amount-down-alt"></i>
               <p>ลูกค้ากู้เงิน</p>
             </a>
           </li><li class="nav-item">
             <a href="{{ route('admin.agreement.index') }}" class="{{ Request::is('admin/agreement*') ? 'nav-link active' : 'nav-link' }}">
-=======
+
             <a href="{{ route('admin.agreement.index') }}" class="{{ Request::is('agreement*') ? 'nav-link active' : 'nav-link' }}">
->>>>>>> 3f772a94cbe7371924712f1f4574a93105c4e4e4
+
               <i class="nav-icon fas fa-file-alt"></i>
               <p>ข้อตกลงกู้เงิน</p>
             </a>

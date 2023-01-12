@@ -16,7 +16,22 @@ class WithdrawController extends Controller
      */
     public function index()
     {
-        //
+        if(request()->ajax()) {
+            return datatables()->of(
+                Withdraw::join('customers', 'customers.id', '=', 'withdraws.id_customer')
+                ->join('document_ids', 'document_ids.id_customer', '=', 'withdraws.id_customer')
+                ->join('deposits', 'deposits.id_customer', '=', 'withdraws.id_customer')
+                ->select('withdraws.*', 'customers.tel', 'document_ids.name', 'deposits.withdraw_code' )
+                ->orderBy('id', 'DESC')
+            )
+            ->addIndexColumn()
+            ->addColumn('action', function($withdraw) {
+                return  '<a href="' .route('admin.withdraw.edit', $withdraw->id). '" class="btn btn-primary btn-xs text-white"><i class="fa fa-edit"></i> แก้ไข</a>' .
+                        ' <a onclick="deleteData('. $withdraw->id .')" class="btn btn-danger btn-xs text-white"><i class="fa fa-trash"></i> ลบออก</a>';
+            })->make(true);
+        }
+
+        return view('withdraw.withdraw');
     }
 
     /**

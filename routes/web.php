@@ -22,6 +22,8 @@ Route::group(['as' => 'admin.', 'namespace' => 'App\Http\Controllers\admin', 'mi
     Route::post('customer/updatecustomer/{id}', 'CustomerController@updateCustomer')->name('customer.updatecustomer');
     Route::get('customer/{id}/create', 'CustomerController@viewCreateById')->name('customer.viewcreatebyid');
     Route::post('customer/createbyid', 'CustomerController@createById')->name('customer.createbyid');
+
+    
     Route::post('ajax-user-update', 'UserController@userUpdate')->name('ajax.user.update');
     Route::resources([
         'duration' => DurationController::class,

@@ -19,7 +19,8 @@ class AgreementController extends Controller
             return datatables()->of(Agreement::select('*'))
             ->addIndexColumn()
             ->addColumn('action', function($agreement_id) {
-                return '<a href="' .route('admin.agreement.edit', $agreement_id->id). '" class="btn btn-primary btn-xs text-white"><i class="fa fa-edit"></i> แก้ไข</a>' . ' <a onclick="deleteData('. $agreement_id->id .')" class="btn btn-danger btn-xs text-white"><i class="fa fa-trash"></i> ลบออก</a>';
+                return  '<a href="' .route('admin.agreement.edit', $agreement_id->id). '" class="btn btn-primary btn-xs text-white"><i class="fa fa-edit"></i> แก้ไข</a>' .
+                        ' <a onclick="deleteData('. $agreement_id->id .')" class="btn btn-danger btn-xs text-white"><i class="fa fa-trash"></i> ลบออก</a>';
             })->make(true);
         }
 
