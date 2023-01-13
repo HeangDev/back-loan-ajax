@@ -273,9 +273,6 @@ class CustomerController extends Controller
             ->update([
                 'name' => $request->name,
                 'id_number' => $request->idNumber,
-                'front' => $imageName1,
-                'back' => $imageName2,
-                'full' => $imageName3,
 
             ]);
 
