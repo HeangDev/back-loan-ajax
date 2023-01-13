@@ -2,7 +2,7 @@
     <!-- Brand Logo -->
     <a href="{{ route('admin.dashboard') }}" class="brand-link">
       <!-- <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> -->
-      <span class="font-weight-light text-center">Promiseth</span>
+      <span class="font-weight-light text-center">SME Service</span>
     </a>
 
     <!-- Sidebar -->
