@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <title>Promiseth - Login</title>
+    <title>SME Service - Login</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/adminlte.min.css') }}">
@@ -14,7 +14,7 @@
 <body class="hold-transition login-page">
 
     <div class="login-box">
-        <div class="login-logo"><b>Admin</b>LTE</div>
+        <div class="login-logo"><b>Admin</b>SME Service</div>
 
         <div class="card">
             <div class="card-body login-card-body">
