@@ -115,7 +115,7 @@
 				{data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
 				{
 					data: 'name',
-					name: 'name',
+					name: 'document_ids.name',
 					render: function(data, type, full, meta) {
 						if (data == '' || data == null) {
 							return "ไม่สมบูรณ์";
@@ -125,7 +125,7 @@
 					},
 				},
 				{data: 'tel', name: 'tel'},
-				{data: 'deposit_amount', name: 'deposit_amount'},
+				{data: 'deposit_amount', name: 'deposits.deposit_amount'},
 				{
 					data: 'status',
 					name: 'status',
@@ -139,7 +139,7 @@
 				},
 				{
 					data: 'sign_status',
-					name: 'sign_status',
+					name: 'signatures.status',
 					render: function(data, type, full, meta) {
 						if (data == '1') {
 							return "<span class='badge badge-pill badge-primary'>เซ็นชื่อเรียบร้อยแล้วค่ะ</span>";
@@ -148,10 +148,10 @@
 						}
 					},
 				},
-				{data: 'deposits_status', name: 'deposits_status'},
+				{data: 'deposits_status', name: 'deposits.description'},
 				{
 					data: 'withdraw_code',
-					name: 'withdraw_code',
+					name: 'deposits.withdraw_code',
 					render: function(data, type, full, meta) {
 						if (data == '') {
 							return "<span class='badge badge-pill badge-primary'>ยังไม่มีรหัสถอนเงินค่ะ</span>";
