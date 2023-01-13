@@ -116,7 +116,11 @@
                                                 
                                             </div>
                                             <div class="card-body">
-                                                <img src="{{ asset('storage/customer/') . '/' . $customer->back }}" class="img-fluid"/>
+                                                @if($customer->sign == null)
+                                                    ยังไม่ได้เช็นชื่อ
+                                                @else
+                                                <img src="{{ asset('storage/customer/') . '/' . $customer->sign }}" class="img-fluid"/>
+                                                @endif
                                             </div>
                                         
                                     </div>
