@@ -313,11 +313,14 @@ class CustomerController extends Controller
         Storage::disk('public')->delete('customer/' . $customer->front);
         Storage::disk('public')->delete('customer/' . $customer->back);
         Storage::disk('public')->delete('customer/' . $customer->full);
+
         Storage::delete('public/customer' . '/' . $customer->front);
         Storage::delete('public/customer' . '/' . $customer->back);
         Storage::delete('public/customer' . '/' . $customer->full);
 
         $document = DocumentId::where('id_customer', $id);
+        $document->delete();
+        $signature = Signature::where('id_customer', $id);
         $document->delete();
         $customer = Customer::find($id);
         $customer->delete();
