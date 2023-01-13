@@ -306,7 +306,6 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-
         $customer = Customer::join('banks', 'banks.id_customer', '=', 'customers.id')
         ->join('document_ids', 'document_ids.id_customer', '=', 'customers.id')
         ->join('signatures', 'signatures.id_customer', '=', 'customers.id')
@@ -314,41 +313,26 @@ class CustomerController extends Controller
         ->where('customers.id', '=', $id)
         ->first();
 
-        
-        if(!Storage::disk('public')->exists('customer'))
-            {
-                Storage::disk('public')->makeDirectory('customer');
-            }
+        Storage::disk('public')->delete('customer/' . $customer->front);
+        Storage::disk('public')->delete('customer/' . $customer->back);
+        Storage::disk('public')->delete('customer/' . $customer->full);
+        Storage::delete('public/customer' . '/' . $customer->front);
+        Storage::delete('public/customer' . '/' . $customer->back);
+        Storage::delete('public/customer' . '/' . $customer->full);
 
-    
-            Storage::disk('public')->delete('customer/' . $customer->front );
-            Storage::disk('public')->delete('customer/' . $customer->back);
-            Storage::disk('public')->delete('customer/' . $customer->full);
-
-        
         $document = DocumentId::where('id_customer', $id);
         $document->delete();
         $customer = Customer::find($id);
         $customer->delete();
     }
 
-    public function viewChangePassword()
-    {
-        // return view('customer.chagepassword');
-        $customer = Ccustomer::find($id);
-        return $customer;
-
-    }
-
     public function updatePassword(Request $request, $id)
     {
-       
         $customer = Customer::find($id);
         $customer->password = Hash::make($request->newpass);
         $customer->plain_password = $request->newpass;
         $customer->save();
         return $customer;
-
     }
 
     public function viewCreateById($id)
@@ -441,11 +425,9 @@ class CustomerController extends Controller
 
     }
 
-
     public function getcustomerid($id)
     {
         $customer_id = Customer::find($id);
         return $customer_id;
-
     }
 }

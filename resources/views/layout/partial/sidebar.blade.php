@@ -23,7 +23,7 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
-            <a href="{{ route('admin.dashboard') }}" class="{{ Request::is('dashboard') ? 'nav-link active' : 'nav-link' }}">
+            <a href="{{ route('admin.dashboard') }}" class="{{ Request::is('/') ? 'nav-link active' : 'nav-link' }}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>หน้าแรก</p>
             </a>

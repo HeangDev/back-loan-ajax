@@ -96,8 +96,6 @@ class UserController extends Controller
         $user->status = 'complete';
         $user->save();
 
-        $u_id = $user->id;
-
         $document = DocumentId::where('id_customer', $id)
         ->update([
             'name' => $request->name,

@@ -113,12 +113,10 @@
                                                 <label>บัญชีธนาคาร</label>
                                                 <select class="form-control" name="bankName">
                                                     @foreach (\App\Models\Bank::bank_name() as $id => $name)
-                                                    
-                                                    @if($id == 15) 
-                                                      @continue
-                                                    @endif
-                                                        <option value="{{$id}}" {{ (old('bank_type') == $id) ? 'selected' : ''}}>{{ $name }}</option>
-                                                        
+                                                        @if($id == 15) 
+                                                            @continue
+                                                        @endif
+                                                            <option value="{{$name}}" {{ (old('bank_type') == $id) ? 'selected' : ''}}>{{ $name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>

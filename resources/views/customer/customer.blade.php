@@ -169,10 +169,8 @@
             $('#modal-form-changepass form').on('submit', function(e) {
             if (!e.isDefaultPrevented()) {
                 var id = $('#customer_id').val();
-                // if (save_method == 'add') url = "{{ url('admin/duration') }}";
-                // else url = "{{ url('admin/duration') . '/' }}" + id;
                 $.ajax({
-                    url: "{{ url('admin/customer/updatepassword') . '/' }}" + id,
+                    url: "{{ url('customer/updatepassword') . '/' }}" + id,
                     type: "POST",
                     data: $('#modal-form-changepass form').serialize(),
                     success: function(data) {
@@ -204,7 +202,7 @@
             $('input[name=_method]').val('PATCH');
             $('#modal-form-changepass form')[0].reset();
             $.ajax({
-                url: "{{ url('admin/customer/getcustomerid/') }}" + '/' + id + "/change",
+                url: "{{ url('customer/getcustomerid') }}" + '/' + id + "/change",
                 type: "GET",
                 dataType: "JSON",
                 success: function(data) {
@@ -238,7 +236,7 @@
 			}).then((result) => {
 				if (result.value) {
 					$.ajax({
-                        url: "{{ url('admin/customer') }}" + '/' + id,
+                        url: "{{ url('customer') }}" + '/' + id,
                         type: "POST",
                         data: {'_method' : 'DELETE', '_token' : csrf_token},
                         success: function(data) {
