@@ -45,6 +45,13 @@
                         </div>
 
                         <div class="card-body">
+                            <strong><i class="fas fa-map-marker-alt mr-1"></i>ธนาคาร</strong>
+                            <p class="text-muted">
+                                เลขบัญชี {{$customer->bank_acc}}<br/>
+                                ธนาคาร {{ \App\Models\Bank::bank_name($customer->bank_name) }}
+                            </p>
+                            
+                            <hr>
                             <strong><i class="fas fa-map-marker-alt mr-1"></i>ที่อยู่ปัจจุบัน</strong>
                             <p class="text-muted">
                                 {{$customer->current_address}}

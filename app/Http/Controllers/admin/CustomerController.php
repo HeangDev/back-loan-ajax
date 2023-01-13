@@ -292,7 +292,7 @@ class CustomerController extends Controller
             'bank_acc' => $request->bankAccount,
         ]);
 
-        return redirect()->back();
+        return redirect()->route('admin.customer.index');
     }
 
     /**
