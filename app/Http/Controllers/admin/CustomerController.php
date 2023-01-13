@@ -321,7 +321,7 @@ class CustomerController extends Controller
         $document = DocumentId::where('id_customer', $id);
         $document->delete();
         $signature = Signature::where('id_customer', $id);
-        $document->delete();
+        $signature->delete();
         $customer = Customer::find($id);
         $customer->delete();
     }
