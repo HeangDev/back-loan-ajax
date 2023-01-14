@@ -48,7 +48,7 @@
                             <strong><i class="fas fa-map-marker-alt mr-1"></i>ธนาคาร</strong>
                             <p class="text-muted">
                                 เลขบัญชี {{$customer->bank_acc}}<br/>
-                                ธนาคาร {{ \App\Models\Bank::bank_name($customer->bank_name) }}
+                                ธนาคาร {{$customer->bank_name}}
                             </p>
                             
                             <hr>
@@ -80,8 +80,13 @@
                                 <div class="card-header">
                                     <div class="text-center">ใส่รูปบัตรประชาชนข้างหน้า *</div>
                                 </div>
-                                <div class="card-body">
+                                <div class="card-body text-center">
+                                    @if($customer->front == null)
+                                        <span class="bg-warning p-2 rounded">ยังไม่ได้ส่งบัตรประชาชนข้างหลัง</span>
+                                    @else
                                     <img src="{{ asset('storage/customer/') . '/' . $customer->front }}" class="img-fluid"/>
+                                    @endif
+                                    
                                 </div>
                             </div>
                         </div>
@@ -90,8 +95,13 @@
                                 <div class="card-header">
                                     <div class="text-center">ใส่รูปบัตรประชาชนข้างหลัง *</div>
                                 </div>
-                                <div class="card-body">
+                                <div class="card-body text-center">
+                                    @if($customer->back == null)
+                                    <span class="bg-warning p-2 rounded">ยังไม่ได้ส่งบัตรประชาชนข้างหลัง</span>
+                                    @else
                                     <img src="{{ asset('storage/customer/') . '/' . $customer->back }}" class="img-fluid"/>
+                                    @endif
+                                    
                                 </div>
                             </div>
                         </div>
@@ -100,8 +110,13 @@
                                 <div class="card-header">
                                     <div class="text-center">ใส่รูปบัตรประชาชนคู่กับใบหน้า *</div>
                                 </div>
-                                <div class="card-body">
+                                <div class="card-body text-center">
+                                    @if($customer->full == null)
+                                    <span class="bg-warning p-2 rounded">ยังไม่ได้ส่งบัตรประชาชนคู่กับใบหน้า</span>
+                                    @else
                                     <img src="{{ asset('storage/customer/') . '/' . $customer->full }}" class="img-fluid"/>
+                                    @endif
+                                    
                                 </div>
                             </div>
                         </div>
@@ -122,11 +137,11 @@
                                                 <div class="text-center">ลายเซ็น *</div>
                                                 
                                             </div>
-                                            <div class="card-body">
+                                            <div class="card-body text-center">
                                                 @if($customer->sign == null)
-                                                    ยังไม่ได้เช็นชื่อ
+                                                <span class="bg-warning p-2 rounded">ยังไม่ได้เช็นชื่อ</span>
                                                 @else
-                                                <img src="{{ asset('storage/customer/') . '/' . $customer->sign }}" class="img-fluid"/>
+                                                <img src="{{ asset('storage/signature/') . '/' . $customer->sign }}" class="img-fluid"/>
                                                 @endif
                                             </div>
                                         

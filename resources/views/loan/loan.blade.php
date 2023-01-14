@@ -38,7 +38,7 @@
                                         <th>จำนวนเงินกู้รวมดอกเบี้ย</th>
                                         <th>อัตราจ่ายต่อเดือน</th>
                                         <th>วันที่ยืม</th>
-                                        <th>สถานะ</th>
+                                        {{-- <th>สถานะ</th> --}}
                                         <th>ตัวเลือก</th>
                                     </tr>
                                 </thead>
@@ -75,9 +75,13 @@
                     <div class="form-group">
                         <label>เดื่อน<span style="color: red;">*</span></label>
                         <select class="form-control" name="id_duration" id="id_duration">
-                            <option value="{{$loan->duration_id}}" {{ $loan->duration_id == $loan->id_duration ? 'selected' : '' }}>{{$loan->duration_month}}</option>
+                            @if($loan != '')
+                                <option value="{{$loan->duration_id}}" {{ $loan->duration_id == $loan->id_duration ? 'selected' : '' }}>{{$loan->duration_month}}</option>
+                            @endif
+                           
+                            
                             @foreach($durations as $duration)
-                            <option value="{{$duration->id}}">{{$duration->month}}</option>
+                                <option value="{{$duration->id ? : ''}}">{{$duration->month}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -140,7 +144,7 @@
                 {data: 'total', name: 'total'},
                 {data: 'pay_month', name: 'pay_month'},
 				{data: 'date', name: 'date'},
-                {data: 'status', name: 'status'},
+                // {data: 'status', name: 'status'},
 				{data: 'action', name: 'action', orderable: false},
 			],
 			order: [[0, 'desc']]

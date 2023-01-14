@@ -188,7 +188,7 @@ class CustomerController extends Controller
         $customer = Customer::join('banks', 'banks.id_customer', '=', 'customers.id')
             ->join('document_ids', 'document_ids.id_customer', '=', 'customers.id')
             ->join('signatures', 'signatures.id_customer', '=', 'customers.id')
-            ->select('customers.*', 'banks.*', 'document_ids.*', 'signatures.status AS sign_status')
+            ->select('customers.*', 'banks.*', 'document_ids.*', 'signatures.*')
             ->where('customers.id', '=', $id)
             ->first();
         return view('customer.showcustomer', [

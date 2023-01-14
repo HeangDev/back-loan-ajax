@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Loan;
 use App\Models\Duration;
+use DB;
 class LoanController extends Controller
 {
     /**
@@ -13,7 +14,7 @@ class LoanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(duration $duration)
     {
         if(request()->ajax()) {
             return datatables()->of(
@@ -26,16 +27,20 @@ class LoanController extends Controller
             ->addIndexColumn()
             ->addColumn('action', function($loan) {
                 return  '<a onclick="editData('. $loan->id .')" class="btn btn-primary btn-xs text-white"><i class="fa fa-edit"></i> แก้ไข</a>' .
-                        ' <a onclick="deleteData('. $loan->id .')" class="btn btn-danger btn-xs text-white"><i class="fa fa-trash"></i> ลบออก</a>';
+                        '<a onclick="deleteData('. $loan->id .')" class="btn btn-danger btn-xs text-white"><i class="fa fa-trash"></i> ลบออก</a>';
             })->make(true);
         }
+       
         $durations = Duration::all();
-        $loan = Loan::join('durations', 'durations.id', '=', 'loans.id_duration')
-        ->select('loans.*','durations.id AS duration_id', 'durations.month AS duration_month')
-        ->orderBy('id', 'DESC')->first();
+        $loan = Loan::join('customers', 'customers.id', '=', 'loans.id_customer')
+        ->join('document_ids', 'document_ids.id_customer', '=', 'loans.id_customer')
+        ->join('durations', 'durations.id', '=', 'loans.id_duration')
+        ->select('loans.*', 'customers.tel AS customer_tel', 'document_ids.name AS customer_name', 'durations.id AS duration_id', 'durations.month AS duration_month')
+        ->first();
         return view('loan.loan',[
             'loan' => $loan,
-            'durations' => $durations
+            'durations' => $durations,
+
         ]);
     }
 
