@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Loan;
-
+use App\Models\Duration;
 class LoanController extends Controller
 {
     /**
@@ -29,8 +29,14 @@ class LoanController extends Controller
                         ' <a onclick="deleteData('. $loan->id .')" class="btn btn-danger btn-xs text-white"><i class="fa fa-trash"></i> ลบออก</a>';
             })->make(true);
         }
-
-        return view('loan.loan');
+        $durations = Duration::all();
+        $loan = Loan::join('durations', 'durations.id', '=', 'loans.id_duration')
+        ->select('loans.*','durations.id AS duration_id', 'durations.month AS duration_month')
+        ->orderBy('id', 'DESC')->first();
+        return view('loan.loan',[
+            'loan' => $loan,
+            'durations' => $durations
+        ]);
     }
 
     /**

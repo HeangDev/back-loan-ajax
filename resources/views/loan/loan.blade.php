@@ -73,6 +73,15 @@
                         <input type="text" class="form-control form-control-sm" name="interest" id="interest" required>
                     </div>
                     <div class="form-group">
+                        <label>เดื่อน<span style="color: red;">*</span></label>
+                        <select class="form-control" name="id_duration" id="id_duration">
+                            <option value="{{$loan->duration_id}}" {{ $loan->duration_id == $loan->id_duration ? 'selected' : '' }}>{{$loan->duration_month}}</option>
+                            @foreach($durations as $duration)
+                            <option value="{{$duration->id}}">{{$duration->month}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label>จำนวนเงินกู้รวมดอกเบี้ย</label>
                         <input type="text" readonly class="form-control form-control-sm" name="total" id="total">
                     </div>
@@ -82,7 +91,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success btn-sm btn-save">ประหยัด</button>
+                    <button type="submit" class="btn btn-success btn-sm btn-save">ยืนยั่น</button>
                 </div>
             </form>
             </div>
@@ -185,6 +194,7 @@
                     $('#loan_id').val(data.id);
                     $('#amount').val(data.amount);
                     $('#interest').val(data.interest);
+                    $('#duration_month').val(data.duration_month);
                     $('#total').val(data.total);
                     $('#pay_month').val(data.pay_month);
                 },
