@@ -34,6 +34,7 @@
                                         <th>หมายเลขโทรศัพท์</th>
                                         <th>จำนวนเงิน</th>
                                         <th>ดอกเบี้ย</th>
+                                        <th>เดื่อน</th>
                                         <th>จำนวนเงินกู้รวมดอกเบี้ย</th>
                                         <th>อัตราจ่ายต่อเดือน</th>
                                         <th>วันที่ยืม</th>
@@ -90,11 +91,13 @@
 @endsection
 @section('script')
     <script type="text/javascript">
+        
         $.ajaxSetup({
 			headers: {
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			}
 		});
+        
         var table = $('#loan').DataTable({
 			responsive: true,
 			autoWidth: false,
@@ -116,12 +119,15 @@
 				url: "{{ route('admin.loan.index') }}",
 				type: 'GET',
 			},
+            
+            
 			columns: [
 				{data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
                 {data: 'customer_name', name: 'customer_name'},
                 {data: 'customer_tel', name: 'customer_tel'},
 				{data: 'amount', name: 'amount'},
                 {data: 'interest', name: 'interest'},
+                {data: 'duration_month', name: 'duration_month'},
                 {data: 'total', name: 'total'},
                 {data: 'pay_month', name: 'pay_month'},
 				{data: 'date', name: 'date'},
@@ -130,6 +136,8 @@
 			],
 			order: [[0, 'desc']]
 		});
+
+        
 
         $(function() {
             $('#modal-form-loan form').on('submit', function(e) {
@@ -230,5 +238,7 @@
 				}
 			})
         }
+
+       
     </script>
 @endsection

@@ -19,7 +19,8 @@ class LoanController extends Controller
             return datatables()->of(
                 Loan::join('customers', 'customers.id', '=', 'loans.id_customer')
                 ->join('document_ids', 'document_ids.id_customer', '=', 'loans.id_customer')
-                ->select('loans.*', 'customers.tel AS customer_tel', 'document_ids.name AS customer_name')
+                ->join('durations', 'durations.id', '=', 'loans.id_duration')
+                ->select('loans.*', 'customers.tel AS customer_tel', 'document_ids.name AS customer_name', 'durations.month AS duration_month')
                 ->orderBy('id', 'DESC')
             )
             ->addIndexColumn()
