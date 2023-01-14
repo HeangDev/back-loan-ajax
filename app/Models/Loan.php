@@ -19,4 +19,6 @@ class Loan extends Model
         'date',
         'status'
     ];
+
+    
 }

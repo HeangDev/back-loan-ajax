@@ -23,4 +23,6 @@ class Customer extends Model
         'credit',
         'status'
     ];
+
+    
 }

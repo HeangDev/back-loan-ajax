@@ -107,7 +107,6 @@
                                                     <option value="ธนาคารเกียรตินาคิน">ธนาคารเกียรตินาคิน</option>
                                                     <option value="ทรูวอลเล็ท">ทรูวอลเล็ท</option>                          
                                                     <option value="ธนาคาร ไอซีบีซี(ICBC)">ธนาคาร ไอซีบีซี(ICBC)</option>             
-                                                    
                                                 </select>
                                             </div>
                                         </div>
