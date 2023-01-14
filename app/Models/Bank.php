@@ -18,7 +18,7 @@ class Bank extends Model
 
     public static function bank_name($name_id = null) {
         $all_name = [
-            '1' => 'ธนาคารไทยพาณิชย์ （SCB）',
+            '1' => 'ธนาคารไทยพาณิชย์（SCB）',
             '2' => 'ธนาคาร กสิกรไทย （KBANK)',
             '3' => 'ธนาคาร กรุงศรีอยุธยา （BAY)',
             '4' => 'ธนาคาร กรุงไทย （KTB)',

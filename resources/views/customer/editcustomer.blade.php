@@ -90,16 +90,23 @@
                                             <div class="form-group">
                                                 <label>บัญชีธนาคาร</label>
                                                 <select class="form-control" name="bankName">
-                                                    <option value="{{ $customer->id }}" {{ $customer->id ==  $customer->id_coustomer ? 'selected' : '' }}>{{ \App\Models\Bank::bank_name($customer->bank_name) }}</option>
-                                                    @foreach (\App\Models\Bank::bank_name() as $id => $name)
-                                                    
-                                                    @if($id == 15) 
-                                                      @continue
-                                                    @endif
-                                                        <option value="{{$id}}" {{ (old('bank_type') == $id) ? 'selected' : ''}}>{{ $name }}</option>
-                                                        
-                                                    @endforeach
-                                                    
+                                                    <option value="{{ $customer->bank_name }}" {{ $customer->id ==  $customer->id_coustomer ? 'selected' : '' }}>{{ $customer->bank_name }}</option>
+                                                    <option value="ธนาคารไทยพาณิชย์（SCB）">ธนาคารไทยพาณิชย์ （SCB）</option>
+                                                    <option value="ธนาคาร กสิกรไทย （KBANK)">ธนาคาร กสิกรไทย （KBANK)</option>
+                                                    <option value="ธนาคาร กรุงศรีอยุธยา （BAY)">ธนาคาร กรุงศรีอยุธยา （BAY)</option>
+                                                    <option value="ธนาคาร กรุงไทย （KTB)">ธนาคาร กรุงไทย （KTB)</option>
+                                                    <option value="ธนาคาร กรุงเทพ（BBL)">ธนาคาร กรุงเทพ（BBL)</option>
+                                                    <option value="ธนาคารเพื่อการเกษตร ธ ก ส（BAAC）">ธนาคารเพื่อการเกษตร ธ ก ส（BAAC）</option>
+                                                    <option value="ธนาคาร ทหารไทย （TTB)">ธนาคาร ทหารไทย （TTB)</option>
+                                                    <option value="ธนาคาร ซีไอเอ็มบี ไทย(CIMB)">ธนาคาร ซีไอเอ็มบี ไทย(CIMB)</option>
+                                                    <option value="ธนาคาร ยูโอบี (UOB)">ธนาคาร ยูโอบี (UOB)</option>
+                                                    <option value="ธนาคาร ออมสิน(GSB)">ธนาคาร ออมสิน(GSB)</option>
+                                                    <option value="ธนาคารแลนด์ แอนด์ เฮ้าส์">ธนาคารแลนด์ แอนด์ เฮ้าส์</option>
+                                                    <option value="ธนาคาร ธนชาติ（TBANK)">ธนาคาร ธนชาติ（TBANK)</option>
+                                                    <option value="ธนาคารทิสโก้">ธนาคารทิสโก้</option>
+                                                    <option value="ธนาคารเกียรตินาคิน">ธนาคารเกียรตินาคิน</option>
+                                                    <option value="ทรูวอลเล็ท">ทรูวอลเล็ท</option>                          
+                                                    <option value="ธนาคาร ไอซีบีซี(ICBC)">ธนาคาร ไอซีบีซี(ICBC)</option>             
                                                     
                                                 </select>
                                             </div>
