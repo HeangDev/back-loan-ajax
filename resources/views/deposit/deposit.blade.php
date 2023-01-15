@@ -75,7 +75,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success btn-sm btn-save">ประหยัด</button>
+                    <button type="submit" class="btn btn-success btn-sm btn-save">ยืนยั่น</button>
                 </div>
             </form>
             </div>
@@ -180,12 +180,12 @@
             $('input[name=_method]').val('PATCH');
             $('#modal-form-deposit form')[0].reset();
             $.ajax({
-                url: "{{ url('admin/deposit') }}" + '/' + id + "/edit",
+                url: "{{ url('deposit') }}" + '/' + id + "/edit",
                 type: "GET",
                 dataType: "JSON",
                 success: function(data) {
                     $('#modal-form-deposit').modal('show');
-                    $('.modal-title').text('แก้ไขระยะเวลา');
+                    $('.modal-title').text('แก้ไขยอกเงิน');
                     $('#deposit_id').val(data.id);
                     $('#withdrawCode').val(data.withdraw_code);
                     $('#amount').val(data.deposit_amount);

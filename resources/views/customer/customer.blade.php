@@ -207,7 +207,7 @@
                 dataType: "JSON",
                 success: function(data) {
                     $('#modal-form-changepass').modal('show');
-                    $('.modal-title').text('แก้ไขระยะเวลา');
+                    $('.modal-title').text('เปลี่ยนรหัสผ่าน');
                     $('#customer_id').val(data.id);
                 },
                 error: function() {

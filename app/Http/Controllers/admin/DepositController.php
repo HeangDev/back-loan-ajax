@@ -66,7 +66,8 @@ class DepositController extends Controller
             )
             ->addIndexColumn()
             ->addColumn('action', function($deposit) {
-                return '<a onclick="editForm('. $deposit->id .')" class="btn btn-primary btn-xs text-white"><i class="fa fa-edit"></i> แก้ไข</a>' . ' <a onclick="deleteData('. $deposit->id .')" class="btn btn-danger btn-xs text-white"><i class="fa fa-trash"></i> ลบออก</a>';
+            return  '<a onclick="editForm('. $deposit->id .')" class="btn btn-primary btn-xs text-white"><i class="fa fa-edit"></i> แก้ไข</a>' 
+                    . ' <a onclick="deleteData('. $deposit->id .')" class="btn btn-danger btn-xs text-white"><i class="fa fa-trash"></i> ลบออก</a>';
             })->make(true);
         }
 
