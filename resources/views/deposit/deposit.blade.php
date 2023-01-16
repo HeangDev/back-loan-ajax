@@ -216,7 +216,7 @@
 			}).then((result) => {
 				if (result.value) {
 					$.ajax({
-                        url: "{{ url('admin/deposit') }}" + '/' + id,
+                        url: "{{ url('deposit') }}" + '/' + id,
                         type: "POST",
                         data: {'_method' : 'DELETE', '_token' : csrf_token},
                         success: function(data) {

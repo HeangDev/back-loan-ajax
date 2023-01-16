@@ -33,6 +33,7 @@
                                         <th>ชื่อลูกค้า</th>
                                         <th>เบอร์โทร</th>
                                         <th>เครดิต</th>
+                                        <th>เงินกู้</th>
                                         <th>ข้อมูลอื่น ๆ</th>
                                         <th>ลายเซ็น</th>
                                         <th>สถานะการกู้</th>
@@ -126,6 +127,7 @@
 				},
 				{data: 'tel', name: 'tel'},
 				{data: 'deposit_amount', name: 'deposits.deposit_amount'},
+				
 				{
 					data: 'status',
 					name: 'status',

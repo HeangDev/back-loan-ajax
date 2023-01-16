@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('id_customer');
             $table->float('withdraw_amount', 8, 2)->default('0');
+            $table->string('withd_code');
             $table->date('withdraw_date');
             $table->string('status');
             $table->timestamps();

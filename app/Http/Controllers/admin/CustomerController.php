@@ -28,7 +28,7 @@ class CustomerController extends Controller
                 Customer::join('document_ids', 'document_ids.id_customer', '=', 'customers.id')
                 ->join('signatures', 'signatures.id_customer', '=', 'customers.id')
                 ->join('deposits', 'deposits.id_customer', '=', 'customers.id')
-                ->select('customers.*', 'document_ids.name', 'signatures.status AS sign_status', 'deposits.withdraw_code', 'deposits.deposit_amount', 'deposits.description AS deposits_status')
+                ->select('customers.*',  'document_ids.name', 'signatures.status AS sign_status', 'deposits.withdraw_code', 'deposits.deposit_amount', 'deposits.description AS deposits_status')
                 ->orderBy('id', 'DESC')
             )
             ->addIndexColumn()
@@ -320,6 +320,9 @@ class CustomerController extends Controller
 
         $document = DocumentId::where('id_customer', $id);
         $document->delete();
+        $deposit = Deposit::where('id_customer', $id);
+        $deposit->delete();
+
         $signature = Signature::where('id_customer', $id);
         $signature->delete();
         $customer = Customer::find($id);

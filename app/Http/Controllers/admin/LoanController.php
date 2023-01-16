@@ -14,14 +14,14 @@ class LoanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(duration $duration)
+    public function index()
     {
         if(request()->ajax()) {
             return datatables()->of(
                 Loan::join('customers', 'customers.id', '=', 'loans.id_customer')
                 ->join('document_ids', 'document_ids.id_customer', '=', 'loans.id_customer')
                 ->join('durations', 'durations.id', '=', 'loans.id_duration')
-                ->select('loans.*', 'customers.tel AS customer_tel', 'document_ids.name AS customer_name', 'durations.month AS duration_month')
+                ->select('loans.*', 'customers.tel AS customer_tel', 'document_ids.name AS customer_name', 'durations.month AS duration_month', 'durations.percent AS duration_percent')
                 ->orderBy('id', 'DESC')
             )
             ->addIndexColumn()
@@ -35,7 +35,7 @@ class LoanController extends Controller
         $loan = Loan::join('customers', 'customers.id', '=', 'loans.id_customer')
         ->join('document_ids', 'document_ids.id_customer', '=', 'loans.id_customer')
         ->join('durations', 'durations.id', '=', 'loans.id_duration')
-        ->select('loans.*', 'customers.tel AS customer_tel', 'document_ids.name AS customer_name', 'durations.id AS duration_id', 'durations.month AS duration_month')
+        ->select('loans.*', 'customers.tel AS customer_tel', 'document_ids.name AS customer_name','durations.id AS duration_id', 'durations.month AS duration_month', 'durations.percent AS duration_percent')
         ->first();
         return view('loan.loan',[
             'loan' => $loan,
@@ -73,7 +73,9 @@ class LoanController extends Controller
      */
     public function show($id)
     {
+
         //
+
     }
 
     /**

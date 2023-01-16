@@ -49,7 +49,12 @@ class LoanController extends Controller
      */
     public function show($id)
     {
-        //
+        $loan = Loan::join('customers', 'customers.id', '=', 'loans.id_customer')
+        ->join('durations', 'durations.id', '=', 'loans.id_duration')
+        ->select('loans.*', 'customers.tel AS customer_tel','durations.*')
+        ->first();
+        // $loan = Loan::where('id_customer', $id)->first();
+        return response()->json($loan);
     }
 
     /**

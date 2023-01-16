@@ -33,7 +33,7 @@
                                         <th>ชื่อ</th>
                                         <th>หมายเลขโทรศัพท์</th>
                                         <th>จำนวนเงิน</th>
-                                        <th>ดอกเบี้ย</th>
+                                        <th>ดอกเบี้ย %</th>
                                         <th>เดื่อน</th>
                                         <th>จำนวนเงินกู้รวมดอกเบี้ย</th>
                                         <th>อัตราจ่ายต่อเดือน</th>
@@ -69,8 +69,17 @@
                         <input type="text" class="form-control form-control-sm" name="amount" id="amount" required>
                     </div>
                     <div class="form-group">
-                        <label>ดอกเบี้ย <span style="color: red;">*</span></label>
-                        <input type="text" class="form-control form-control-sm" name="interest" id="interest" required>
+                        <label>ดอกเบี้ย %<span style="color: red;">*</span></label>
+                        <select class="form-control" name="id_duration" id="id_duration" disabled>
+                            @if($loan != '')
+                            <option value="{{$loan->duration_id}}" {{ $loan->duration_id == $loan->id_duration ? 'selected' : '' }} readonly>{{$loan->duration_percent}}</option>
+                            @endif
+                        
+                            
+                            @foreach($durations as $duration)
+                                <option value="{{$duration->id ? : ''}}">{{$duration->percent}}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group">
                         <label>เดื่อน<span style="color: red;">*</span></label>
@@ -136,11 +145,11 @@
             
 			columns: [
 				{data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
-                {data: 'customer_name', name: 'customer_name'},
-                {data: 'customer_tel', name: 'customer_tel'},
+                {data: 'customer_name', name: 'document_ids.name'},
+                {data: 'customer_tel', name: 'customers.tel'},
 				{data: 'amount', name: 'amount'},
-                {data: 'interest', name: 'interest'},
-                {data: 'duration_month', name: 'duration_month'},
+                {data: 'duration_percent', name: 'durations.percent'},
+                {data: 'duration_month', name: 'durations.month'},
                 {data: 'total', name: 'total'},
                 {data: 'pay_month', name: 'pay_month'},
 				{data: 'date', name: 'date'},
@@ -194,10 +203,10 @@
                 dataType: "JSON",
                 success: function(data) {
                     $('#modal-form-loan').modal('show');
-                    $('.modal-title').text('แก้ไขระยะเวลา');
+                    $('.modal-title').text('แก้ไขยอดเงิน');
                     $('#loan_id').val(data.id);
                     $('#amount').val(data.amount);
-                    $('#interest').val(data.interest);
+                    $('#duration_percent').val(data.duration_percent);
                     $('#duration_month').val(data.duration_month);
                     $('#total').val(data.total);
                     $('#pay_month').val(data.pay_month);

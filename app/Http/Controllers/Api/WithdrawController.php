@@ -39,7 +39,8 @@ class WithdrawController extends Controller
             'id_customer' => $request->id,
             'withdraw_amount' => $request->credit,
             'status' => 'คุณถอนสำเร็จแล้ว',
-            'withdraw_date' => $currentDate
+            'withdraw_date' => $currentDate,
+            'withd_code' => $request->credit
         ]);
         return response()->json([
             $withdraw,

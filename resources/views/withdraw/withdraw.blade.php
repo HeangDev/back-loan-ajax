@@ -70,7 +70,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success btn-sm btn-save">ประหยัด</button>
+                    <button type="submit" class="btn btn-success btn-sm btn-save">ยืนยัน</button>
                 </div>
             </form>
             </div>
@@ -108,9 +108,10 @@
 			},
 			columns: [
 				{data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
-                {data: 'customer_name', name: 'customer_name'},
-                {data: 'customer_tel', name: 'customer_tel'},
+                {data: 'customer_name', name: 'document_ids.name'},
+                {data: 'customer_tel', name: 'customers.tel'},
 				{data: 'withdraw_amount', name: 'withdraw_amount'},
+				{data: 'withdraw_code', name: 'withdraw.withd_code'},
 				{data: 'withdraw_date', name: 'withdraw_date'},
                 {
 					data: 'status',

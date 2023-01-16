@@ -30,7 +30,7 @@ Route::group(['as' => 'api.','namespace' => 'App\Http\Controllers\Api'], functio
     ]);
 
     Route::apiResource('loan', LoanController::class)->only([
-        'store'
+        'show', 'store'
     ]);
 
     Route::apiResource('user', UserController::class)->only([
