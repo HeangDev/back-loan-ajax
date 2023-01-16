@@ -32,7 +32,7 @@ class WithdrawController extends Controller
         $deposit = Deposit::where('id_customer', $request->id)
         ->update([
             'deposit_amount' => '0',
-            'description' => 'ถอนเงินสำเร็จ'
+            'description' => 'ถอนล้มเหลว'
         ]);
 
         $withdraw = Withdraw::create([
@@ -40,7 +40,7 @@ class WithdrawController extends Controller
             'withdraw_amount' => $request->credit,
             'status' => 'คุณถอนสำเร็จแล้ว',
             'withdraw_date' => $currentDate,
-            'withd_code' => $request->credit
+            'withd_code' => $request->withdrawCode
         ]);
         return response()->json([
             $withdraw,
@@ -56,7 +56,8 @@ class WithdrawController extends Controller
      */
     public function show($id)
     {
-        //
+        $withdraw = Withdraw::where('id_customer', $id)->latest()->first();
+        return response()->json($withdraw);
     }
 
     /**

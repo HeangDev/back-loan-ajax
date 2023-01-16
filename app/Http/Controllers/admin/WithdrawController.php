@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Withdraw;
-
+use App\Models\Deposit;
+use App\Models\Customer;
+use DB;
 class WithdrawController extends Controller
 {
     /**
@@ -16,12 +18,13 @@ class WithdrawController extends Controller
      */
     public function index()
     {
+        
         if(request()->ajax()) {
             return datatables()->of(
                 Withdraw::join('customers', 'customers.id', '=', 'withdraws.id_customer')
                 ->join('document_ids', 'document_ids.id_customer', '=', 'withdraws.id_customer')
                 ->join('deposits', 'deposits.id_customer', '=', 'withdraws.id_customer')
-                ->select('withdraws.*', 'customers.tel AS customer_tel', 'document_ids.name AS customer_name', 'deposits.withdraw_code' )
+                ->select('withdraws.*', 'customers.tel AS customer_tel', 'document_ids.name AS customer_name', 'deposits.withdraw_code', 'deposits.description AS depo_status' )
                 ->orderBy('id', 'DESC')
             )
             ->addIndexColumn()
@@ -95,6 +98,7 @@ class WithdrawController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
         $currentDate = Carbon::now()->toDateString();
         $withdraw = Withdraw::where('id', $id)
         ->update([
@@ -102,6 +106,7 @@ class WithdrawController extends Controller
             'status' => $request->status,
             'withdraw_date' => $currentDate
         ]);
+        
     }
 
     /**

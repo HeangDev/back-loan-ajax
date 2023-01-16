@@ -61,7 +61,7 @@
                 <div class="modal-body">
                     <input type="hidden" id="withdraw_id" name="withdraw_id">
                     <div class="form-group">
-                        <label>จำนวนเงิน <span style="color: red;">*</span></label>
+                        <label>จำนวนเงิน<span style="color: red;">*</span></label>
                         <input type="text" class="form-control form-control-sm" name="amount" id="amount">
                     </div>
                     <div class="form-group">
@@ -114,8 +114,8 @@
 				{data: 'withdraw_code', name: 'withdraw.withd_code'},
 				{data: 'withdraw_date', name: 'withdraw_date'},
                 {
-					data: 'status',
-					name: 'status',
+					data: 'depo_status',
+					name: 'deposits.description',
 					render: function(data, type, full, meta) {
 						return "<span class='badge badge-pill badge-primary'>" + data + "</span>";
 					},
@@ -167,7 +167,7 @@
                 dataType: "JSON",
                 success: function(data) {
                     $('#modal-form-withdraw').modal('show');
-                    $('.modal-title').text('แก้ไขระยะเวลา');
+                    $('.modal-title').text('แก้ไขยอดถอน');
                     $('#withdraw_id').val(data.id);
                     $('#amount').val(data.withdraw_amount);
                     $('#status').val(data.status);

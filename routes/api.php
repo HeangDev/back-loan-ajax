@@ -46,7 +46,7 @@ Route::group(['as' => 'api.','namespace' => 'App\Http\Controllers\Api'], functio
     ]);
 
     Route::apiResource('withdraw', WithdrawController::class)->only([
-        'store'
+        'show', 'store'
     ]);
 
     Route::post('/register', [RegisterController::class, 'register']);
