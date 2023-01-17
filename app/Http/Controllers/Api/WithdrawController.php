@@ -32,7 +32,7 @@ class WithdrawController extends Controller
         $deposit = Deposit::where('id_customer', $request->id)
         ->update([
             'deposit_amount' => '0',
-            'description' => 'ถอนล้มเหลว'
+            'description' => 'การถอนกำลังตรวจสอบ'
         ]);
 
         $withdraw = Withdraw::create([

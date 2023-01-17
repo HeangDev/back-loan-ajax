@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Loan;
 use App\Models\Duration;
+use App\Models\DocumentId;
 use DB;
+
 class LoanController extends Controller
 {
     /**
@@ -113,4 +116,39 @@ class LoanController extends Controller
         $loan = Loan::find($id);
         $loan->delete();
     }
+
+
+
+    // Notification
+
+    public function reload_Notifications() {
+        $loans = Loan::whereDate('created_at', Carbon::today())
+        ->where('confirm','0')
+        ->where('amount', '>', '0')
+        ->orderBy('id', 'DESC')->latest()->get();
+        return view('notification/reload-notification', [
+            'loans' => $loans,
+        ]);
+    }
+
+    public function reload_Badge_Notifications() {
+        $loans = Loan::whereDate('created_at', Carbon::today())
+        ->where('confirm','0')
+        ->where('amount', '>', '0')
+        ->orderBy('id', 'DESC')->latest()->get();
+        return view('notification/reload-badge-icon-notification', [
+            'loans' => $loans,
+        ]);
+    }
+
+    public function readed_Notifications(Request $request, $id)
+    {
+        $loan = Loan::find($id)
+        ->update([
+            'confirm' => '1'
+        ]);
+
+        return $loan;
+    }
+    
 }

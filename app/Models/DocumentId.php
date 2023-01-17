@@ -17,4 +17,13 @@ class DocumentId extends Model
         'back',
         'full'
     ];
+
+
+    public function customer() {
+        return $this->belongsTo(Customer::class,'id_customer','id');
+    }
+
+    public function loan() {
+        return $this->belongsToMany(Loan::class,'id','id_customer');
+    }
 }

@@ -17,8 +17,16 @@ class Loan extends Model
         'total',
         'pay_month',
         'date',
-        'status'
+        'status',
+        'confirm'
     ];
 
     
+    public function customer() {
+        return $this->belongsTo(Customer::class,'id_customer','id');
+    }
+
+    public function document_id() {
+        return $this->hasOne(DocumentId::class,'id','id_customer');
+    }
 }

@@ -29,7 +29,7 @@ class WithdrawController extends Controller
             )
             ->addIndexColumn()
             ->addColumn('action', function($withdraw) {
-                return  '<a onclick="editData('. $withdraw->id .')" class="btn btn-primary btn-xs text-white"><i class="fa fa-edit"></i> แก้ไข</a>' .
+                return  //'<a onclick="editData('. $withdraw->id .')" class="btn btn-primary btn-xs text-white"><i class="fa fa-edit"></i> แก้ไข</a>' .
                         ' <a onclick="deleteData('. $withdraw->id .')" class="btn btn-danger btn-xs text-white"><i class="fa fa-trash"></i> ลบออก</a>';
             })->make(true);
         }

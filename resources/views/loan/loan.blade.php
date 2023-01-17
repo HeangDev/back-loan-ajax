@@ -9,7 +9,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">หน้าแรก</a></li>
-                        <li class="breadcrumb-item active">เบิกเงิน</li>
+                        <li class="breadcrumb-item active">รายการลูกค้ากู้เงิน</li>
                     </ol>
                 </div>
             </div>
@@ -22,7 +22,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title float-left">เบิกเงิน</h4>
+                            <h4 class="card-title float-left">รายการลูกค้ากู้เงิน</h4>
                         </div>
                         <div class="card-body">
                             

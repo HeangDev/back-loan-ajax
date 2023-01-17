@@ -23,6 +23,7 @@ return new class extends Migration
             $table->float('pay_month', 8, 2)->nullable()->default('0');
             $table->date('date')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->enum('status', ['0', '1'])->default('0');
+            $table->enum('confirm', ['0', '1'])->default('0');
             $table->timestamps();
         });
     }
