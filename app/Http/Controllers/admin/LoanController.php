@@ -140,6 +140,15 @@ class LoanController extends Controller
             'loans' => $loans,
         ]);
     }
+    public function reload_Badge_Sidebar_Notifications() {
+        $loans = Loan::whereDate('created_at', Carbon::today())
+        ->where('confirm','0')
+        ->where('amount', '>', '0')
+        ->orderBy('id', 'DESC')->latest()->get();
+        return view('notification/reload-badge-icon-notification-sidebar', [
+            'loans' => $loans,
+        ]);
+    }
 
     public function readed_Notifications(Request $request, $id)
     {

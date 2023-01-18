@@ -26,6 +26,7 @@ Route::group(['as' => 'admin.', 'namespace' => 'App\Http\Controllers\admin', 'mi
     // Notifications 
     Route::get('notification/reload-notification', 'LoanController@reload_Notifications')->name('reload-notifiactions');
     Route::get('notification/reload-badge-icon-notification', 'LoanController@reload_Badge_Notifications')->name('reload-badge-icon-notifiactions');
+    Route::get('notification/reload-badge-icon-notification-sidebar', 'LoanController@reload_Badge_Sidebar_Notifications')->name('reload-badge-icon-sidebar-notifiactions');
     Route::post('notification/readed-notification/{id}', 'LoanController@readed_Notifications')->name('readed.notification');
 
 
