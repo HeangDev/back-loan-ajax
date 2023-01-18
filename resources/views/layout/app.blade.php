@@ -44,6 +44,10 @@
             width: auto;
             padding: 5px 10px;
         }
+        span.badge.badge-info.right {
+            float: right;
+            margin-top: 5px;
+        }
     </style>
 </head>
 
@@ -103,7 +107,7 @@
 
     <script src="{{ asset('assets/js/system.js') }}"></script>
       <!-- js clock -->
-  <script>
+  <script type="text/javascript">
         // The week days
         const weekDays = [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ];
         // The Clock Ticker
@@ -131,7 +135,7 @@
             mins    = mins < 10 ? "0" + mins : mins;
             secs    = secs < 10 ? "0" + secs : secs;
 
-    // Refresh the unit values
+        // Refresh the unit values
             document.querySelector( '#clock .day' ).innerHTML       = weekDays[ day ];
             document.querySelector( '#clock .hours' ).innerHTML     = hrs;
             document.querySelector( '#clock .minutes' ).innerHTML   = mins;
@@ -143,6 +147,7 @@
         // Start the clock
         clockTicker();
     </script>
+    
     @yield('script')
 </body>
 
