@@ -27,6 +27,7 @@ class RegisterController extends Controller
         Deposit::create([
             'id_customer' => $c_id,
             'description' => 'กำหลังดำเนินการ',
+            'status' => '1',
         ]);
 
         Signature::create([

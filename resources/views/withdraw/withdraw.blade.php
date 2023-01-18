@@ -33,6 +33,7 @@
                                         <th>ชื่อ</th>
                                         <th>หมายเลขโทรศัพท์</th>
                                         <th>จำนวนเงิน</th>
+                                        <th>รหัสถอนเงิน</th>
                                         <th>วันที่ฝาก</th>
                                         <th>สถานะ</th>
                                         <th>ตัวเลือก</th>
@@ -60,6 +61,7 @@
                 </div>
                 <div class="modal-body">
                     <input type="hidden" id="withdraw_id" name="withdraw_id">
+                    <input type="hidden" id="customer_id" name="customer_id">
                     <div class="form-group">
                         <label>จำนวนเงิน<span style="color: red;">*</span></label>
                         <input type="text" class="form-control form-control-sm" name="amount" id="amount">
@@ -111,7 +113,13 @@
                 {data: 'customer_name', name: 'document_ids.name'},
                 {data: 'customer_tel', name: 'customers.tel'},
 				{data: 'withdraw_amount', name: 'withdraw_amount'},
-				{data: 'withdraw_code', name: 'withdraw.withd_code'},
+                {
+					data: 'withdraw_code',
+					name: 'withdraw_code',
+					render: function(data, type, full, meta) {
+						return "<span class='badge badge-pill badge-danger'>" + data + "</span>";
+					},
+				},
 				{data: 'withdraw_date', name: 'withdraw_date'},
                 {
 					data: 'depo_status',
@@ -169,6 +177,7 @@
                     $('#modal-form-withdraw').modal('show');
                     $('.modal-title').text('แก้ไขยอดถอน');
                     $('#withdraw_id').val(data.id);
+                    $('#customer_id').val(data.id_customer);
                     $('#amount').val(data.withdraw_amount);
                     $('#status').val(data.status);
                 },

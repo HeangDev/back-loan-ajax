@@ -17,9 +17,10 @@ return new class extends Migration
             $table->id();
             $table->integer('id_customer');
             $table->string('withdraw_code')->nullable()->default('0000');
-            $table->float('deposit_amount', 8, 2)->nullable()->default('0');
+            $table->float('deposit_amount', 10, 2)->nullable()->default('0');
             $table->text('description')->nullable()->default('กำหลังดำเนินการ');
             $table->date('deposit_date')->nullable();
+            $table->enum('status', ['0', '1'])->default('0');
             $table->timestamps();
         });
     }

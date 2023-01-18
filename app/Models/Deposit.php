@@ -14,6 +14,7 @@ class Deposit extends Model
         'withdraw_code',
         'deposit_amount',
         'description',
-        'deposit_date'
+        'deposit_date',
+        'status'
     ];
 }

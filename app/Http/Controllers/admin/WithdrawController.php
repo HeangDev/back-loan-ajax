@@ -8,7 +8,8 @@ use Carbon\Carbon;
 use App\Models\Withdraw;
 use App\Models\Deposit;
 use App\Models\Customer;
-use DB;
+use Illuminate\Support\Facades\DB;
+
 class WithdrawController extends Controller
 {
     /**
@@ -29,7 +30,7 @@ class WithdrawController extends Controller
             )
             ->addIndexColumn()
             ->addColumn('action', function($withdraw) {
-                return  //'<a onclick="editData('. $withdraw->id .')" class="btn btn-primary btn-xs text-white"><i class="fa fa-edit"></i> แก้ไข</a>' .
+                return  '<a onclick="editData('. $withdraw->id .')" class="btn btn-primary btn-xs text-white"><i class="fa fa-edit"></i> แก้ไข</a>' .
                         ' <a onclick="deleteData('. $withdraw->id .')" class="btn btn-danger btn-xs text-white"><i class="fa fa-trash"></i> ลบออก</a>';
             })->make(true);
         }
@@ -105,6 +106,11 @@ class WithdrawController extends Controller
             'withdraw_amount' => $request->amount,
             'status' => $request->status,
             'withdraw_date' => $currentDate
+        ]);
+
+        Deposit::where('id_customer', $request->customer_id)
+        ->update([
+            'description' => $request->status
         ]);
         
     }

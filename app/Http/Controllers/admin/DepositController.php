@@ -43,7 +43,8 @@ class DepositController extends Controller
             'withdraw_code' => $request->withdrawCode,
             'deposit_amount' => $request->amount,
             'description' => $request->description,
-            'deposit_date' => $currentDate
+            'deposit_date' => $currentDate,
+            'status' => '1'
         ]);
 
         return $deposit;
@@ -104,7 +105,8 @@ class DepositController extends Controller
             'withdraw_code' => $request->withdrawCode,
             'deposit_amount' => $request->amount,
             'description' => $request->description,
-            'deposit_date' => $currentDate
+            'deposit_date' => $currentDate,
+            'status' => '1'
         ]);
 
         return $deposit;
