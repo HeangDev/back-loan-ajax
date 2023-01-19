@@ -34,7 +34,6 @@
                                         <th>เบอร์ติดต่อ</th>
                                         <th>เบอร์ติดต่อฉุกเฉิน</th>
                                         <th>รายได้ต่อเดือน</th>
-                                        <th>จำนวนเงินฝาก</th>
                                         <th>ข้อมูลอื่น ๆ</th>
                                         <th>ลายเซ็น</th>
                                         <th>ตัวเลือก</th>
@@ -156,14 +155,6 @@
 						} else {
                             return data.toLocaleString('th-TH', {style: 'currency', currency: 'THB'});
 						}
-					},
-                },
-				{
-                    data: 'deposit_amount',
-                    name: 'deposits.deposit_amount',
-                    render: function(data, type, full, meta) {
-                        var data = parseFloat(data);
-						return data.toLocaleString('th-TH', {style: 'currency', currency: 'THB'});
 					},
                 },
 				{

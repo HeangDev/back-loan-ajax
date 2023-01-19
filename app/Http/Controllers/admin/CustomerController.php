@@ -27,8 +27,7 @@ class CustomerController extends Controller
             return datatables()->of(
                 Customer::join('document_ids', 'document_ids.id_customer', '=', 'customers.id')
                 ->join('signatures', 'signatures.id_customer', '=', 'customers.id')
-                ->join('deposits', 'deposits.id_customer', '=', 'customers.id')
-                ->select('customers.*',  'document_ids.name', 'signatures.status AS sign_status', 'deposits.deposit_amount', 'deposits.description AS deposits_status')
+                ->select('customers.*',  'document_ids.name', 'signatures.status AS sign_status')
                 ->orderBy('id', 'DESC')
             )
             ->addIndexColumn()
