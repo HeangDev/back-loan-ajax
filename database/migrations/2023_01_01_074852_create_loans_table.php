@@ -24,6 +24,7 @@ return new class extends Migration
             $table->date('date')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->enum('status', ['0', '1'])->default('0');
             $table->enum('confirm', ['0', '1'])->default('0');
+            $table->enum('approved', ['no', 'yes'])->default('no');
             $table->timestamps();
         });
     }
