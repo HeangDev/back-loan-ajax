@@ -62,9 +62,8 @@ class DepositController extends Controller
             return datatables()->of(
                 Deposit::where('customers.id', '=', $id)
                 ->join('customers', 'customers.id', '=', 'deposits.id_customer')
-                ->join('withdraws', 'customers.id', '=', 'withdraws.id_customer')
-                ->select('customers.*', 'deposits.*', 'withdraws.*')
-                ->orderBy('id', 'DESC')
+                ->select('customers.*', 'deposits.*')
+                ->get()
             )
             ->addIndexColumn()
             ->addColumn('action', function($deposit) {
@@ -123,5 +122,6 @@ class DepositController extends Controller
     {
         $deposit = Deposit::find($id);
         $deposit->delete();
+        return response()->json($deposit);
     }
 }

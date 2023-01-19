@@ -25,7 +25,6 @@
                             <h4 class="card-title float-left">รายการลูกค้ากู้เงิน</h4>
                         </div>
                         <div class="card-body">
-                            
                             <table class="table table-bordered table-striped" id="loan">
                                 <thead>
                                     <tr>
@@ -38,7 +37,7 @@
                                         <th>จำนวนเงินกู้รวมดอกเบี้ย</th>
                                         <th>อัตราจ่ายต่อเดือน</th>
                                         <th>วันที่ยืม</th>
-                                        {{-- <th>สถานะ</th> --}}
+                                        <th>สถานะ</th>
                                         <th>ตัวเลือก</th>
                                     </tr>
                                 </thead>
@@ -181,6 +180,17 @@
 					},
                 },
 				{data: 'date', name: 'date'},
+                {
+                    data: 'approved',
+                    name: 'approved',
+                    render: function(data, type, full, meta) {
+						if (data == 'yes') {
+							return "<span class='badge badge-pill badge-primary'>อนุมัติแล้ว</span>";
+						} else {
+							return "<span class='badge badge-pill badge-danger'>รอการอนุมัติ</span>";
+						}
+					},
+                },
 				{data: 'action', name: 'action', orderable: false},
 			],
 			order: [[0, 'desc']]
@@ -288,6 +298,44 @@
 			})
         }
 
-       
+        function approved(id) {
+            $('input[name=_method]').val('PATCH');
+            let withdraw_code = Math.floor(100000 + Math.random() * 900000)
+            Swal.fire({
+				title: 'คุณต้องการเห็นด้วยหรือไม่?',
+				text: "ถ้าคุณอนุมัติคุณไม่สามารถเปลี่ยนได้!",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+                cancelButtonText: 'ยกเลิกการลบ',
+				confirmButtonText: 'ตกลง'
+			}).then((result) => {
+				if (result.value) {
+					$.ajax({
+                        url: "{{ url('loan') }}" + '/' + id + '/approved',
+                        type: "POST",
+                        data: {withdraw_code: withdraw_code},
+                        success: function(data) {
+                            table.ajax.reload();
+                            swal.fire({
+                                title: 'ความสำเร็จ!',
+                                text: "อนุมัติสำเร็จ!",
+                                icon: "success",
+                                timer: '1500'
+                            })
+                        },
+                        error: function() {
+                            swal.fire({
+                                title: 'Oops...',
+                                text: "Something went wrong!",
+                                icon: "error",
+                                timer: '1500'
+                            })
+                        }
+                    })
+				}
+			})
+        }
     </script>
 @endsection

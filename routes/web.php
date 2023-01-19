@@ -22,6 +22,7 @@ Route::group(['as' => 'admin.', 'namespace' => 'App\Http\Controllers\admin', 'mi
     Route::post('customer/updatecustomer/{id}', 'CustomerController@updateCustomer')->name('customer.updatecustomer');
     Route::get('customer/{id}/create', 'CustomerController@viewCreateById')->name('customer.viewcreatebyid');
     Route::post('customer/createbyid', 'CustomerController@createById')->name('customer.createbyid');
+    Route::post('loan/{id}/approved', 'LoanController@approved')->name('loan.approvedbyid');
     
     // Notifications 
     Route::get('notification/reload-notification', 'LoanController@reload_Notifications')->name('reload-notifiactions');

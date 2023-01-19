@@ -33,7 +33,6 @@
                                         <th>ชื่อ</th>
                                         <th>หมายเลขโทรศัพท์</th>
                                         <th>จำนวนเงิน</th>
-                                        <th>รหัสถอนเงิน</th>
                                         <th>วันที่ถอน</th>
                                         <th>สถานะ</th>
                                         <th>ตัวเลือก</th>
@@ -112,18 +111,18 @@
 				{data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
                 {data: 'customer_name', name: 'document_ids.name'},
                 {data: 'customer_tel', name: 'customers.tel'},
-				{data: 'withdraw_amount', name: 'withdraw_amount'},
-                {
-					data: 'withdraw_code',
-					name: 'withdraw_code',
-					render: function(data, type, full, meta) {
-						return "<span class='badge badge-pill badge-danger'>" + data + "</span>";
+				{
+                    data: 'withdraw_amount',
+                    name: 'withdraw_amount',
+                    render: function(data, type, full, meta) {
+						var data = parseFloat(data);
+                        return data.toLocaleString('th-TH', {style: 'currency', currency: 'THB'});
 					},
-				},
+                },
 				{data: 'withdraw_date', name: 'withdraw_date'},
                 {
-					data: 'depo_status',
-					name: 'deposits.description',
+					data: 'status',
+					name: 'status',
 					render: function(data, type, full, meta) {
 						return "<span class='badge badge-pill badge-primary'>" + data + "</span>";
 					},
@@ -210,8 +209,7 @@
                         type: "POST",
                         data: {'_method' : 'DELETE', '_token' : csrf_token},
                         success: function(data) {
-                            var oTable = $('#withdraw').dataTable();
-							oTable.fnDraw(false);
+                            table.ajax.reload();
                             swal.fire({
                                 title: 'ความสำเร็จ!',
                                 text: "ข้อมูลถูกลบ!",

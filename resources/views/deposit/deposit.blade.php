@@ -114,8 +114,21 @@
 			},
 			columns: [
 				{data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
-				{data: 'withdraw_code', name: 'withdraws.withdraw_code'},
-				{data: 'deposit_amount', name: 'deposit_amount'},
+				{
+                    data: 'withdraw_code',
+                    name: 'withdraw_code',
+                    render: function(data, type, full, meta) {
+						return "<span class='badge badge-pill badge-danger'>" + data + "</span>";
+					},
+                },
+				{
+                    data: 'deposit_amount',
+                    name: 'deposit_amount',
+                    render: function(data, type, full, meta) {
+						var data = parseFloat(data);
+                        return data.toLocaleString('th-TH', {style: 'currency', currency: 'THB'});
+					},
+                },
 				{
 					data: 'description',
 					name: 'description',
@@ -220,8 +233,7 @@
                         type: "POST",
                         data: {'_method' : 'DELETE', '_token' : csrf_token},
                         success: function(data) {
-                            var oTable = $('#deposit').dataTable();
-							oTable.fnDraw(false);
+                            table.ajax.reload();
                             swal.fire({
                                 title: 'ความสำเร็จ!',
                                 text: "ข้อมูลถูกลบ!",

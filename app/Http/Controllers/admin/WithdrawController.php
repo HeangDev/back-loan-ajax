@@ -24,8 +24,7 @@ class WithdrawController extends Controller
             return datatables()->of(
                 Withdraw::join('customers', 'customers.id', '=', 'withdraws.id_customer')
                 ->join('document_ids', 'document_ids.id_customer', '=', 'withdraws.id_customer')
-                ->join('deposits', 'deposits.id_customer', '=', 'withdraws.id_customer')
-                ->select('withdraws.*', 'customers.contact_number AS customer_tel', 'document_ids.name AS customer_name', 'deposits.description AS depo_status' )
+                ->select('withdraws.*', 'customers.contact_number AS customer_tel', 'document_ids.name AS customer_name')
                 ->orderBy('id', 'DESC')
             )
             ->addIndexColumn()
@@ -112,7 +111,7 @@ class WithdrawController extends Controller
         ->update([
             'description' => $request->status
         ]);
-        
+        return response()->json($withdraw);
     }
 
     /**
@@ -125,5 +124,6 @@ class WithdrawController extends Controller
     {
         $withdraw = Withdraw::find($id);
         $withdraw->delete();
+        return response()->json($withdraw);
     }
 }

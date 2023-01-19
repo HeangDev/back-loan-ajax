@@ -14,7 +14,6 @@ class Withdraw extends Model
         'id_deposit',
         'withdraw_amount',
         'after_amount',
-        'withdraw_code',
         'withdraw_date',
         'status'
     ];

@@ -29,7 +29,7 @@ class WithdrawController extends Controller
     public function store(Request $request)
     {
         $currentDate = Carbon::now()->toDateString();
-        $deposit = Deposit::where('id_customer', $request->id)
+        Deposit::where('id_customer', $request->id)
         ->update([
             'deposit_amount' => '0',
             'description' => 'ระบบกำลังตรวยสอบ',
@@ -45,8 +45,7 @@ class WithdrawController extends Controller
             'withd_code' => $request->withdrawCode
         ]);
         return response()->json([
-            $withdraw,
-            $deposit
+            $withdraw
         ]);
     }
 

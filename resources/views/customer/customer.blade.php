@@ -154,7 +154,7 @@
 						if (data == '' || data == null) {
 							return "ไม่สมบูรณ์";
 						} else {
-                            return data.toLocaleString('en-IN');
+                            return data.toLocaleString('th-TH', {style: 'currency', currency: 'THB'});
 						}
 					},
                 },
@@ -163,7 +163,7 @@
                     name: 'deposits.deposit_amount',
                     render: function(data, type, full, meta) {
                         var data = parseFloat(data);
-						return data.toLocaleString('en-IN');
+						return data.toLocaleString('th-TH', {style: 'currency', currency: 'THB'});
 					},
                 },
 				{

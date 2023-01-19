@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Loan;
 use App\Models\Duration;
+use App\Models\Deposit;
+use App\Models\Withdraw;
 use App\Models\DocumentId;
 use DB;
 
@@ -29,9 +31,15 @@ class LoanController extends Controller
             )
             ->addIndexColumn()
             ->addColumn('action', function($loan) {
-                return  '<a onclick="editData('. $loan->id .')" class="btn btn-primary btn-xs text-white"><i class="fa fa-edit"></i> แก้ไข</a> ' .
+                if ($loan->approved === 'yes') {
+                    return  '<a onclick="editData('. $loan->id .')" class="btn btn-primary btn-xs text-white"><i class="fa fa-edit"></i> แก้ไข</a> ' .
                         '<a onclick="deleteData('. $loan->id .')" class="btn btn-danger btn-xs text-white"><i class="fa fa-trash"></i> ลบออก</a> '.
-                        '<a onclick="approved('. $loan->id .')" class="btn btn-success btn-xs text-white"><i class="fa fa-check"></i> ที่ได้รับการอนุมัติ</a>';
+                        '<a onclick="approved('. $loan->id .')" class="btn btn-success btn-xs text-white disabled"><i class="fa fa-check"></i> อนุมัติแล้ว</a>';
+                } else {
+                    return  '<a onclick="editData('. $loan->id .')" class="btn btn-primary btn-xs text-white"><i class="fa fa-edit"></i> แก้ไข</a> ' .
+                        '<a onclick="deleteData('. $loan->id .')" class="btn btn-danger btn-xs text-white"><i class="fa fa-trash"></i> ลบออก</a> '.
+                        '<a onclick="approved('. $loan->id .')" class="btn btn-success btn-xs text-white"><i class="fa fa-check"></i> อนุมัติแล้ว</a>';
+                }
             })->make(true);
         }
        
@@ -160,6 +168,28 @@ class LoanController extends Controller
         ]);
 
         return $loan;
+    }
+
+    public function approved(Request $request, $id)
+    {
+        $currentDate = Carbon::now()->toDateString();
+        $loan = Loan::where('id', $id)->first();
+        $loan_amount = $loan->amount;
+        $id_customer = $loan->id_customer;
+        Loan::where('id', $id)->update(['approved' => 'yes']);
+        $deposit = Deposit::create([
+            'id_customer' => $id_customer,
+            'deposit_amount' => $loan_amount,
+            'description' => 'กู้เงินสำเร็จ',
+            'withdraw_code' => $request->withdraw_code,
+            'deposit_date' => $currentDate,
+            'status' => '1',
+        ]);
+
+        return response()->json([
+            $loan,
+            $deposit
+        ]);
     }
     
 }
