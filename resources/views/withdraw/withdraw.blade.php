@@ -127,6 +127,7 @@
 						return "<span class='badge badge-pill badge-primary'>" + data + "</span>";
 					},
 				},
+                
 				{data: 'action', name: 'action', orderable: false},
 			],
 			order: [[0, 'desc']]
@@ -179,6 +180,8 @@
                     $('#customer_id').val(data.id_customer);
                     $('#amount').val(data.withdraw_amount);
                     $('#status').val(data.status);
+
+
                 },
                 error: function() {
                     swal({
@@ -229,5 +232,44 @@
 				}
 			})
         }
+        function approved(id) {
+            $('input[name=_method').val('PATCH');
+            Swal.fire({
+				title: 'คุณต้องการเห็นด้วยหรือไม่?',
+				text: "ถ้าคุณอนุมัติคุณไม่สามารถเปลี่ยนได้!",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+                cancelButtonText: 'ยกเลิกการลบ',
+				confirmButtonText: 'ตกลง'
+			}).then((result) => {
+				if (result.value) {
+					$.ajax({
+                        url: "{{ url('withdraw') }}" + '/' + id + '/approved',
+                        type: "POST",
+                        dataType: "JSON",
+                        success: function(data) {
+                            table.ajax.reload();
+                            swal.fire({
+                                title: 'ความสำเร็จ!',
+                                text: "อนุมัติสำเร็จ!",
+                                icon: "success",
+                                timer: '1500'
+                            })
+                        },
+                        error: function() {
+                            swal.fire({
+                                title: 'Oops...',
+                                text: "Something went wrong!",
+                                icon: "error",
+                                timer: '1500'
+                            })
+                        }
+                    })
+				}
+			})
+        }
+
     </script>
 @endsection

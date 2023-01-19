@@ -14,6 +14,7 @@ class Withdraw extends Model
         'withdraw_amount',
         'after_amount',
         'withdraw_date',
-        'status'
+        'status',
+        'with_approved'
     ];
 }
