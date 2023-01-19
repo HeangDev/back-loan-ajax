@@ -49,6 +49,10 @@ Route::group(['as' => 'api.','namespace' => 'App\Http\Controllers\Api'], functio
         'show', 'store'
     ]);
 
+    Route::apiResource('message', MessageController::class)->only([
+        'index'
+    ]);
+
     Route::post('/register', [RegisterController::class, 'register']);
     Route::post('/login', [LoginController::class, 'login']);
     Route::post('/changepassword', [LoginController::class, 'changePassword']);

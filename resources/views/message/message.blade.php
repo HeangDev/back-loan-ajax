@@ -4,12 +4,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">รายการระยะเวลา</h1>
+                    <h1 class="m-0">ข้อความหน้าบ้าน</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">หน้าแรก</a></li>
-                        <li class="breadcrumb-item active">รายการระยะเวลา</li>
+                        <li class="breadcrumb-item active">ข้อความหน้าบ้าน</li>
                     </ol>
                 </div>
             </div>
@@ -22,16 +22,17 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title float-left">รายการระยะเวลา</h4>
-                            <a id="addduration" class="btn btn-primary btn-sm float-right"><i class="fas fa-plus"></i> เพิ่มระยะเวลา</a>
+                            <h4 class="card-title float-left">ข้อความหน้าบ้าน</h4>
+                            <a id="addmessage" class="btn btn-primary btn-sm float-right"><i class="fas fa-plus"></i> ข้อความหน้าบ้าน</a>
                         </div>
                         <div class="card-body">
-                            <table class="table table-bordered table-striped" id="duration">
+                            <table class="table table-bordered table-striped" id="message">
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>เดือน</th>
-                                        <th>เปอร์เซ็นต์</th>
+                                        <th>หมายเลขโทรศัพท์</th>
+                                        <th>จำนวนเงิน</th>
+                                        <th>วันที่</th>
                                         <th>สถานะ</th>
                                         <th>ตัวเลือก</th>
                                     </tr>
@@ -45,7 +46,7 @@
         </div>
     </section>
 
-    <div id="modal-form-duration" class="modal fade">
+    <div id="modal-form-message" class="modal fade">
         <div class="modal-dialog" role="document">
             <form method="POST" autocomplete="off">
                 {{ csrf_field() }} {{ method_field('POST') }}
@@ -57,20 +58,24 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <input type="hidden" id="duration_id" name="duration_id">
+                    <input type="hidden" id="message_id" name="message_id">
                     <div class="form-group">
-                        <label>เดือน <span style="color: red;">*</span></label>
-                        <input type="number" class="form-control form-control-sm" name="month" id="month" autofocus required>
+                        <label>หมายเลขโทรศัพท์ <span style="color: red;">*</span></label>
+                        <input type="text" class="form-control form-control-sm" name="tel" id="tel" autofocus required>
                     </div>
                     <div class="form-group">
-                        <label>เปอร์เซ็นต์ <span style="color: red;">*</span></label>
-                        <input type="text" class="form-control form-control-sm" name="percent" id="percent" required>
+                        <label>จำนวนเงิน <span style="color: red;">*</span></label>
+                        <input type="number" class="form-control form-control-sm" name="amount" id="amount" required>
+                    </div>
+                    <div class="form-group">
+                        <label>วันที่ <span style="color: red;">*</span></label>
+                        <input type="date" class="form-control form-control-sm" name="date" id="date" required>
                     </div>
                     <div class="form-group">
                         <label>สถานะ</label>
                         <select class="form-control" name="status" id="status">
-                            <option value="active">ใช้งาน</option>
-                            <option value="unactive">ปิดการใช้งาน</option>
+                            <option value="1">ใช้งาน</option>
+                            <option value="0">ปิดการใช้งาน</option>
                         </select>
                     </div>
                 </div>
@@ -91,7 +96,7 @@
 			}
 		});
 
-        var table = $('#duration').DataTable({
+        var table = $('#message').DataTable({
 			responsive: true,
 			autoWidth: false,
 			processing: true,
@@ -109,18 +114,26 @@
                 }
             },
 			ajax: {
-				url: "{{ route('admin.duration.index') }}",
+				url: "{{ route('admin.message.index') }}",
 				type: 'GET',
 			},
 			columns: [
 				{data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
-				{data: 'month', name: 'month'},
-				{data: 'percent', name: 'percent'},
+				{data: 'tel', name: 'tel'},
+				{
+                    data: 'amount',
+                    name: 'amount',
+                    render: function(data, type, full, meta) {
+						var data = parseFloat(data);
+                        return data.toLocaleString('en-IN');
+					},
+                },
+                {data: 'date', name: 'date'},
 				{
 					data: 'status',
 					name: 'status',
 					render: function(data, type, full, meta) {
-						if (data == 'active') {
+						if (data == '1') {
 							return "<span class='badge badge-pill badge-primary'>ใช้งาน</span>";
 						} else {
 							return "<span class='badge badge-pill badge-danger'>ปิดการใช้งาน</span>";
@@ -132,26 +145,26 @@
 			order: [[0, 'desc']]
 		});
 
-        $('#addduration').click(function() {
+        $('#addmessage').click(function() {
             save_method = "add";
             $('input[name=_method]').val('POST');
-            $('#modal-form-duration').modal('show');
-            $('#modal-form-duration form')[0].reset();
-            $('.modal-title').text('รายการระยะเวลา');
+            $('#modal-form-message').modal('show');
+            $('#modal-form-message form')[0].reset();
+            $('.modal-title').text('เพิ่มข้อความหน้าแรก');
         });
 
         $(function() {
-            $('#modal-form-duration form').on('submit', function(e) {
+            $('#modal-form-message form').on('submit', function(e) {
             if (!e.isDefaultPrevented()) {
-                var id = $('#duration_id').val();
-                if (save_method == 'add') url = "{{ url('duration') }}";
-                else url = "{{ url('duration') . '/' }}" + id;
+                var id = $('#message_id').val();
+                if (save_method == 'add') url = "{{ url('message') }}";
+                else url = "{{ url('message') . '/' }}" + id;
                 $.ajax({
                     url: url,
                     type: "POST",
-                    data: $('#modal-form-duration form').serialize(),
+                    data: $('#modal-form-message form').serialize(),
                     success: function(data) {
-                        $('#modal-form-duration').modal('hide');
+                        $('#modal-form-message').modal('hide');
                         table.ajax.reload();
                         swal.fire({
                             title: 'ความสำเร็จ!',
@@ -177,17 +190,18 @@
         function editForm(id) {
             save_method = 'edit';
             $('input[name=_method]').val('PATCH');
-            $('#modal-form-duration form')[0].reset();
+            $('#modal-form-message form')[0].reset();
             $.ajax({
-                url: "{{ url('duration') }}" + '/' + id + "/edit",
+                url: "{{ url('message') }}" + '/' + id + "/edit",
                 type: "GET",
                 dataType: "JSON",
                 success: function(data) {
-                    $('#modal-form-duration').modal('show');
-                    $('.modal-title').text('แก้ไขระยะเวลา');
-                    $('#duration_id').val(data.id);
-                    $('#month').val(data.month);
-                    $('#percent').val(data.percent);
+                    $('#modal-form-message').modal('show');
+                    $('.modal-title').text('ปรับปรุงข้อความหน้าแรก');
+                    $('#message_id').val(data.id);
+                    $('#tel').val(data.tel);
+                    $('#amount').val(data.amount);
+                    $('#date').val(data.date);
                     $('#status').val(data.status);
                 },
                 error: function() {
@@ -215,7 +229,7 @@
 			}).then((result) => {
 				if (result.value) {
 					$.ajax({
-                        url: "{{ url('duration') }}" + '/' + id,
+                        url: "{{ url('message') }}" + '/' + id,
                         type: "POST",
                         data: {'_method' : 'DELETE', '_token' : csrf_token},
                         success: function(data) {

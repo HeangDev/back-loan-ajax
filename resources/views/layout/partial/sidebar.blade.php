@@ -57,6 +57,12 @@
               <p>ข้อตกลงกู้เงิน</p>
             </a>
           </li>
+        </li><li class="nav-item">
+          <a href="{{ route('admin.message.index') }}" class="{{ Request::is('message*') ? 'nav-link active' : 'nav-link' }}">
+            <i class="nav-icon fas fa-envelope"></i>
+            <p>ข้อความหน้าบ้าน</p>
+          </a>
+        </li>
           <li class="nav-item">
             <a href="{{ route('admin.user.index') }}" class="{{ Request::is('user*') ? 'nav-link active' : 'nav-link' }}">
               <i class="nav-icon fas fa-user"></i>

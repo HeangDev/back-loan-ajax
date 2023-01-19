@@ -13,15 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('withdraws', function (Blueprint $table) {
+        Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_customer');
-            $table->integer('id_deposit');
-            $table->float('withdraw_amount', 10, 2)->default('0');
-            $table->float('after_amount', 10, 2)->default('0');
-            $table->string('withd_code');
-            $table->date('withdraw_date');
-            $table->string('status');
+            $table->string('tel');
+            $table->float('amount', 10, 2)->nullable()->default('0');
+            $table->date('date')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->enum('status', ['0', '1'])->default('0');
             $table->timestamps();
         });
     }
@@ -33,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('withdraws');
+        Schema::dropIfExists('messages');
     }
 };
