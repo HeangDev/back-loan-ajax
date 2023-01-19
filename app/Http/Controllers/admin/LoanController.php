@@ -24,13 +24,14 @@ class LoanController extends Controller
                 Loan::join('customers', 'customers.id', '=', 'loans.id_customer')
                 ->join('document_ids', 'document_ids.id_customer', '=', 'loans.id_customer')
                 ->join('durations', 'durations.id', '=', 'loans.id_duration')
-                ->select('loans.*', 'customers.tel AS customer_tel', 'document_ids.name AS customer_name', 'durations.month AS duration_month', 'durations.percent AS duration_percent')
+                ->select('loans.*', 'customers.contact_number AS customer_tel', 'document_ids.name AS customer_name', 'durations.month AS duration_month', 'durations.percent AS duration_percent')
                 ->orderBy('id', 'DESC')
             )
             ->addIndexColumn()
             ->addColumn('action', function($loan) {
                 return  '<a onclick="editData('. $loan->id .')" class="btn btn-primary btn-xs text-white"><i class="fa fa-edit"></i> แก้ไข</a> ' .
-                        '<a onclick="deleteData('. $loan->id .')" class="btn btn-danger btn-xs text-white"><i class="fa fa-trash"></i> ลบออก</a>';
+                        '<a onclick="deleteData('. $loan->id .')" class="btn btn-danger btn-xs text-white"><i class="fa fa-trash"></i> ลบออก</a> '.
+                        '<a onclick="approved('. $loan->id .')" class="btn btn-success btn-xs text-white"><i class="fa fa-check"></i> ที่ได้รับการอนุมัติ</a>';
             })->make(true);
         }
        
@@ -115,6 +116,7 @@ class LoanController extends Controller
     {
         $loan = Loan::find($id);
         $loan->delete();
+        return response()->json($loan);
     }
 
 

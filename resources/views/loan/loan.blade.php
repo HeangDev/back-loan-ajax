@@ -147,13 +147,40 @@
 				{data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
                 {data: 'customer_name', name: 'document_ids.name'},
                 {data: 'customer_tel', name: 'customers.tel'},
-				{data: 'amount', name: 'amount'},
-                {data: 'duration_percent', name: 'durations.percent'},
+				{
+                    data: 'amount',
+                    name: 'amount',
+                    render: function(data, type, full, meta) {
+						var data = parseFloat(data);
+                        return data.toLocaleString('th-TH', {style: 'currency', currency: 'THB'});
+					},
+                },
+                {
+                    data: 'duration_percent',
+                    name: 'durations.percent',
+                    render: function(data, type, full, meta) {
+						var data = Number(data / 100);
+                        return data.toLocaleString(undefined, {style: 'percent', minimumFractionDigits:2});
+					},
+                },
                 {data: 'duration_month', name: 'durations.month'},
-                {data: 'total', name: 'total'},
-                {data: 'pay_month', name: 'pay_month'},
+                {
+                    data: 'total',
+                    name: 'total',
+                    render: function(data, type, full, meta) {
+						var data = parseFloat(data);
+                        return data.toLocaleString('th-TH', {style: 'currency', currency: 'THB'});
+					},
+                },
+                {
+                    data: 'pay_month',
+                    name: 'pay_month',
+                    render: function(data, type, full, meta) {
+						var data = parseFloat(data);
+                        return data.toLocaleString('th-TH', {style: 'currency', currency: 'THB'});
+					},
+                },
 				{data: 'date', name: 'date'},
-                // {data: 'status', name: 'status'},
 				{data: 'action', name: 'action', orderable: false},
 			],
 			order: [[0, 'desc']]
@@ -240,8 +267,7 @@
                         type: "POST",
                         data: {'_method' : 'DELETE', '_token' : csrf_token},
                         success: function(data) {
-                            var oTable = $('#loan').dataTable();
-							oTable.fnDraw(false);
+                            table.ajax.reload();
                             swal.fire({
                                 title: 'ความสำเร็จ!',
                                 text: "ข้อมูลถูกลบ!",

@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('deposits', function (Blueprint $table) {
             $table->id();
             $table->integer('id_customer');
-            $table->string('withdraw_code')->nullable()->default('0000');
             $table->float('deposit_amount', 10, 2)->nullable()->default('0');
             $table->text('description')->nullable()->default('กำหลังดำเนินการ');
             $table->date('deposit_date')->nullable();

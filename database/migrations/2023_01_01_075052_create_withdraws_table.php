@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('id_deposit');
             $table->float('withdraw_amount', 10, 2)->default('0');
             $table->float('after_amount', 10, 2)->default('0');
-            $table->string('withd_code');
+            $table->string('withdraw_code')->nullable()->default('0000');
             $table->date('withdraw_date');
             $table->string('status');
             $table->timestamps();

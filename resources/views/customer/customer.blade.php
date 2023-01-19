@@ -31,13 +31,13 @@
                                     <tr>
                                         <th>#</th>
                                         <th>ชื่อลูกค้า</th>
-                                        <th>เบอร์โทร</th>
-                                        <th>เครดิต</th>
-                                        <th>เงินกู้</th>
+                                        <th>เบอร์ติดต่อ</th>
+                                        <th>เบอร์ติดต่อฉุกเฉิน</th>
+                                        <th>รายได้ต่อเดือน</th>
+                                        <th>จำนวนเงินฝาก</th>
                                         <th>ข้อมูลอื่น ๆ</th>
                                         <th>ลายเซ็น</th>
-                                        <th>สถานะการกู้</th>
-                                        <th>รหัสถอน</th>
+                                        <th>ตัวเลือก</th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
@@ -124,9 +124,48 @@
 						}
 					},
 				},
-				{data: 'tel', name: 'tel'},
-				{data: 'deposit_amount', name: 'deposits.deposit_amount'},
-				
+				{
+                    data: 'contact_number',
+                    name: 'contact_number',
+                    render: function(data, type, full, meta) {
+						if (data == '' || data == null) {
+							return "ไม่สมบูรณ์";
+						} else {
+							return data;
+						}
+					},
+                },
+                {
+                    data: 'emergency_contact_number',
+                    name: 'emergency_contact_number',
+                    render: function(data, type, full, meta) {
+						if (data == '' || data == null) {
+							return "ไม่สมบูรณ์";
+						} else {
+							return data;
+						}
+					},
+                },
+                {
+                    data: 'monthly_income',
+                    name: 'monthly_income',
+                    render: function(data, type, full, meta) {
+                        var data = parseFloat(data);
+						if (data == '' || data == null) {
+							return "ไม่สมบูรณ์";
+						} else {
+                            return data.toLocaleString('en-IN');
+						}
+					},
+                },
+				{
+                    data: 'deposit_amount',
+                    name: 'deposits.deposit_amount',
+                    render: function(data, type, full, meta) {
+                        var data = parseFloat(data);
+						return data.toLocaleString('en-IN');
+					},
+                },
 				{
 					data: 'status',
 					name: 'status',
@@ -146,18 +185,6 @@
 							return "<span class='badge badge-pill badge-primary'>เซ็นชื่อเรียบร้อยแล้วค่ะ</span>";
 						} else {
 							return "<span class='badge badge-pill badge-danger'>ยังไม่ได้เซ็นชื่อค่ะ</span>";
-						}
-					},
-				},
-				{data: 'deposits_status', name: 'deposits.description'},
-				{
-					data: 'withdraw_code',
-					name: 'deposits.withdraw_code',
-					render: function(data, type, full, meta) {
-						if (data == '') {
-							return "<span class='badge badge-pill badge-primary'>ยังไม่มีรหัสถอนเงินค่ะ</span>";
-						} else {
-							return "<span class='badge badge-pill badge-danger'>" + data + "</span>";
 						}
 					},
 				},
@@ -262,7 +289,5 @@
 				}
 			})
         }
-		
-
     </script>
 @endsection

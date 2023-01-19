@@ -114,7 +114,7 @@
 			},
 			columns: [
 				{data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
-				{data: 'withdraw_code', name: 'withdraw_code'},
+				{data: 'withdraw_code', name: 'withdraws.withdraw_code'},
 				{data: 'deposit_amount', name: 'deposit_amount'},
 				{
 					data: 'description',

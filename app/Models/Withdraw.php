@@ -11,9 +11,10 @@ class Withdraw extends Model
 
     protected $fillable = [
         'id_customer',
+        'id_deposit',
         'withdraw_amount',
         'after_amount',
-        'withd_code',
+        'withdraw_code',
         'withdraw_date',
         'status'
     ];

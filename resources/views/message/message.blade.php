@@ -125,7 +125,7 @@
                     name: 'amount',
                     render: function(data, type, full, meta) {
 						var data = parseFloat(data);
-                        return data.toLocaleString('en-IN');
+                        return data.toLocaleString('th-TH', {style: 'currency', currency: 'THB'});
 					},
                 },
                 {data: 'date', name: 'date'},
