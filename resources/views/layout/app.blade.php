@@ -13,8 +13,10 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ asset('assets/css/adminlte.min.css') }}">
     <!-- DataTables -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.2/css/buttons.bootstrap4.min.css">
     <link rel="stylesheet" href="{{ asset('assets/plugins/summernote/summernote-bs4.min.css') }}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,6 +28,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;1,200;1,300&display=swap"
         rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <style>
         body {
             font-family: 'Kanit', sans-serif!important;
@@ -97,9 +101,23 @@
 
     <!-- DataTables  & Plugins -->
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/rowgroup/1.3.0/js/dataTables.rowGroup.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.bootstrap4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.colVis.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.print.min.js"></script>
+
+    <!-- Date Range Picker -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('assets/plugins/summernote/summernote-bs4.min.js') }}"></script>
@@ -107,46 +125,46 @@
 
     <script src="{{ asset('assets/js/system.js') }}"></script>
       <!-- js clock -->
-  <script type="text/javascript">
-        // The week days
-        const weekDays = [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ];
-        // The Clock Ticker
-        function clockTicker()
-        {
-            // Clock units
-            var date    = new Date();
-            var day     = date.getDay();
-            var hrs     = date.getHours();
-            var mins    = date.getMinutes();
-            var secs    = date.getSeconds();
-
-            // Update hours value if greater than 12
-            if( hrs > 12 )
+    <script type="text/javascript">
+            // The week days
+            const weekDays = [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ];
+            // The Clock Ticker
+            function clockTicker()
             {
-                hrs = hrs - 12;
-                document.querySelector( '#clock .period' ).innerHTML = 'PM';
-            }
-            else
-            {
-                document.querySelector( '#clock .period' ).innerHTML = 'AM';
-            }
-            // Pad the single digit units by 0
-            hrs     = hrs < 10 ? "0" + hrs : hrs;
-            mins    = mins < 10 ? "0" + mins : mins;
-            secs    = secs < 10 ? "0" + secs : secs;
+                // Clock units
+                var date    = new Date();
+                var day     = date.getDay();
+                var hrs     = date.getHours();
+                var mins    = date.getMinutes();
+                var secs    = date.getSeconds();
 
-        // Refresh the unit values
-            document.querySelector( '#clock .day' ).innerHTML       = weekDays[ day ];
-            document.querySelector( '#clock .hours' ).innerHTML     = hrs;
-            document.querySelector( '#clock .minutes' ).innerHTML   = mins;
-            document.querySelector( '#clock .seconds' ).innerHTML   = secs;
+                // Update hours value if greater than 12
+                if( hrs > 12 )
+                {
+                    hrs = hrs - 12;
+                    document.querySelector( '#clock .period' ).innerHTML = 'PM';
+                }
+                else
+                {
+                    document.querySelector( '#clock .period' ).innerHTML = 'AM';
+                }
+                // Pad the single digit units by 0
+                hrs     = hrs < 10 ? "0" + hrs : hrs;
+                mins    = mins < 10 ? "0" + mins : mins;
+                secs    = secs < 10 ? "0" + secs : secs;
 
-        // Refresh the clock every 1 second
-        requestAnimationFrame( clockTicker );
-        }
-        // Start the clock
-        clockTicker();
-    </script>
+            // Refresh the unit values
+                document.querySelector( '#clock .day' ).innerHTML       = weekDays[ day ];
+                document.querySelector( '#clock .hours' ).innerHTML     = hrs;
+                document.querySelector( '#clock .minutes' ).innerHTML   = mins;
+                document.querySelector( '#clock .seconds' ).innerHTML   = secs;
+
+            // Refresh the clock every 1 second
+            requestAnimationFrame( clockTicker );
+            }
+            // Start the clock
+            clockTicker();
+        </script>
     
     @yield('script')
 </body>

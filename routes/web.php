@@ -30,6 +30,9 @@ Route::group(['as' => 'admin.', 'namespace' => 'App\Http\Controllers\admin', 'mi
     Route::get('notification/reload-badge-icon-notification-sidebar', 'LoanController@reload_Badge_Sidebar_Notifications')->name('reload-badge-icon-sidebar-notifiactions');
     Route::post('notification/readed-notification/{id}', 'LoanController@readed_Notifications')->name('readed.notification');
 
+    // Report
+    Route::get('withdraw_report', 'ReportController@viewWithdrawReport')->name('report.withdraw');
+
     Route::post('ajax-user-update', 'UserController@userUpdate')->name('ajax.user.update');
     Route::resources([
         'duration' => DurationController::class,

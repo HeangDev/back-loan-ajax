@@ -29,11 +29,6 @@ class CustomerSeeder extends Seeder
 
         $c_id = $customer->id;
 
-        Deposit::create([
-            'id_customer' => $c_id,
-            'description' => 'กำหลังดำเนินการ',
-        ]);
-
         Signature::create([
             'id_customer' => $c_id,
             'status' => '0',

@@ -85,7 +85,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{ route('admin.report.withdraw') }}" class="{{ Request::is('/withdraw_report') ? 'nav-link active' : 'nav-link' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>รายงานการถอนเงิน</p>
                 </a>
