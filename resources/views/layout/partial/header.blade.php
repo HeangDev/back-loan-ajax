@@ -13,21 +13,21 @@
           </span>
           <span class="time-unit">
               <span class="large hours">00</span>
-              <span class="small">HOURS</span>
+              <span class="small">HRS</span>
           </span>
           <span class="separator">:</span>
           <span class="time-unit">
               <span class="large minutes">00</span>
-              <span class="small">MINUTES</span>
+              <span class="small">MIN</span>
           </span>
           <span class="separator">:</span>
           <span class="time-unit">
               <span class="large seconds">00</span>
-              <span class="small">SECONDS</span>
+              <span class="small">SEC</span>
           </span>
           <span class="time-unit">
               <span class="large period">AM</span>
-              <span class="small">PERIOD</span>
+              {{-- <span class="small">PERIOD</span> --}}
           </span>
       </span>
       </li>
