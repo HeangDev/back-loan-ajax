@@ -85,6 +85,7 @@
                 processing: true,
                 serverSide: true,
                 lengthChange: false,
+                dom: 'Bfrtip',
                 buttons: [ 'copy', 'csv', 'excel', 'pdf', 'print' ],
                 "language": {
                     "lengthMenu": "แสดง _MENU_ แถวต่อหน้า",
