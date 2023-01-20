@@ -69,8 +69,8 @@
               <p>ผู้ดูแล่</p>
             </a>
           </li>
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link">
+          <li class="{{ (request()->is('report_withdraw*', 'report_loan*')) ? 'nav-item menu-open' : 'nav-item' }}">
+            <a href="#" class="{{ (request()->is('report_withdraw*', 'report_loan*')) ? 'nav-link active' : 'nav-link' }}">
               <i class="nav-icon fas fa-file-alt"></i>
               <p>
                   รายงาน
@@ -79,13 +79,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{ route('admin.report.loan') }}" class="{{ Request::is('report_loan') ? 'nav-link active' : 'nav-link' }}">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>รายงานสินเชื่อ</p>
+                  <p>รีพอร์ตการกู้เงิน</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('admin.report.withdraw') }}" class="{{ Request::is('/withdraw_report') ? 'nav-link active' : 'nav-link' }}">
+                <a href="{{ route('admin.report.withdraw') }}" class="{{ Request::is('report_withdraw') ? 'nav-link active' : 'nav-link' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>รายงานการถอนเงิน</p>
                 </a>

@@ -32,7 +32,8 @@ Route::group(['as' => 'admin.', 'namespace' => 'App\Http\Controllers\admin', 'mi
     Route::post('notification/readed-notification/{id}', 'LoanController@readed_Notifications')->name('readed.notification');
 
     // Report
-    Route::get('withdraw_report', 'ReportController@viewWithdrawReport')->name('report.withdraw');
+    Route::get('report_withdraw', 'ReportController@viewWithdrawReport')->name('report.withdraw');
+    Route::get('report_loan', 'ReportController@viewLoanReport')->name('report.loan');
 
     Route::post('ajax-user-update', 'UserController@userUpdate')->name('ajax.user.update');
     Route::resources([

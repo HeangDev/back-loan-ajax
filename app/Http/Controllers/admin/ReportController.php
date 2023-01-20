@@ -26,12 +26,14 @@ class ReportController extends Controller
                     ->get();
             }
 
-            return datatables()
-                ->of($data)
-                ->addIndexColumn()
-                ->make(true);
+            return datatables()->of($data)->addIndexColumn()->make(true);
         }
 
         return view('report.withdraw');
+    }
+
+    public function viewLoanReport(Request $request)
+    {
+        return view('report.loan');
     }
 }

@@ -76,15 +76,15 @@
                     "next": "หน้าต่อไป"
                 }
             },
-		});
+		})
 
         function loanData(startdate = '', enddate = '') {
-            var table_01 = $('#report_withdraw').DataTable({
+            $('#report_withdraw').DataTable({
                 responsive: true,
                 autoWidth: false,
                 processing: true,
                 serverSide: true,
-                dom: 'Bfrtip',
+                lengthChange: false,
                 buttons: [ 'copy', 'csv', 'excel', 'pdf', 'print' ],
                 "language": {
                     "lengthMenu": "แสดง _MENU_ แถวต่อหน้า",
@@ -124,10 +124,7 @@
                     },
                 ],
                 order: [[0, 'desc']]
-            })
-
-            table_01.buttons().container()
-                .appendTo( '#report_withdraw_wrapper .col-md-6:eq(0)' );
+            }).buttons().container().appendTo('#report_withdraw_wrapper .col-md-6:eq(0)');
         }
 
         $('#btnshow').click(function() {
