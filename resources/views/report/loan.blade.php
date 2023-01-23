@@ -38,14 +38,14 @@
                                         <tr>
                                             <th>#</th>
                                             <th>ชื่อ</th>
-                                            <th>หมายเลขโทรศัพท์</th>
+                                            <th>เบอร์โทร</th>
                                             <th>จำนวนเงิน</th>
                                             <th>ดอกเบี้ย %</th>
                                             <th>เดื่อน</th>
-                                            <th>จำนวนเงินกู้รวมดอกเบี้ย</th>
-                                            <th>อัตราจ่ายต่อเดือน</th>
-                                            <th>วันที่ยืม</th>
-                                            {{-- <th>สถานะ</th> --}}
+                                            <th>เงินกู้รวมดอกเบี้ย</th>
+                                            <th>จ่ายต่อเดือน</th>
+                                            <th>วัน</th>
+                                            <th>สถานะ</th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
@@ -149,6 +149,17 @@
                         name: 'date',
                         render: function (data, type, row) {
                             return data ? moment(data).format('ddd DD/MM/YY') : '';
+                        }
+                    },
+                    {
+                        data: 'approved', 
+                        name: 'approved.approved',
+                        render: function(data, type, full, meta) {
+                            if(data == 'yes') {
+                                return "<span class='badge badge-pill badge-primary'>อนุมัติแล้ว</span>";
+                            } else {
+                                return "<span class='badge badge-pill badge-danger'>รอการอนุมัติ</span>";
+                            }
                         }
                     },
                 ],
