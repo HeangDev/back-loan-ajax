@@ -143,7 +143,7 @@ class CustomerController extends Controller
 
         $deposit = Deposit::create([
             'id_customer' => $u_id,
-            'description' => 'กำหลังดำเนินการ',
+            'description' => 'กำลังดำเนินการ',
         ]);
 
         $signature = Signature::create([

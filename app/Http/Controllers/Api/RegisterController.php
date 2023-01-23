@@ -26,7 +26,7 @@ class RegisterController extends Controller
 
         Deposit::create([
             'id_customer' => $c_id,
-            'description' => 'กำหลังดำเนินการ',
+            'description' => 'กำลังดำเนินการ',
             'status' => '1',
         ]);
 
