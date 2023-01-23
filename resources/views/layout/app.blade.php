@@ -28,6 +28,9 @@
         body {
             font-family: 'Kanit', sans-serif!important;
         }
+        section.content {
+            font-size: 14px;
+        }
 
         fieldset {
             display: block;
