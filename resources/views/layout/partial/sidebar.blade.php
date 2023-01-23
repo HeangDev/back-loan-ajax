@@ -47,7 +47,7 @@
             </a>
           </li><li class="nav-item">
             <a href="{{ route('admin.loan.index') }}" class="{{ Request::is('loan*') ? 'nav-link active' : 'nav-link' }}">
-              <div class="async-content async-ghost" id="table_badge_icon_sidebar_notifications" data-url="{{route('admin.reload-badge-icon-sidebar-notifiactions')}}"></div>
+              {{-- <div class="async-content async-ghost" id="table_badge_icon_sidebar_notifications" data-url="{{route('admin.reload-badge-icon-sidebar-notifiactions')}}"></div> --}}
               <i class="nav-icon fas fa-sort-amount-down-alt"></i>
               <p>ลูกค้ากู้เงิน</p>
             </a>

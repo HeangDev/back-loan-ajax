@@ -26,10 +26,11 @@ Route::group(['as' => 'admin.', 'namespace' => 'App\Http\Controllers\admin', 'mi
     Route::post('withdraw/{id}/approved', 'WithdrawController@approved')->name('withdraw.approvedbyid');
     
     // Notifications 
-    Route::get('notification/reload-notification', 'LoanController@reload_Notifications')->name('reload-notifiactions');
-    Route::get('notification/reload-badge-icon-notification', 'LoanController@reload_Badge_Notifications')->name('reload-badge-icon-notifiactions');
-    Route::get('notification/reload-badge-icon-notification-sidebar', 'LoanController@reload_Badge_Sidebar_Notifications')->name('reload-badge-icon-sidebar-notifiactions');
-    Route::post('notification/readed-notification/{id}', 'LoanController@readed_Notifications')->name('readed.notification');
+    Route::get('notification/reload-notification', 'NotificationController@reload_Notifications')->name('reload-notifiactions');
+    Route::get('notification/reload-badge-icon-notification', 'NotificationController@reload_Badge_Notifications')->name('reload-badge-icon-notifiactions');
+    Route::get('notification/reload-badge-icon-notification-sidebar', 'NotificationController@reload_Badge_Sidebar_Notifications')->name('reload-badge-icon-sidebar-notifiactions');
+    Route::post('notification/readed-notification-loan/{id}', 'NotificationController@readed_Notifications_loan')->name('readed.notification.loan');
+    Route::post('notification/readed-notification-withdraw/{id}', 'NotificationController@readed_Notifications_withdraw')->name('readed.notification.withdraw');
 
     // Report
     Route::get('report_withdraw', 'ReportController@viewWithdrawReport')->name('report.withdraw');

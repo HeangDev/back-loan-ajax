@@ -29,4 +29,5 @@ class Loan extends Model
     public function document_id() {
         return $this->hasOne(DocumentId::class,'id','id_customer');
     }
+    
 }

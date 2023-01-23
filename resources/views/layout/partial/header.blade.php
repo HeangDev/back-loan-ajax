@@ -8,22 +8,22 @@
       <li class="mt-2">
         <span class="wrap-time">
           <span class="time-unit">
+              <span class="small">วัน</span>
               <span class="large day">Mon</span>
-              <span class="small">DAY</span>
           </span>
           <span class="time-unit">
               <span class="large hours">00</span>
-              <span class="small">HRS</span>
+              {{-- <span class="small">HRS</span> --}}
           </span>
           <span class="separator">:</span>
           <span class="time-unit">
               <span class="large minutes">00</span>
-              <span class="small">MIN</span>
+              {{-- <span class="small">MIN</span> --}}
           </span>
           <span class="separator">:</span>
           <span class="time-unit">
               <span class="large seconds">00</span>
-              <span class="small">SEC</span>
+              {{-- <span class="small">SEC</span> --}}
           </span>
           <span class="time-unit">
               <span class="large period">AM</span>
@@ -60,7 +60,8 @@
     <!-- js clock -->
     <script>
       // The week days
-      const weekDays = [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ];
+      const weekDays = [ 'อาทิตย์', 'จันทร์', 'อังคาร', 'พุธ', 'พฤหัสบดี', 'ศุกร์', 'เสาร์' ];
+      // const weekDays = [ 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat' ];
       // The Clock Ticker
       function clockTicker()
       {

@@ -129,47 +129,7 @@ class LoanController extends Controller
 
 
 
-    // Notification
-
-    public function reload_Notifications() {
-        $loans = Loan::whereDate('created_at', Carbon::today())
-        ->where('confirm','0')
-        ->where('amount', '>', '0')
-        ->orderBy('id', 'DESC')->latest()->get();
-        return view('notification/reload-notification', [
-            'loans' => $loans,
-        ]);
-    }
-
-    public function reload_Badge_Notifications() {
-        $loans = Loan::whereDate('created_at', Carbon::today())
-        ->where('confirm','0')
-        ->where('amount', '>', '0')
-        ->orderBy('id', 'DESC')->latest()->get();
-        return view('notification/reload-badge-icon-notification', [
-            'loans' => $loans,
-        ]);
-    }
-    public function reload_Badge_Sidebar_Notifications() {
-        $loans = Loan::whereDate('created_at', Carbon::today())
-        ->where('confirm','0')
-        ->where('amount', '>', '0')
-        ->orderBy('id', 'DESC')->latest()->get();
-        return view('notification/reload-badge-icon-notification-sidebar', [
-            'loans' => $loans,
-        ]);
-    }
-
-    public function readed_Notifications(Request $request, $id)
-    {
-        $loan = Loan::find($id)
-        ->update([
-            'confirm' => '1'
-        ]);
-
-        return $loan;
-    }
-
+    
     public function approved(Request $request, $id)
     {
         $currentDate = Carbon::now()->toDateString();

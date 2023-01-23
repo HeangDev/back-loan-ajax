@@ -26,4 +26,7 @@ class DocumentId extends Model
     public function loan() {
         return $this->belongsToMany(Loan::class,'id','id_customer');
     }
+    public function withdraw() {
+        return $this->belongsToMany(Withdraw::class,'id','id_customer');
+    }
 }

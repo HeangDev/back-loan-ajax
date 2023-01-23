@@ -1,5 +1,5 @@
 <span class="badge badge-danger navbar-badge">
-    {{$loans->count()}}
+  {{$loans->count() + $withdraws->count() }}
 </span>
 
 <script>
@@ -9,7 +9,7 @@
 </script>
 
 <!--// Register-->
-@if ($loans->count() > 0)
+@if ($loans->count() > 0 && $withdraws->count() > 0)
 <script>
 if(typeof(tick) == 'undefined') {
   var tick = 55;
