@@ -49,6 +49,10 @@
         div.dt-buttons{
             margin: 0 0 -60px !important;
         }
+        .btn {
+            padding: 0.125rem 0.25rem !important;
+            font-size: .75rem !important;
+        }
     </style>
 </head>
 <body class="sidebar-mini layout-fixed" style="height: auto;">

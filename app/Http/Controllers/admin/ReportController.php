@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Withdraw;
+use App\Models\Loan;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Services\DataTable;
 
@@ -34,6 +35,26 @@ class ReportController extends Controller
 
     public function viewLoanReport(Request $request)
     {
+        
+        if(request()->ajax()) {
+            if (!empty($request->startdate)) {
+                $data = Loan::join('customers', 'customers.id', '=', 'loans.id_customer')
+                        ->join('document_ids', 'document_ids.id_customer', '=', 'loans.id_customer')
+                        ->join('durations', 'durations.id', '=', 'loans.id_duration')
+                        ->whereBetween('loans.date', array($request->startdate, $request->enddate))
+                        ->select('loans.*', 'customers.contact_number AS customer_tel', 'document_ids.name AS customer_name', 'durations.month AS duration_month', 'durations.percent AS duration_percent')
+                        ->get();
+            } else {
+                $data = Loan::join('customers', 'customers.id', '=', 'loans.id_customer')
+                        ->join('document_ids', 'document_ids.id_customer', '=', 'loans.id_customer')
+                        >join('durations', 'durations.id', '=', 'loans.id_duration')
+                        ->select('customers.contact_number AS customer_tel', 'document_ids.name AS customer_name', 'durations.month AS duration_month', 'durations.percent AS duration_percent')
+                        ->get();
+            }
+
+            return datatables()->of($data)->addIndexColumn()->make(true);
+        }
+
         return view('report.loan');
     }
 }

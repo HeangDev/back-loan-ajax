@@ -78,7 +78,7 @@
             },
 		})
 
-        function loanData(startdate = '', enddate = '') {
+        function withdrawData(startdate = '', enddate = '') {
             $('#report_withdraw').DataTable({
                 responsive: true,
                 autoWidth: false,
@@ -147,7 +147,7 @@
                 })
 			} else {
                 table.destroy();
-				loanData(startdate, enddate)
+				withdrawData(startdate, enddate)
 			}
 		});
     </script>
