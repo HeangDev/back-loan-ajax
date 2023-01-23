@@ -20,6 +20,7 @@ return new class extends Migration
             $table->float('after_amount', 10, 2)->default('0');
             $table->date('withdraw_date');
             $table->string('status');
+            $table->enum('confirm', ['0', '1'])->default('0');
             $table->enum('with_approved', ['no', 'yes'])->default('no');
             $table->timestamps();
         });
