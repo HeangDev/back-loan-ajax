@@ -32,7 +32,7 @@ class WithdrawController extends Controller
         Deposit::where('id_customer', $request->id)
         ->update([
             'deposit_amount' => '0',
-            'description' => 'ระบบกำลังตรวยสอบ',
+            'description' => 'ระบบกำลังตรวจสอบ',
             'status' => '0'
         ]);
 
@@ -40,7 +40,7 @@ class WithdrawController extends Controller
             'id_customer' => $request->id,
             'withdraw_amount' => $request->credit,
             'after_amount' => $request->credit,
-            'status' => 'ระบบกำลังตรวยสอบ',
+            'status' => 'ระบบกำลังตรวจสอบ',
             'withdraw_date' => $currentDate,
             'withd_code' => $request->withdrawCode
         ]);
