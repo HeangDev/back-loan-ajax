@@ -72,7 +72,7 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'tel' => 'required',
+            'tel' => 'required|unique:customers',
             'password' => 'required|min:6',
             'currentWork' => 'required',
             'income' => 'required',
