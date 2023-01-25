@@ -32,11 +32,11 @@ class WithdrawController extends Controller
                 if ($withdraw->with_approved === 'yes') {
                     return  '<a onclick="editData('. $withdraw->id .')" class="btn btn-primary btn-xs text-white"><i class="fa fa-edit"></i> แก้ไข</a> ' .
                         '<a onclick="deleteData('. $withdraw->id .')" class="btn btn-danger btn-xs text-white"><i class="fa fa-trash"></i> ลบออก</a> '.
-                        '<a onclick="approved('. $withdraw->id .')" class="btn btn-success btn-xs text-white disabled"><i class="fa fa-check"></i> การถอนล้มแล้ว</a>';
+                        '<a onclick="approved('. $withdraw->id .')" class="btn btn-success btn-xs text-white disabled"><i class="fa fa-check"></i> การถอนล้มเหลว</a>';
                 } else {
                     return  '<a onclick="editData('. $withdraw->id .')" class="btn btn-primary btn-xs text-white"><i class="fa fa-edit"></i> แก้ไข</a> ' .
                         '<a onclick="deleteData('. $withdraw->id .')" class="btn btn-danger btn-xs text-white"><i class="fa fa-trash"></i> ลบออก</a> '.
-                        '<a onclick="approved('. $withdraw->id .')" class="btn btn-success btn-xs text-white"><i class="fa fa-check"></i> การถอนล้มแล้ว</a>';
+                        '<a onclick="approved('. $withdraw->id .')" class="btn btn-success btn-xs text-white"><i class="fa fa-check"></i> การถอนล้มเหลว</a>';
                 }
             })->make(true);
         }
@@ -140,7 +140,7 @@ class WithdrawController extends Controller
         $withdraw = Withdraw::where('id', $id)->first();
         $withdraw->update([
             'withdraw_amount' => '0',
-            'status' => 'การถอนล้มแล้ว',
+            'status' => 'การถอนล้มเหลว',
             'with_approved' => 'yes'
         ]);
         return response()->json($withdraw);
