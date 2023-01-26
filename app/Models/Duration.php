@@ -12,6 +12,7 @@ class Duration extends Model
     protected $fillable = [
         'month',
         'percent',
-        'status'
+        'status',
+        'id_admin'
     ];
 }

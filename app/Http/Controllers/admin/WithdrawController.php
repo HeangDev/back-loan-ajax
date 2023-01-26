@@ -67,7 +67,8 @@ class WithdrawController extends Controller
             'id_customer' => $request->id_customer,
             'withdraw_amount' => $request->amount,
             'status' => $request->status,
-            'withdraw_date' => $currentDate
+            'withdraw_date' => $currentDate,
+            'id_admin' => auth()->user()->id
         ]);
 
         return $withdraw;
@@ -112,7 +113,8 @@ class WithdrawController extends Controller
             'withdraw_amount' => $request->amount,
             'status' => $request->status,
             'with_approved' => 'no',
-            'withdraw_date' => $currentDate
+            'withdraw_date' => $currentDate,
+            'id_admin' =>  auth()->user()->id
         ]);
 
         Deposit::where('id_customer', $request->customer_id)
@@ -141,7 +143,8 @@ class WithdrawController extends Controller
         $withdraw->update([
             'withdraw_amount' => '0',
             'status' => 'การถอนล้มเหลว',
-            'with_approved' => 'yes'
+            'with_approved' => 'yes',
+            'id_admin' =>  auth()->user()->id
         ]);
         return response()->json($withdraw);
     }

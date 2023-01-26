@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('agreements', function (Blueprint $table) {
             $table->id();
+            $table->integer('id_admin')->nullable();
             $table->string('title');
             $table->text('description');
             $table->enum('status', ['0', '1'])->default('0');

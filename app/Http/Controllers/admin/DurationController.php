@@ -44,10 +44,12 @@ class DurationController extends Controller
      */
     public function store(Request $request)
     {
+
         $duration = Duration::create([
             'month' => $request->month,
             'percent' => $request->percent,
             'status' => $request->status,
+            'id_admin' => auth()->user()->id
         ]);
         return $duration;
     }
@@ -88,6 +90,7 @@ class DurationController extends Controller
         $duration->month = $request->month;
         $duration->percent = $request->percent;
         $duration->status = $request->status;
+        $duration->id_admin = auth()->user()->id;
         $duration->save();
 
         return $duration;

@@ -74,7 +74,6 @@
                             <option value="{{$loan->duration_id}}" {{ $loan->duration_id == $loan->id_duration ? 'selected' : '' }} readonly>{{$loan->duration_percent}}</option>
                             @endif
                         
-                            
                             @foreach($durations as $duration)
                                 <option value="{{$duration->id ? : ''}}">{{$duration->percent}}</option>
                             @endforeach
@@ -86,8 +85,6 @@
                             @if($loan != '')
                                 <option value="{{$loan->duration_id}}" {{ $loan->duration_id == $loan->id_duration ? 'selected' : '' }}>{{$loan->duration_month}}</option>
                             @endif
-                           
-                            
                             @foreach($durations as $duration)
                                 <option value="{{$duration->id ? : ''}}">{{$duration->month}}</option>
                             @endforeach
@@ -111,6 +108,15 @@
     </div>
 @endsection
 @section('script')
+
+    <script type="text/javascript">
+            
+            var loand_amount = $('#amount').val();
+
+    </script>
+         
+
+
     <script type="text/javascript">
         
         $.ajaxSetup({

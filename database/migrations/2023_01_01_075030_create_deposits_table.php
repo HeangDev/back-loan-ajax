@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('deposits', function (Blueprint $table) {
             $table->id();
+            $table->integer('id_admin')->nullable();
             $table->integer('id_customer');
             $table->float('deposit_amount', 10, 2)->nullable()->default('0');
             $table->text('description')->nullable()->default('กำลังดำเนินการ');

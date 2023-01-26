@@ -48,7 +48,8 @@ class AgreementController extends Controller
         Agreement::create([
             'title' => $request->title,
             'description' => $request->description,
-            'status' => '1'
+            'status' => '1',
+            'id_admin' => auth()->user()->id
         ]);
 
         return redirect()->route('admin.agreement.index');
@@ -92,6 +93,7 @@ class AgreementController extends Controller
         $agreement->title = $request->title;
         $agreement->description = $request->description;
         $agreement->status = $request->status;
+        $agreement->id_admin = auth()->user()->id;
         $agreement->save();
 
         return redirect()->route('admin.agreement.index');

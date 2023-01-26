@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('signatures', function (Blueprint $table) {
             $table->id();
+            $table->integer('id_admin')->nullable();
             $table->integer('id_customer');
             $table->string('sign')->nullable();
             $table->enum('status', ['0', '1'])->default('0');

@@ -48,7 +48,8 @@ class MessageController extends Controller
             'tel' => $request->tel,
             'amount' => $request->amount,
             'date' => $request->date,
-            'status' => $request->status
+            'status' => $request->status,
+            'id_admin' => auth()->user()->id
         ]);
         return $message;
     }
@@ -90,6 +91,7 @@ class MessageController extends Controller
         $message->amount = $request->amount;
         $message->date = $request->date;
         $message->status = $request->status;
+        $message->id_admin = auth()->user()->id;
         $message->save();
 
         return $message;

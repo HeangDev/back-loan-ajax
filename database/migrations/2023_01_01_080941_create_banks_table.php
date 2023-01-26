@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('banks', function (Blueprint $table) {
             $table->id();
+            $table->integer('id_admin')->nullable();
             $table->integer('id_customer');
             $table->string('bank_name')->nullable();
             $table->string('bank_acc')->nullable();

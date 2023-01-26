@@ -10,6 +10,7 @@ use App\Models\Duration;
 use App\Models\Deposit;
 use App\Models\Withdraw;
 use App\Models\DocumentId;
+use App\Models\Customer;
 use DB;
 
 class LoanController extends Controller
@@ -34,15 +35,18 @@ class LoanController extends Controller
                 if ($loan->approved === 'yes') {
                     return  '<a onclick="editData('. $loan->id .')" class="btn btn-primary btn-xs text-white"><i class="fa fa-edit"></i> แก้ไข</a> ' .
                         '<a onclick="deleteData('. $loan->id .')" class="btn btn-danger btn-xs text-white"><i class="fa fa-trash"></i> ลบออก</a> '.
+                        '<a href="' .route('admin.deposit.show', $loan->id_customer). '" class="btn btn-info btn-xs text-white"><i class="fa fa-dollar-sign"></i> เติมเงิน</a> ' .
                         '<a onclick="approved('. $loan->id .')" class="btn btn-success btn-xs text-white disabled"><i class="fa fa-check"></i> อนุมัติแล้ว</a>';
                 } else {
                     return  '<a onclick="editData('. $loan->id .')" class="btn btn-primary btn-xs text-white"><i class="fa fa-edit"></i> แก้ไข</a> ' .
                         '<a onclick="deleteData('. $loan->id .')" class="btn btn-danger btn-xs text-white"><i class="fa fa-trash"></i> ลบออก</a> '.
+                        '<a href="' .route('admin.deposit.show', $loan->id_customer). '" class="btn btn-info btn-xs text-white"><i class="fa fa-dollar-sign"></i> เติมเงิน</a> ' .
                         '<a onclick="approved('. $loan->id .')" class="btn btn-success btn-xs text-white"><i class="fa fa-check"></i> อนุมัติแล้ว</a>';
                 }
-            })->make(true);
+            })->make(true) ;
         }
-       
+
+        
         $durations = Duration::all();
         $loan = Loan::join('customers', 'customers.id', '=', 'loans.id_customer')
         ->join('document_ids', 'document_ids.id_customer', '=', 'loans.id_customer')
@@ -52,7 +56,7 @@ class LoanController extends Controller
         return view('loan.loan',[
             'loan' => $loan,
             'durations' => $durations,
-
+            
         ]);
     }
 
@@ -144,6 +148,7 @@ class LoanController extends Controller
             'withdraw_code' => $request->withdraw_code,
             'deposit_date' => $currentDate,
             'status' => '1',
+            'id_admin' => auth()->user()->id
         ]);
 
         return response()->json([

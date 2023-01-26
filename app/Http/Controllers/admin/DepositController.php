@@ -44,7 +44,8 @@ class DepositController extends Controller
             'deposit_amount' => $request->amount,
             'description' => $request->description,
             'deposit_date' => $currentDate,
-            'status' => '1'
+            'status' => '1',
+            'id_admin' => auth()->user()->id
         ]);
 
         return $deposit;
@@ -62,8 +63,8 @@ class DepositController extends Controller
             return datatables()->of(
                 Deposit::where('customers.id', '=', $id)
                 ->join('customers', 'customers.id', '=', 'deposits.id_customer')
-                ->select('customers.*', 'deposits.*')
-                ->get()
+                ->select('customers.id AS customers_id','deposits.*')
+                ->orderBy('id', 'DESC')
             )
             ->addIndexColumn()
             ->addColumn('action', function($deposit) {
@@ -106,7 +107,8 @@ class DepositController extends Controller
             'deposit_amount' => $request->amount,
             'description' => $request->description,
             'deposit_date' => $currentDate,
-            'status' => '1'
+            'status' => '1',
+            'id_admin' => auth()->user()->id
         ]);
 
         return $deposit;

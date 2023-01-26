@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('document_ids', function (Blueprint $table) {
             $table->id();
+            $table->integer('id_admin')->nullable();
             $table->integer('id_customer');
             $table->string('name')->nullable();
             $table->string('id_number')->nullable();

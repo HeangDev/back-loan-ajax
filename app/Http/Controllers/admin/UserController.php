@@ -51,7 +51,8 @@ class UserController extends Controller
             'name' => 'required',
             'username' => 'required',
             'password' => 'required|min:6',
-            'avatar' => 'mimes:jpeg,jpg,png,gif,svg'
+            'avatar' => 'mimes:jpeg,jpg,png,gif,svg',
+
         ]);
 
         $image = $request->file('avatar');
@@ -79,6 +80,7 @@ class UserController extends Controller
         $user->password = Hash::make($request->password);
         $user->plain_password = $request->password;
         $user->avatar = $imageName;
+        $user->id_admin = auth()->user()->id;
         $user->save();
 
         return redirect()->route('admin.user.index');
@@ -122,6 +124,7 @@ class UserController extends Controller
             'username' => $request->username,
             'email' => $request->email,
             'status' => $request->status,
+            'id_admin' => auth()->user()->id,
         ]);
 
         return response()->json($user);
@@ -159,7 +162,8 @@ class UserController extends Controller
                 'name' => $request->name,
                 'username' => $request->username,
                 'email' => $request->email,
-                'status' => $request->status
+                'status' => $request->status,
+                'id_admin' => auth()->user()->id,
             ]);
     
             return response()->json(['code' => 1, 'success' => 'Data is successfully updated']);

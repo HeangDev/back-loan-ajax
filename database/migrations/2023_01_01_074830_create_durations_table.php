@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('durations', function (Blueprint $table) {
             $table->id();
+            $table->integer('id_admin')->nullable();
             $table->string('month');
             $table->string('percent');
             $table->enum('status', ['active', 'unactive']);

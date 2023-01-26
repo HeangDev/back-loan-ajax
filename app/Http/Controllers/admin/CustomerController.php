@@ -276,6 +276,7 @@ class CustomerController extends Controller
             'current_address' => $request->currentAddress,
             'emergency_contact_number' => $request->otherContact,
             'status' => 'complete',
+            'id_admin' => auth()->user()->id
         ]);
 
         $bank = Bank::where('id_customer', $request->id)
