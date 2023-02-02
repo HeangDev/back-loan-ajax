@@ -25,7 +25,7 @@
                     <div class="small-box bg-info">
                         <div class="inner">
                             <h3>{{ $customer }}</h3>
-                            <p>ลูกค้าทุกทั้งหมด</p>
+                            <p>ลูกค้าทั้งหมด</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-bag"></i>
@@ -48,7 +48,9 @@
                 <div class="col-lg-3 col-6">
                     <div class="small-box bg-warning">
                         <div class="inner">
-                            <h3>{{$count_customer_loan}}</h3>
+                            <h3>
+                            {{$loan}}
+                            </h3>
                             <p>ลูกค้าที่กู้เงินทั้งหมด</p>
                         </div>
                         <div class="icon">
@@ -60,7 +62,7 @@
                 <div class="col-lg-3 col-6">
                     <div class="small-box bg-danger">
                         <div class="inner">
-                            <h3>{{$count_customer_withdraw}}</h3>
+                            <h3>{{$withdraw}}</h3>
                             <p>ลูกค้าที่ถอนเงินทั้งหมด</p>
                         </div>
                         <div class="icon">
