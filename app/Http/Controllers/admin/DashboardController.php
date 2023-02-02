@@ -8,6 +8,7 @@ use App\Models\Customer;
 use App\Models\User;
 use App\Models\Loan;
 use App\Models\Withdraw;
+use App\Models\Duration;
 use DB;
 
 class DashboardController extends Controller
@@ -21,7 +22,7 @@ class DashboardController extends Controller
         ->select('loans.*', 'customers.tel AS customer_tel', 'document_ids.name AS customer_name','durations.id AS duration_id', 'durations.month AS duration_month', 'durations.percent AS duration_percent')
         ->get();
 
-        
+
         $loan = Loan::where('approved', 'yes')->distinct('id_customer')->count('id_customer');
         $withdraw = Withdraw::where('with_approved', 'yes')->distinct('id_customer')->count('id_customer');
         $customer = Customer::count();
