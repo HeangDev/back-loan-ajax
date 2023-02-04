@@ -37,6 +37,10 @@ Route::group(['as' => 'api.','namespace' => 'App\Http\Controllers\Api'], functio
         'show', 'update'
     ]);
 
+    Route::apiResource('bank', BankController::class)->only([
+        'show', 'update'
+    ]);
+
     Route::apiResource('signature', SignatureController::class)->only([
         'show', 'update'
     ]);
