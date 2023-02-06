@@ -27,7 +27,7 @@ class LoanController extends Controller
                 Loan::join('customers', 'customers.id', '=', 'loans.id_customer')
                 ->join('document_ids', 'document_ids.id_customer', '=', 'loans.id_customer')
                 ->join('durations', 'durations.id', '=', 'loans.id_duration')
-                ->select('loans.*', 'customers.contact_number AS customer_tel', 'document_ids.name AS customer_name', 'durations.month AS duration_month', 'durations.percent AS duration_percent')
+                ->select('loans.*', 'customers.tel AS customer_tel', 'document_ids.name AS customer_name', 'durations.month AS duration_month', 'durations.percent AS duration_percent')
                 ->orderBy('id', 'DESC')
             )
             ->addIndexColumn()

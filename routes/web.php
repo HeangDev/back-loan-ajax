@@ -24,6 +24,8 @@ Route::group(['as' => 'admin.', 'namespace' => 'App\Http\Controllers\admin', 'mi
     Route::post('customer/createbyid', 'CustomerController@createById')->name('customer.createbyid');
     Route::post('loan/{id}/approved', 'LoanController@approved')->name('loan.approvedbyid');
     Route::post('withdraw/{id}/approved', 'WithdrawController@approved')->name('withdraw.approvedbyid');
+
+    Route::post('customer/{id}/changestatus', 'CustomerController@changeStatus')->name('customer.changestatusbyid');
     
     // Notifications 
     Route::get('notification/reload-notification', 'NotificationController@reload_Notifications')->name('reload-notifiactions');
@@ -35,6 +37,7 @@ Route::group(['as' => 'admin.', 'namespace' => 'App\Http\Controllers\admin', 'mi
     // Report
     Route::get('report_withdraw', 'ReportController@viewWithdrawReport')->name('report.withdraw');
     Route::get('report_loan', 'ReportController@viewLoanReport')->name('report.loan');
+
 
     Route::post('ajax-user-update', 'UserController@userUpdate')->name('ajax.user.update');
     Route::resources([

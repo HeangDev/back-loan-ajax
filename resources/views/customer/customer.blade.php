@@ -31,7 +31,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>ชื่อลูกค้า</th>
-                                        <th>เบอร์ติดต่อ</th>
+                                        <th>เบอร์ลงทะเบียน</th>
                                         <th>เบอร์ติดต่อฉุกเฉิน</th>
                                         <th>รายได้ต่อเดือน</th>
                                         <th>ข้อมูลอื่น ๆ</th>
@@ -124,8 +124,8 @@
 					},
 				},
 				{
-                    data: 'contact_number',
-                    name: 'contact_number',
+                    data: 'tel',
+                    name: 'tel',
                     render: function(data, type, full, meta) {
 						if (data == '' || data == null) {
 							return "ไม่สมบูรณ์";
@@ -280,5 +280,47 @@
 				}
 			})
         }
+
+
+
+        function changeStatus(id) {
+            $('input[name=_method').val('PATCH');
+            Swal.fire({
+				title: 'คุณต้องการเห็นด้วยหรือไม่?',
+				text: "ถ้าคุณอนุมัติคุณไม่สามารถเปลี่ยนได้!",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+                cancelButtonText: 'ยกเลิกการลบ',
+				confirmButtonText: 'ตกลง'
+			}).then((result) => {
+				if (result.value) {
+					$.ajax({
+                        url: "{{ url('customer') }}" + '/' + id + '/changestatus',
+                        type: "POST",
+                        dataType: "JSON",
+                        success: function(data) {
+                            table.ajax.reload();
+                            swal.fire({
+                                title: 'ความสำเร็จ!',
+                                text: "อนุมัติสำเร็จ!",
+                                icon: "success",
+                                timer: '1500'
+                            })
+                        },
+                        error: function() {
+                            swal.fire({
+                                title: 'Oops...',
+                                text: "Something went wrong!",
+                                icon: "error",
+                                timer: '1500'
+                            })
+                        }
+                    })
+				}
+			})
+        }
     </script>
+   
 @endsection

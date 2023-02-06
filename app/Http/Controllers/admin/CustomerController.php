@@ -38,14 +38,16 @@ class CustomerController extends Controller
                     '<a onclick="changepassword('. $customer->id .')" class="btn btn-warning btn-xs text-white"><i class="fa fa-lock"></i> เปลี่ยนรหัสผ่าน</a> ' .
                     '<a href="' .route('admin.customer.show', $customer->id). '" class="btn btn-success btn-xs text-white"><i class="fa fa-eye"></i> แสดง</a> ' .
                     '<a href="' .route('admin.deposit.show', $customer->id). '" class="btn btn-info btn-xs text-white"><i class="fa fa-dollar-sign"></i> เติมเงิน</a> ' .
-                    '<a onclick="deleteData('. $customer->id .')" class="btn btn-danger btn-xs text-white"><i class="fa fa-trash"></i> ลบออก</a>';                                   
+                    '<a onclick="deleteData('. $customer->id .')" class="btn btn-danger btn-xs text-white"><i class="fa fa-trash"></i></a>'. 
+                    '<a onclick="changeStatus('. $customer->id .')" class="btn btn-success btn-xs text-white  ml-1"><i class="fa fa-check"></i></a>';                                 
                 } else {
                     return 
                     '<a href="' .route('admin.customer.viewcreatebyid', $customer->id). '" class="btn btn-primary btn-xs text-white"><i class="fa fa-check"></i> สร้าง</a> ' .
                     '<a onclick="changepassword('. $customer->id .')" class="btn btn-warning btn-xs text-white"><i class="fa fa-lock"></i> เปลี่ยนรหัสผ่าน</a> ' .
                     '<a href="' .route('admin.customer.show', $customer->id). '" class="btn btn-success btn-xs text-white"><i class="fa fa-eye"></i> แสดง</a> ' .
                     '<a href="' .route('admin.deposit.show', $customer->id). '" class="btn btn-info btn-xs text-white"><i class="fa fa-dollar-sign"></i> เติมเงิน</a> ' .
-                    '<a onclick="deleteData('. $customer->id .')" class="btn btn-danger btn-xs text-white"><i class="fa fa-trash"></i> ลบออก</a>';
+                    '<a onclick="deleteData('. $customer->id .')" class="btn btn-danger btn-xs text-white"><i class="fa fa-trash"></i></a>'. 
+                    '<a  class="btn btn-danger btn-xs text-white ml-1" ><i class="fa fa-check" disabled></i></a>';
                 }
             })->make(true);
         }
@@ -425,5 +427,15 @@ class CustomerController extends Controller
     {
         $customer_id = Customer::find($id);
         return $customer_id;
+    }
+
+    public function changeStatus(Request $request, $id)
+    {
+        $customer = Customer::where('id', $id)->first();
+        $customer->update([
+            'status' => 'incomplete',
+            'id_admin' =>  auth()->user()->id
+        ]);
+        return response()->json($customer);
     }
 }

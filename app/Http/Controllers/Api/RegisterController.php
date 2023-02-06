@@ -16,6 +16,13 @@ class RegisterController extends Controller
 {
     public function register(Request $request)
     {
+        $this->validate($request, [
+            'tel' => 'required|unique:customers|max:10',
+        ],[
+            'tel.required' => 'ต้องระบุหมายเลขโทรศัพท์ใหม่.',
+            
+        ]);
+
         $customer = Customer::create([
             'tel' => $request->tel,
             'password' => Hash::make($request->password),
