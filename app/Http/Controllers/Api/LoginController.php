@@ -23,15 +23,15 @@ class LoginController extends Controller
             throw ValidationException::withMessages([
                 'tel' => ['หมายเลขโทรศัพท์หรือรหัสผ่านของคุณไม่ถูกต้อง.'],
             ]);
-        } else {
-            $token = $customer->createToken($request->tel . '_CustomerToken')->plainTextToken;
-
-            return response()->json([
-                'status' => 200,
-                'id' => $customer->id,
-                'token' => $token
-            ], 200);
         }
+
+        $token = $customer->createToken($request->tel . '_CustomerToken')->plainTextToken;
+
+        return response()->json([
+            'status' => 200,
+            'id' => $customer->id,
+            'token' => $token
+        ], 200);
     }
 
     public function changePassword(Request $request)
